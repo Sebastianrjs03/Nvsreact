@@ -4,6 +4,7 @@
   position: relative;
   display: flex;
   width: 100%;
+  min-height: 650px;
   height: 100vh;
   padding: 0 2rem 0 2rem;
 }
@@ -44,14 +45,14 @@
 .promociones-texto-descuento {
   text-decoration: line-through;
   color: #ffffffae;
-  font-size: clamp(0.7rem, 1.5vw, 1.5rem);
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
   text-align: center;
 }
 
 .promociones-texto-precio {
   text-align: center;
   font-weight: bold;
-  font-size: clamp(0.8rem, 1.8vw, 1.8rem);
+  font-size: clamp(1.2rem, 1.8vw, 1.8rem);
 }
 
 .promociones-imagen-marca {
