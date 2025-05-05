@@ -1,0 +1,90 @@
+.promociones-cont {
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  padding: 0 2rem 0 2rem;
+}
+
+.promociones-precio,
+.promociones-consola {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+}
+
+.promociones-precio {
+  height: 100%;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.promociones-consola {
+  height: 100%;
+}
+
+.promociones-texto,
+.promociones-texto-banner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.promociones-boton-info {
+  padding: 0.2em 0.8em;
+  border-radius: 0.3rem;
+  font-size: clamp(0.8rem, 1.5vw, 1.2rem);
+  background-color: #00000065;
+}
+
+.promociones-texto-descuento {
+  text-decoration: line-through;
+  color: #ffffffae;
+  font-size: clamp(0.7rem, 1.5vw, 1.5rem);
+  text-align: center;
+}
+
+.promociones-texto-precio {
+  text-align: center;
+  font-weight: bold;
+  font-size: clamp(0.8rem, 1.8vw, 1.8rem);
+}
+
+.promociones-imagen-marca {
+  width: clamp(10rem, 22vw, 24rem);
+}
+
+.promociones-imagen-consola {
+  width: clamp(14rem, 34vw, 37rem);
+}
+
+.xbox {
+  background-color: #137733;
+}
+
+.play {
+  background-color: #032b84;
+}
+
+.nintendo {
+  background-color: #bd3124;
+}
+
+@media (max-width: 1024px) {
+  .promociones-cont {
+    flex-direction: column;
+  }
+
+  .promociones-precio,
+  .promociones-consola {
+    width: 100%;
+  }
+
+  .promociones-precio {
+    justify-content: flex-end;
+  }
+}
