@@ -63,7 +63,7 @@
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
-    height: 35vw;
+    height: 34vw;
   }
 
   .cards-contenedor.no-scroll {
