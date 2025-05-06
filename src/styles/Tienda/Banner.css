@@ -1,0 +1,31 @@
+.banner-header {
+    position: relative;
+    display: flex;
+    z-index: 1;
+    width: 100%;
+    height: clamp(15rem, 35vw, 38rem);
+}
+
+.banner-imagen {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.banner-titulo {
+    position: absolute;
+    line-height: 1;
+    font-weight: bold;
+    top: clamp(4rem, 8vw, 11rem);
+    left: clamp(0.2rem, 5vw, 9rem);
+    font-size: clamp(1.1rem, 3vw, 3rem);
+    width: clamp(10rem, 42vw, 38rem);
+}
+
+
+.Banner-corte-morado {
+    position: absolute;
+    height: 30%;
+    width: 100%;
+    bottom: 0;
+}

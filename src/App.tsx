@@ -1,9 +1,13 @@
-import Menu from "./components/Menu";
-import Promociones from './components/Promociones';
-import Cards from './components/Cards';
-import Tienda from './components/Tienda'
+import Menu from "./components/Tienda/Menu";
+import Promociones from './components/Tienda/Promociones';
+import Cards from './components/Tienda/Carrusel';
+import Tienda from './components/Tienda/Tienda'
+
+import Banner from './components/Tienda/Banner';
+
 import React from "react";
 import './App.css';
+import ProductosCards from "./components/Tienda/ProductosCards";
 
 export function App() {
   return (
@@ -16,7 +20,11 @@ export function App() {
     <Promociones Imagen="play" ImagenConsola="consolaPlay" consola="play"/>
     <Promociones Imagen="nintendo" ImagenConsola="consolaNintendo" consola="nintendo"/>
     <Cards/>
-    <Tienda/>
+    <Tienda>
+    <Banner Imagen="MilesMorales" Titulo="Marvel´s Spider-Man: Miles Morales" />
+    <h2 className="Titulos">Tendencias</h2>
+    <ProductosCards/>
+    </Tienda>
 
     </main>
     </React.Fragment>

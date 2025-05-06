@@ -1,8 +1,8 @@
-import "../styles/Promociones.css";
-const imagenes = import.meta.glob('../assets/Promociones/*.png', { eager: true });
+import "../../styles/Tienda/Promociones.css";
+const imagenes = import.meta.glob('../../assets/Promociones/*.png', { eager: true });
 
 const getImage = (name: string) => {
-    return (imagenes[`../assets/Promociones/${name}.png`] as { default: string })?.default;
+    return (imagenes[`../../assets/Promociones/${name}.png`] as { default: string })?.default;
   };
 
 type PromocionesProps = {
@@ -34,7 +34,7 @@ function Promociones({consola, Imagen, ImagenConsola}: PromocionesProps) {
   const ImagenConsolaSrc = getImage(ImagenConsola);
 
   return (
-    <section className={contenedorInicio}>
+    <section className={contenedorInicio}> 
       <div className="promociones-precio">
         <img
           className="promociones-imagen-marca"
