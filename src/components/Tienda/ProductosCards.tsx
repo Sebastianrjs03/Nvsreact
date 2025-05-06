@@ -1,8 +1,13 @@
 import { useRef } from "react";
 import "../../styles/Tienda/ProductosCards.css";
-import CardProducto from "./Card";
 
-function ProductosCards() {
+
+type ProductosCardsProps = {
+  children: React.ReactNode
+}
+
+
+function ProductosCards({children}: ProductosCardsProps) {
   const contenedorRef = useRef<HTMLDivElement | null>(null);
 
   const handleScroll = (direction: "left" | "right") => {
@@ -25,15 +30,7 @@ function ProductosCards() {
       ></i>
 
       <div className="cards-contenedor" ref={contenedorRef}>
-        <CardProducto />
-        <CardProducto />
-        <CardProducto />
-        <CardProducto />
-        <CardProducto />
-        <CardProducto />
-        <CardProducto />
-        <CardProducto />
-        <CardProducto />
+        {children}
       </div>
 
       <i
