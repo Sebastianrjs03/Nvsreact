@@ -13,7 +13,6 @@
 }
 
 .banner-titulo {
-    position: absolute;
     line-height: 1;
     font-weight: bold;
     top: clamp(4rem, 8vw, 11rem);
@@ -22,6 +21,14 @@
     width: clamp(10rem, 42vw, 38rem);
 }
 
+.banner-info-contenedor{
+position: absolute;
+display: flex;
+flex-direction: column;
+gap: 0.5rem;
+left: clamp(0.2rem, 5vw, 9rem);
+top: clamp(4rem, 8vw, 11rem);
+}
 
 .Banner-corte-morado {
     position: absolute;

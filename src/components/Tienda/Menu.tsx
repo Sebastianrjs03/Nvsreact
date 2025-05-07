@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "../../styles/Tienda/Menu.css";
 import Logo from "../../assets/logoNVS.svg";
 
@@ -48,24 +49,24 @@ const Menu: React.FC = () => {
           ref={menuRef}
           className={`menu-listaPrincipal ${menuAbierto ? "active" : ""}`}
         >
-          <a href="">
+          <Link to="/">
             <li>Inicio</li>
-          </a>
-          <a href="">
+          </Link>
+          <Link to="/videojuegos">
             <li>Videojuegos</li>
-          </a>
-          <a href="">
+          </Link>
+          <Link to="/consolas">
             <li>Consolas</li>
-          </a>
-          <a href="">
+          </Link>
+          <Link to="/playstation">
             <li>Playstation</li>
-          </a>
-          <a href="">
+          </Link>
+          <Link to="/xbox">
             <li>Xbox</li>
-          </a>
-          <a href="">
+          </Link>
+          <Link to="/nintendo">
             <li>Nintendo</li>
-          </a>
+          </Link>
         </ul>
       </nav>
 

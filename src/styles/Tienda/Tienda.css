@@ -4,13 +4,18 @@
   align-items: center;
   position: relative;
   height: auto;
-  background-color: #190041;
 }
 
 .Titulos {
   font-size: clamp(1.2rem, 4vw, 4rem);
   line-height: 1;
-  width: 100%;
-  padding-left: 10rem;
-  margin-bottom: 3rem;
+  align-self: flex-start;
+  margin-left: 9rem;
+  margin-bottom: 1em;
+}
+
+@media (max-width: 1667px) {
+  .Titulos {
+    margin-left: clamp(3rem, 7vw, 8rem);
+  }
 }
