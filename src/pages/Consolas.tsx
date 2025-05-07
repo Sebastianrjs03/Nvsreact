@@ -14,8 +14,7 @@ export function Inicio() {
       <Menu />
       <main className="videojuegos-main">
         <Tienda>
-          <Banner Imagen="Consolas" Titulo="PlayStation 5 Slim" Recorte="Morado"/>
-          <BodyCard>
+          <Banner Imagen="Consolas" Titulo="PlayStation 5 Slim" Recorte="Morado" />
           <BodyCard>
             <h2 className="Titulos">Lo más vendido</h2>
             <ProductosCards>
@@ -24,6 +23,7 @@ export function Inicio() {
               <Card />
             </ProductosCards>
           </BodyCard>
+          <BodyCard>
             <h2 className="Titulos">Tendencias</h2>
             <ProductosCards>
               <Card />
