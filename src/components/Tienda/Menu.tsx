@@ -83,9 +83,9 @@ const Menu: React.FC = () => {
             </a>
           </li>
           <li className="menu-listaResponsive-botones">
-            <a href="">
+            <Link to={"/Carrito"}>
               <i className="fa-solid fa-cart-shopping"></i>
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
