@@ -9,6 +9,9 @@ import Nintendo from '../pages/Nintendo';
 import Carrito from '../pages/carrito/Carrito'
 import Sidebar from '../components/Admin/Sidebar';
 import Calificacion_Cli_Pro from '../pages/Admin/Calificaciones/Cal_Pro_Cli';
+import Login from '../pages/login/iniciarSesion/iniciarSesion';
+import Registro from '../pages/login/registro/registro';
+import RecuperarContrasena from '../pages/login/recuperarContrasena/RecuperarContrasena';
 
 
 export default function AppRoutes() {
@@ -26,6 +29,9 @@ export default function AppRoutes() {
         <Route path="/Administrador" element={<Sidebar/>}>  
           <Route path="/Administrador/Calificacion_Cliente" element={<Calificacion_Cli_Pro/>}></Route>
         </Route>
+        <Route path="/iniciarSesion" element={<Login/>} />
+        <Route path="/registro" element={<Registro/>} />
+        <Route path="/RecuperarContrasena" element={<RecuperarContrasena/>} />
       </Routes>
     </Router>
   );

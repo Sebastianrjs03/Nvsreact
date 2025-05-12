@@ -1,10 +1,12 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: *");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-header("Content-Type: application/json");
-
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    header('Access-Control-Allow-Origin: http://localhost:5173');
+    header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+    header('Access-Control-Allow-Headers: Content-Type, Authorization');
+    exit(0);
+}
 require_once './controllers/controladorUsuario.php';
+require_once './controllers/controladorMostrarProducto.php';
 
 $ruta = trim($_GET['ruta'] ?? '');
 
@@ -15,8 +17,10 @@ switch ($ruta) {
     case 'login':
         ControladorUsuario::login();
         break;
+    case 'obtenerProductosDesc':
+        ControladorMostrarProducto::productosEconomicos();
+        break;
     default:
-        var_dump($_GET['ruta']);
-        echo json_encode(["mensaje" => "Ruta no encontrada.",  "ruta_solicitada" => $ruta]);
+        echo json_encode(["mensaje" => "Ruta no encontrada.", "ruta_solicitada" => $ruta]);
         break;
 }

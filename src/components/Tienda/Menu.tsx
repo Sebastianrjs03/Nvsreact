@@ -78,9 +78,9 @@ const Menu: React.FC = () => {
             </a>
           </li>
           <li className="menu-listaResponsive-botones">
-            <a href="">
+            <Link to={"/iniciarSesion"}>
               <i className="fa-regular fa-user"></i>
-            </a>
+            </Link>
           </li>
           <li className="menu-listaResponsive-botones">
             <Link to={"/Carrito"}>

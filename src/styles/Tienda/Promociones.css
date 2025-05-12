@@ -63,15 +63,15 @@
   width: clamp(14rem, 34vw, 37rem);
 }
 
-.xbox {
+.xboxProm {
   background-color: #137733;
 }
 
-.play {
+.playProm {
   background-color: #032b84;
 }
 
-.nintendo {
+.nintendoProm {
   background-color: #bd3124;
 }
 

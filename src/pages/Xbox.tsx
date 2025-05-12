@@ -14,36 +14,36 @@ export function Inicio() {
       <Menu />
       <main className="xbox-main">
         <Tienda>
-          <Banner Imagen="Hallo" Titulo="Hallo Infinity" Recorte="Xbox"/>
+          <Banner Imagen="Hallo" Titulo="Hallo Infinity" Recorte="Xbox" />
           <BodyCard>
-          <BodyCard>
-            <h2 className="Titulos">Lo más vendido</h2>
-            <ProductosCards>
-              <Card />
-              <Card />
-              <Card />
-            </ProductosCards>
-          </BodyCard>
+            <BodyCard>
+              <h2 className="Titulos">Lo más vendido</h2>
+              <ProductosCards>
+                <Card consola="xbox" />
+                <Card consola="xbox" />
+                <Card consola="xbox" />
+              </ProductosCards>
+            </BodyCard>
             <h2 className="Titulos">Tendencias</h2>
             <ProductosCards>
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
+              <Card consola="xbox" />
+              <Card consola="xbox" />
+              <Card consola="xbox" />
+              <Card consola="xbox" />
+              <Card consola="xbox" />
+              <Card consola="xbox" />
+              <Card consola="xbox" />
+              <Card consola="xbox" />
+              <Card consola="xbox" />
             </ProductosCards>
           </BodyCard>
 
           <BodyCard>
             <h2 className="Titulos">Las ofertas de la semana</h2>
             <ProductosCards>
-              <Card />
-              <Card />
-              <Card />
+              <Card consola="xbox" />
+              <Card consola="xbox" />
+              <Card consola="xbox" />
             </ProductosCards>
           </BodyCard>
         </Tienda>

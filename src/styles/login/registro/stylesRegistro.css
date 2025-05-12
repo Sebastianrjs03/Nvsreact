@@ -1,0 +1,199 @@
+
+@font-face {
+    font-family: FuenteNVS;
+    src: url(../../fonts/Quicksand-VariableFont_wght.ttf);
+}
+
+@font-face {
+    font-family: FuenteNVS2;
+    src: url(../../fonts/LeagueSpartan-VariableFont_wght.ttf);
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.container section{
+    background-color: #1b014d;
+    width: 50%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    }
+input[type=number] { -moz-appearance:textfield; }
+
+
+.container-form{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    
+}
+.container-form form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    padding-top: 10px;
+    height: auto;
+    gap: 15px;
+}
+
+.container-form input{
+    background-color: #522d9f;
+    height: 50px;
+    border-radius:7px;
+    outline: none;
+    border: none;
+    font-size: 17px;
+    padding-left: 10px;
+    color: aliceblue;
+    margin-bottom: 5px;
+    transition: .2;
+}
+
+.container-buttom input{
+    width: 80%;
+}
+
+.container-form input::placeholder{ 
+    padding: 2px;
+    color: rgba(255, 255, 255, 0.492);
+}
+
+
+.container-form button{
+    width: 58%;
+    height: 48px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.buttom{
+    margin-bottom: 10px;
+    background: linear-gradient(to left, #00bbff, #6a35cf);
+    color: white;
+    font-size: 18px;
+}
+
+.buttom:hover{
+    text-shadow: #b4b4b4c2 1px 0 10px;
+    box-shadow: #3500c7 1px 0 10px;
+}
+
+.container-form .a1{
+    margin-bottom: 50px;
+}
+.container-form a{
+    color: white;
+}
+
+
+.container-form img{
+    margin-bottom: 10px;
+}
+.container figure{
+    background-image: linear-gradient(
+        135deg,
+        hsl(0deg 0% 0%) 0%,
+        hsl(257deg 24% 12%) 29%,
+        hsl(257deg 52% 14%) 47%,
+        hsl(257deg 61% 14%) 65%,
+        hsl(256deg 29% 13%) 100%
+      );
+    padding-top: 40px;
+    width: 55%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+
+}
+figure img{
+    transition: .2s;
+}
+
+figure img:hover{
+    width: 80%;
+}
+
+.container2 {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    align-items: center;
+
+}
+ 
+.container2 .LongInput{
+    width: 90%;
+}
+
+
+
+.container-buttom{
+    display: flex;
+    width: 90%;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.container-terminos{
+    display: flex;
+    flex-direction: row-reverse;
+    color: white;
+    align-items: center;
+
+}
+.container-terminos a{
+    font-size: 17px;
+    margin-left: 10px;
+    margin-bottom: 2px;
+    text-decoration: none;
+    color: #e8dcff;
+    transition: .2s;
+}
+
+.container-terminos a:hover{
+    text-shadow: #ffffff4f 1px 0 5px;
+}
+
+.container-terminos input{
+    width: 20px;
+}
+
+@media(max-width:1024px){
+    .container section{
+        width: 100%;
+    }
+    .img2{
+        display: none;
+    }
+    .container figure{
+        display: none;
+    }
+    .container-form img{
+        width: 7rem;
+    }
+}

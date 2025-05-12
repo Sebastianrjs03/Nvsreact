@@ -18,13 +18,13 @@ function Promociones({consola, Imagen, ImagenConsola}: PromocionesProps) {
 
   switch (consola) {
     case "xbox":
-      color = "xbox";
+      color = "xboxProm";
       break;
     case "play":
-      color = "play";
+      color = "playProm";
       break;
     case "nintendo":
-      color = "nintendo";
+      color = "nintendoProm";
       break;
   }
 

@@ -14,36 +14,40 @@ export function Inicio() {
       <Menu />
       <main className="nintendo-main">
         <Tienda>
-          <Banner Imagen="Mario" Titulo="Luigi's Mansion 2 HD Switch" Recorte="Nintendo"/>
+          <Banner
+            Imagen="Mario"
+            Titulo="Luigi's Mansion 2 HD Switch"
+            Recorte="Nintendo"
+          />
           <BodyCard>
-          <BodyCard>
-            <h2 className="Titulos">Lo más vendido</h2>
-            <ProductosCards>
-              <Card />
-              <Card />
-              <Card />
-            </ProductosCards>
-          </BodyCard>
+            <BodyCard>
+              <h2 className="Titulos">Lo más vendido</h2>
+              <ProductosCards>
+                <Card consola="nintendo" />
+                <Card consola="nintendo" />
+                <Card consola="nintendo" />
+              </ProductosCards>
+            </BodyCard>
             <h2 className="Titulos">Tendencias</h2>
             <ProductosCards>
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
+              <Card consola="nintendo" />
+              <Card consola="nintendo" />
+              <Card consola="nintendo" />
+              <Card consola="nintendo" />
+              <Card consola="nintendo" />
+              <Card consola="nintendo" />
+              <Card consola="nintendo" />
+              <Card consola="nintendo" />
+              <Card consola="nintendo" />
             </ProductosCards>
           </BodyCard>
 
           <BodyCard>
             <h2 className="Titulos">Las ofertas de la semana</h2>
             <ProductosCards>
-              <Card />
-              <Card />
-              <Card />
+              <Card consola="nintendo" />
+              <Card consola="nintendo" />
+              <Card consola="nintendo" />
             </ProductosCards>
           </BodyCard>
         </Tienda>
