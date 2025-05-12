@@ -1,0 +1,196 @@
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: FuenteNVS2;
+}
+
+@font-face {
+    font-family: FuenteNVS;
+    src: url(../../fonts/Quicksand-VariableFont_wght.ttf);
+}
+
+@font-face {
+    font-family: FuenteNVS2;
+    src: url(../../fonts/LeagueSpartan-VariableFont_wght.ttf);
+}   
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.container section{
+    background-color: #1b014d;
+    width: 45%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+.container-form{
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+.container-form form{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    align-items: center;
+    gap: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: auto;
+
+}
+
+
+@keyframes borderGradient {
+  0% {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #00bbff;  
+  }
+  100% {
+    border-color: #6a35cf;  
+  }
+}
+
+.container-form input {
+  width: 58%;
+  height: 40px;
+  padding-left: 10px;
+  color: aliceblue;
+  margin-bottom: 5px;
+  border-radius: 7px;
+  border: 2px solid transparent; 
+  outline: none;
+  background-color: #522d9f;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.container-form input:focus {
+  background-color: #522d9f;
+  animation: borderGradient 2s linear infinite; 
+  box-shadow: 0 0 0 3px rgba(0, 187, 255, 0.6), 0 0 0 3px rgba(106, 53, 207, 0.6); 
+  border-color: transparent;
+}
+
+
+
+.container-form input::placeholder{ 
+    padding: 2px;
+    color: rgba(255, 255, 255, 0.492);
+}
+
+
+.container-form button, .container-form .buttom2{
+    width: 58%;
+    height: 45px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.buttom{
+    margin-bottom: 10px;
+    background: linear-gradient(to left, #00bbff, #6a35cf);
+    color: white;
+    font-size: 15px;
+    transition: .2s;
+    font-size: 16px;
+}
+
+.buttom:hover{
+    text-shadow: #b4b4b4c2 1px 0 10px;
+    box-shadow: #3500c7 1px 0 10px;
+}
+
+.buttom2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    padding: 0;
+    background-color: #4408b4;
+    color: white;
+}
+
+.buttom2:hover{
+    text-shadow: #b4b4b4c2 1px 0 10px;
+    box-shadow: #5600c794 1px 0 10px;
+}
+
+.container-form .a1{
+    margin-bottom: 10px;
+}
+.container-form a{
+    color: white;
+    text-decoration: none;
+    transition: .2s;
+}
+
+
+a:hover{
+    text-shadow: #ffffff4f 1px 0 5px;
+}
+
+
+.container-form img{
+    margin-bottom: 10px;
+    transition: .2s;
+}
+
+figure img{
+    transition: .2s;
+}
+
+figure img:hover{
+    width: 80%;
+}
+
+.container figure{
+    background-image: linear-gradient(
+        135deg,
+        hsl(0deg 0% 0%) 0%,
+        hsl(257deg 24% 12%) 29%,
+        hsl(257deg 52% 14%) 47%,
+        hsl(257deg 61% 14%) 65%,
+        hsl(256deg 29% 13%) 100%
+      );
+    padding-top: 40px;
+    width: 55%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+
+}
+
+@media(max-width:1024px){
+    .container-form{
+        width: 100%;
+    }
+    .container section{
+        width: 100%;
+    }
+    .img2{
+        display: none;
+    }
+    .container figure{
+        display: none;
+    }
+
+}
+
