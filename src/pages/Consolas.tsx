@@ -8,42 +8,44 @@ import Card from "../components/Tienda/Card";
 
 import "../styles/pages/Videojuegos.css";
 
-export function Inicio() {
+export function Consolas() {
   return (
     <React.Fragment>
       <Menu />
       <main className="videojuegos-main">
         <Tienda>
-          <Banner Imagen="Consolas" Titulo="PlayStation 5 Slim" Recorte="Morado" />
+          <Banner
+            Imagen="Consolas"
+            Titulo="PlayStation 5 Slim"
+            Recorte="Morado"
+          />
           <BodyCard>
             <h2 className="Titulos">Lo más vendido</h2>
             <ProductosCards>
-              <Card />
-              <Card />
-              <Card />
+              <Card consola="default" />
             </ProductosCards>
           </BodyCard>
           <BodyCard>
             <h2 className="Titulos">Tendencias</h2>
             <ProductosCards>
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
+              <Card consola="default" />
+              <Card consola="default" />
+              <Card consola="default" />
+              <Card consola="default" />
+              <Card consola="default" />
+              <Card consola="default" />
+              <Card consola="default" />
+              <Card consola="default" />
+              <Card consola="default" />
             </ProductosCards>
           </BodyCard>
 
           <BodyCard>
             <h2 className="Titulos">Las ofertas de la semana</h2>
             <ProductosCards>
-              <Card />
-              <Card />
-              <Card />
+              <Card consola="default" />
+              <Card consola="default" />
+              <Card consola="default" />
             </ProductosCards>
           </BodyCard>
         </Tienda>
@@ -52,4 +54,4 @@ export function Inicio() {
   );
 }
 
-export default Inicio;
+export default Consolas;

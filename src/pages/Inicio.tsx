@@ -26,24 +26,24 @@ export function Inicio() {
           <BodyCard>
           <h2 className="Titulos">Tendencias</h2>
           <ProductosCards>
-          <Card/>
-          <Card/>
-          <Card/>
-          <Card/>
-          <Card/>
-          <Card/>
-          <Card/>
-          <Card/>
-          <Card/>
+          <Card consola="default"/>
+          <Card consola="default"/>
+          <Card consola="default"/>
+          <Card consola="default"/>
+          <Card consola="default"/>
+          <Card consola="default"/>
+          <Card consola="default"/>
+          <Card consola="default"/>
+          <Card consola="default"/>
           </ProductosCards>
           </BodyCard>
 
           <BodyCard>
           <h2 className="Titulos">Las ofertas de la semana</h2>
           <ProductosCards>
-          <Card/>
-          <Card/>
-          <Card/>
+         <Card consola="default"/>
+          <Card consola="default"/>
+          <Card consola="default"/>
           </ProductosCards>
           </BodyCard>
         </Tienda>

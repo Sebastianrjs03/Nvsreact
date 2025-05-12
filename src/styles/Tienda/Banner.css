@@ -1,38 +1,44 @@
 .banner-header {
-    position: relative;
-    display: flex;
-    z-index: 1;
-    width: 100%;
-    height: clamp(15rem, 35vw, 38rem);
+  position: relative;
+  display: flex;
+  z-index: 1;
+  width: 100%;
+  height: clamp(15rem, 35vw, 38rem);
+  overflow: hidden;
 }
 
 .banner-imagen {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s ease-in-out;
+}
+
+.banner-imagen:hover {
+  transform: scale(1.1);
 }
 
 .banner-titulo {
-    line-height: 1;
-    font-weight: bold;
-    top: clamp(4rem, 8vw, 11rem);
-    left: clamp(0.2rem, 5vw, 9rem);
-    font-size: clamp(1.1rem, 3vw, 3rem);
-    width: clamp(10rem, 42vw, 38rem);
+  line-height: 1;
+  font-weight: bold;
+  top: clamp(4rem, 8vw, 11rem);
+  left: clamp(0.2rem, 5vw, 9rem);
+  font-size: clamp(1.1rem, 3vw, 3rem);
+  width: clamp(10rem, 42vw, 38rem);
 }
 
-.banner-info-contenedor{
-position: absolute;
-display: flex;
-flex-direction: column;
-gap: 0.5rem;
-left: clamp(0.2rem, 5vw, 9rem);
-top: clamp(4rem, 8vw, 11rem);
+.banner-info-contenedor {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  left: clamp(0.2rem, 5vw, 9rem);
+  top: clamp(4rem, 8vw, 11rem);
 }
 
 .Banner-corte-morado {
-    position: absolute;
-    height: 30%;
-    width: 100%;
-    bottom: 0;
+  position: absolute;
+  height: 30%;
+  width: 100%;
+  bottom: 0;
 }
