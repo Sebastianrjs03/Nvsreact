@@ -7,6 +7,8 @@ import Playstation from '../pages/Playstation';
 import Xbox from '../pages/Xbox';
 import Nintendo from '../pages/Nintendo';
 import Carrito from '../pages/carrito/Carrito'
+import Sidebar from '../components/Admin/Sidebar';
+import Calificacion_Cli_Pro from '../pages/Admin/Calificaciones/Cal_Pro_Cli';
 
 
 export default function AppRoutes() {
@@ -21,7 +23,9 @@ export default function AppRoutes() {
         <Route path="/Xbox" element={<Xbox/>} />
         <Route path="/Nintendo" element={<Nintendo/>} />
         <Route path="/Carrito" element={<Carrito/>} />
-
+        <Route path="/Administrador" element={<Sidebar/>}>  
+          <Route path="/Administrador/Calificacion_Cliente" element={<Calificacion_Cli_Pro/>}></Route>
+        </Route>
       </Routes>
     </Router>
   );
