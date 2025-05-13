@@ -1,0 +1,61 @@
+    .resumenCarrito-aside {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .resumenCarrito-titulo {
+        color: white;
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+    
+    .resumenCarrito-contenido {
+        background-color: #130228;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        width: 320px;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .resumenCarrito-botonPago {
+        background: linear-gradient(to right, #7e4efc, #00cfff);
+        border: none;
+        padding: 0.8rem;
+        border-radius: 2rem;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: box-shadow 0.3s ease;
+        text-align: center;
+    }
+    
+    .resumenCarrito-botonPago:hover {
+        box-shadow: 0 0 10px #7e4efc, 0 0 20px #00cfff, 0 0 30px #480ff4;
+    }
+    
+    .resumenCarrito-continuarCompra {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #a3a3a3;
+        gap: 0.5rem;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        text-decoration: none;
+        color: inherit;
+    }
+    
+    .resumenCarrito-continuarCompra:hover {
+        color: #f3f4f6;
+    }
+    
+    @media (max-width: 1024px) {
+        .resumenCarrito-contenido {
+            align-self: center;
+            width: 100%;
+        }
+    }
