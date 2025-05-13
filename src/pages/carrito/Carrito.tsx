@@ -6,7 +6,7 @@ import CartCarrito from "../../components/Carrito/CartCarrito"
 import ResumenCarrito from "../../components/Carrito/ResumenCarrito"
 import DetalleResumenCarrito from "../../components/Carrito/DetalleResumenCarrito"
 
-export function Carrito() {
+function Carrito() {
   return (
 
     <React.Fragment>

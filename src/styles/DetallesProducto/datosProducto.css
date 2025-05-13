@@ -1,0 +1,52 @@
+.datosProducto {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #3b1586;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    padding: 1em;
+    justify-content: space-between
+}
+
+.datosProducto h2 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.datosProducto-marca {
+    font-size: 26px;
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+.datosProducto-precio {
+    font-size: 42px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.datosProducto-botonCarrito {
+    width: 100%;
+    background: linear-gradient(to right, #7e4efc, #00cfff);
+    border: none;
+    padding: 0.8rem;
+    border-radius: 2rem;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+}
+
+.datosProducto-botonCarrito:hover {
+    box-shadow: 0 0 10px #7e4efc, 0 0 20px #00cfff, 0 0 30px #480ff4;
+}
+
+@media (max-width: 768px) {
+    .datosProducto h2 {
+        font-size: 30px;
+        margin-bottom: 10px;
+    }
+}

@@ -11,6 +11,8 @@ import Pagos from '../pages/carrito/Pagos';
 import Login from '../pages/login/iniciarSesion/iniciarSesion';
 import Registro from '../pages/login/registro/registro';
 import RecuperarContrasena from '../pages/login/recuperarContrasena/RecuperarContrasena';
+import DetallesConsola from '../pages/detallesProducto/detallesConsola';
+import DetallesVideoJuego from '../pages/detallesProducto/detallesVideoJuego'
 
 
 export default function AppRoutes() {
@@ -29,6 +31,8 @@ export default function AppRoutes() {
         <Route path="/iniciarSesion" element={<Login/>} />
         <Route path="/registro" element={<Registro/>} />
         <Route path="/RecuperarContrasena" element={<RecuperarContrasena/>} />
+        <Route path="/DetallesConsola" element={<DetallesConsola/>} />
+        <Route path="/DetallesVideoJuego" element={<DetallesVideoJuego/>} />
 
       </Routes>
     </Router>

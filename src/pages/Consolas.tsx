@@ -5,6 +5,7 @@ import Banner from "../components/Tienda/Banner";
 import BodyCard from "../components/Tienda/BodyCards";
 import ProductosCards from "../components/Tienda/ProductosCards";
 import Card from "../components/Tienda/Card";
+import { Link } from 'react-router-dom';
 
 import "../styles/pages/Videojuegos.css";
 
@@ -22,7 +23,9 @@ export function Consolas() {
           <BodyCard>
             <h2 className="Titulos">Lo más vendido</h2>
             <ProductosCards>
+              <Link to="/DetallesConsola">
               <Card consola="default" />
+              </Link>
             </ProductosCards>
           </BodyCard>
           <BodyCard>
