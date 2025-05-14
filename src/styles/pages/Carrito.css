@@ -1,0 +1,14 @@
+        .carrito-main {
+            background-color: #1b014d;
+            height: 100vh;
+            display: flex;
+            gap: 2rem;
+            padding: 120px 2rem 2rem;
+            box-sizing: border-box;
+        }
+        
+        @media (max-width: 1024px) {
+            .carrito-main {
+                flex-direction: column;
+            }
+        }

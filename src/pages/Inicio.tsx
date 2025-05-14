@@ -7,6 +7,7 @@ import Banner from '../components/Tienda/Banner';
 import BodyCard from "../components/Tienda/BodyCards";
 import ProductosCards from "../components/Tienda/ProductosCards";
 import Card from '../components/Tienda/Card'
+import { Link } from 'react-router-dom';
 
 import '../styles/pages/Inicio.css';
 
@@ -56,6 +57,17 @@ export function Inicio() {
           <BodyCard>
           <h2 className="Titulos">Tendencias</h2>
           <ProductosCards>
+          <Link  to="/DetallesVideoJuego">
+          <Card consola="default"/>
+          </Link>
+          <Card consola="default"/>
+          <Card consola="default"/>
+          <Card consola="default"/>
+          <Card consola="default"/>
+          <Card consola="default"/>
+          <Card consola="default"/>
+          <Card consola="default"/>
+          <Card consola="default"/>
           {tendencias.map((tendencias) => (
             <Card
               key={tendencias.idProducto}

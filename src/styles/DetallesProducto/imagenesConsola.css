@@ -1,0 +1,59 @@
+.imagenesConsola {
+    display: flex;
+    gap: 20px;
+}
+
+.imagenesConsola-auxiliares {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.imagenesConsola-auxiliares img {
+    width: 150px;
+    height: auto;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.imagenesConsola-principal {
+    background-color: white;
+    border-radius: 20px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imagenesConsola-principal img {
+    max-width: 350px;
+    border-radius: 10px;
+}
+
+@media (max-width: 1024px) {
+    .imagenesConsola {
+        display: flex;
+        gap: 20px;
+        width: 100%;
+    }
+    .imagenesConsola-principal {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .imagenesConsola {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .imagenesConsola-auxiliares {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+    }
+    .imagenesConsola-auxiliares img {
+        width: 100px;
+        height: auto;
+    }
+}

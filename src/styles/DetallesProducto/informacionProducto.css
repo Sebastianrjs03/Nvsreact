@@ -1,0 +1,16 @@
+.detallesProducto-infoProducto {
+    display: flex;
+    border-radius: 20px;
+    padding: 20px;
+    gap: 30px;
+    width: 100%;
+    max-width: 1100px;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 1024px) {
+    .detallesProducto-infoProducto {
+        flex-direction: column;
+    }
+}

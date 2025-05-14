@@ -50,6 +50,7 @@ function Card({consola, titulo, precio, imagen}: CardProps) {
         </div>
 
     </article>
+
     );
 }
 

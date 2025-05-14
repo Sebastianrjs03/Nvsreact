@@ -1,0 +1,144 @@
+.menuCarrito-header {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    height: 100px;
+    gap: 3rem;
+    z-index: 100;
+    color: white;
+}
+
+.menuCarrito-nav {
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    border-radius: 10rem;
+    gap: 3rem;
+}
+
+.menuCarrito-nav ul {
+    height: 100;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+}
+
+.menuCarrito-nav {
+    padding: 0 2rem 0 2rem;
+    background: #00000042;
+    backdrop-filter: blur(0.7rem);
+}
+
+.menuCarrito-progresoCompra {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 0.5rem 2rem;
+    border-radius: 10rem;
+}
+
+.menuCarrito-progresoCompra img {
+    height: 30px;
+}
+
+.menuCarrito-pasos {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0;
+    margin: 0;
+}
+
+.menuCarrito-pasos li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.menuCarrito-pasos li span {
+    background-color: #2b145c;
+    color: #888;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    margin-right: 0.5rem;
+}
+
+.menuCarrito-pasos li.menuCarrito-inactivo {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.menuCarrito-pasos li.menuCarrito-activo span {
+    background-color: #9f5cff;
+    color: rgb(255, 255, 255);
+}
+
+.menuCarrito-pasos li.menuCarrito-inactivo span {
+    color: rgba(255, 255, 255, 0.4);
+    background-color: #2b145c;
+}
+
+.menuCarrito-pasos li.menuCarrito-activo::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: calc(100% + 5px);
+    width: 40px;
+    height: 5px;
+    background-color: #2b145c;
+    transform: translateY(-50%);
+    border-radius: 3px;
+}
+
+.menuCarrito-pasos li.menuCarrito-completado span {
+    background-color: #9f5cff;
+    color: white;
+}
+
+.menuCarrito-pasos li.menuCarrito-completado {
+    color: white;
+    opacity: 0.6;
+}
+
+@media (max-width: 1024px) {
+    .menuCarrito-header {
+        height: 70px;
+        background: #00000042;
+        backdrop-filter: blur(0.7rem);
+        padding: 0 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .menuCarrito-nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 50px;
+        width: 100%;
+    }
+    .menuCarrito-nav {
+        width: 100%;
+        padding: 0;
+        background: none;
+        backdrop-filter: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .menuCarrito-progresoCompra img {
+        display: none;
+    }
+}

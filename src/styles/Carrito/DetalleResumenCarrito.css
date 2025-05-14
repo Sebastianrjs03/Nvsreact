@@ -1,0 +1,12 @@
+.resumenCarrito-detalle {
+    display: flex;
+    justify-content: space-between;
+    color: #a3a3a3;
+}
+
+.total {
+    display: flex;
+    font-weight: bold;
+    justify-content: space-between;
+    color: white;
+}

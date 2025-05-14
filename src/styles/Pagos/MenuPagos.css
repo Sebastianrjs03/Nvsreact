@@ -1,0 +1,155 @@
+.menuPagos-header {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    height: 100px;
+    gap: 3rem;
+    z-index: 100;
+    color: white;
+}
+
+.menuPagos-nav {
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    border-radius: 10rem;
+    gap: 3rem;
+}
+
+.menuPagos-nav ul {
+    height: 100;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+}
+
+.menuPagos-nav {
+    padding: 0 2rem 0 2rem;
+    background: #00000042;
+    backdrop-filter: blur(0.7rem);
+}
+
+.menuPagos-progresoCompra {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 0.5rem 2rem;
+    border-radius: 10rem;
+}
+
+.menuPagos-progresoCompra img {
+    height: 30px;
+}
+
+.menuPagos-pasos {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0;
+    margin: 0;
+}
+
+.menuPagos-pasos li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.menuPagos-pasos li span {
+    background-color: #2b145c;
+    color: #888;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    margin-right: 0.5rem;
+}
+
+.menuPagos-pasos li.menuPagos-inactivo {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.menuPagos-pasos li.menuPagos-activo span {
+    background-color: #9f5cff;
+    color: rgb(255, 255, 255);
+}
+
+.menuPagos-pasos li.menuPagos-inactivo span {
+    color: rgba(255, 255, 255, 0.4);
+    background-color: #2b145c;
+}
+
+.menuPagos-pasos li.menuPagos-completado span {
+    background-color: #9f5cff;
+    color: white;
+}
+
+.menuPagos-pasos li.menuPagos-completado {
+    color: white;
+    opacity: 0.6;
+}
+
+.menuPagos-pasos li.menuPagos-inactivo::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: calc(100% + 5px);
+    width: 40px;
+    height: 5px;
+    background-color: #9f5cff;
+    transform: translateY(-50%);
+    border-radius: 3px;
+}
+
+@media (max-width: 1024px) {
+    .menuPagos-header {
+        height: 70px;
+        background: #00000042;
+        backdrop-filter: blur(0.7rem);
+        padding: 0 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .menuPagos-nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 50px;
+        width: 100%;
+    }
+    .menuPagos-nav {
+        width: 100%;
+        padding: 0;
+        background: none;
+        backdrop-filter: none;
+    }
+    .menuPagos-pasos li.menuPagos-inactivo::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: calc(100% + 5px);
+        width: 40px;
+        height: 5px;
+        background-color: #9f5cff;
+        transform: translateY(-50%);
+        border-radius: 3px;
+    }
+}
+
+@media (max-width: 768px) {
+    .menuPagos-progresoCompra img {
+        display: none;
+    }
+}
