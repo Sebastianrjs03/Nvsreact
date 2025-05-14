@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Menu from "../components/Tienda/Menu";
 import Tienda from "../components/Tienda/Tienda";
 import Banner from "../components/Tienda/Banner";
@@ -13,25 +13,32 @@ interface Producto {
   nombreProducto: string;
   precioProducto: number;
 }
- 
 
 export function Playstation() {
-
   const [productos, setProductos] = useState<Producto[]>([]);
+  const [tendencias, setTendencias] = useState<Producto[]>([]);
+  const [exclusivos, setExclusivos] = useState<Producto[]>([]);
 
   useEffect(() => {
-    const tipoProducto = 'Videojuego';
-    const plataforma = 'Playstation';
-    const url =  `http://localhost/api-php?ruta=obtenerProductosDesc&tipoProducto=${tipoProducto}&plataforma=${plataforma}`;
-    
-    fetch (url)
-    .then((res) => res.json())
-    .then((data) =>{
-      setProductos(data);
-    })
-    .catch((error) => console.error("Error al obtener los productos:", error));
-  }, []);
+    const tipoProducto = "Videojuego";
+    const plataforma = "Playstation";
 
+    const urls = [
+      `http://localhost/api-php?ruta=obtenerProductosDesc&tipoProducto=${tipoProducto}&plataforma=${plataforma}`,
+      `http://localhost/api-php?ruta=obtenerProductosTendencias&tipoProducto=${tipoProducto}&plataforma=${plataforma}`,
+      `http://localhost/api-php?ruta=obtenerProductosExclusivos&plataforma=${plataforma}`,
+    ];
+
+    Promise.all(urls.map((url) => fetch(url).then((res) => res.json())))
+      .then(([dataVendidos, dataTendencias, dataExclusivos]) => {
+        setProductos(dataVendidos);
+        setTendencias(dataTendencias);
+        setExclusivos(dataExclusivos);
+      })
+      .catch((error) => {
+        console.error("Error al obtener datos:", error);
+      });
+  }, []);
 
   return (
     <React.Fragment>
@@ -47,34 +54,43 @@ export function Playstation() {
             <BodyCard>
               <h2 className="Titulos">Lo más vendido</h2>
               <ProductosCards>
-
                 {productos.map((producto) => (
-
-                <Card key={producto.idProducto}  consola="play" titulo={producto.nombreProducto} precio={producto.precioProducto} imagen={producto.idProducto}/>
+                  <Card
+                    key={producto.idProducto}
+                    consola="play"
+                    titulo={producto.nombreProducto}
+                    precio={producto.precioProducto}
+                    imagen={producto.idProducto}
+                  />
                 ))}
-                
               </ProductosCards>
             </BodyCard>
             <h2 className="Titulos">Tendencias</h2>
             <ProductosCards>
-              <Card consola="play" />
-              <Card consola="play" />
-              <Card consola="play" />
-              <Card consola="play" />
-              <Card consola="play" />
-              <Card consola="play" />
-              <Card consola="play" />
-              <Card consola="play" />
-              <Card consola="play" />
+              {tendencias.map((tendencias) => (
+                <Card
+                  key={tendencias.idProducto}
+                  consola="play"
+                  titulo={tendencias.nombreProducto}
+                  precio={tendencias.precioProducto}
+                  imagen={tendencias.idProducto}
+                />
+              ))}
             </ProductosCards>
           </BodyCard>
 
           <BodyCard>
             <h2 className="Titulos">Exclusivos de Playstation</h2>
             <ProductosCards>
-              <Card consola="play" />
-              <Card consola="play" />
-              <Card consola="play" />
+              {exclusivos.map((exclusivos) => (
+                <Card
+                  key={exclusivos.idProducto}
+                  consola="play"
+                  titulo={exclusivos.nombreProducto}
+                  precio={exclusivos.precioProducto}
+                  imagen={exclusivos.idProducto}
+                />
+              ))}
             </ProductosCards>
           </BodyCard>
         </Tienda>

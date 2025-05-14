@@ -17,7 +17,6 @@ function Card({consola, titulo, precio, imagen}: CardProps) {
     
     const imagenPortada = getImage(imagen);
 
-    console.log(imagen);
     const precioFormateado = new Intl.NumberFormat('es-CL').format(precio);
     let color;
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Menu from "../components/Tienda/Menu";
 import Promociones from '../components/Tienda/Promociones';
 import Carrusel from "../components/Tienda/Carrusel";
@@ -10,7 +10,37 @@ import Card from '../components/Tienda/Card'
 
 import '../styles/pages/Inicio.css';
 
+
+interface Producto {
+  idProducto: string;
+  nombreProducto: string;
+  precioProducto: number;
+}
+
 export function Inicio() {
+  
+    const [productos, setProductos] = useState<Producto[]>([]);
+    const [tendencias, setTendencias] = useState<Producto[]>([]);
+  
+    useEffect(() => {
+      const tipoProducto = "Videojuego";
+      const plataforma = "Playstation";
+  
+      const urls = [
+        `http://localhost/api-php?ruta=obtenerProductosDesc&tipoProducto=${tipoProducto}&plataforma=${plataforma}`,
+        `http://localhost/api-php?ruta=obtenerProductosTendencias&tipoProducto=${tipoProducto}&plataforma=${plataforma}`
+      ];
+  
+      Promise.all(urls.map(url => fetch(url).then(res => res.json())))
+      .then(([dataVendidos, dataTendencias]) => {
+        setProductos(dataVendidos);
+        setTendencias(dataTendencias);
+      })
+      .catch((error) => {
+        console.error("Error al obtener datos:", error);
+      });
+    }, []);
+
   return (
 
     <React.Fragment>
@@ -26,20 +56,20 @@ export function Inicio() {
           <BodyCard>
           <h2 className="Titulos">Tendencias</h2>
           <ProductosCards>
-          <Card consola="default"/>
-          <Card consola="default"/>
-          <Card consola="default"/>
-          <Card consola="default"/>
-          <Card consola="default"/>
-          <Card consola="default"/>
-          <Card consola="default"/>
-          <Card consola="default"/>
-          <Card consola="default"/>
+          {tendencias.map((tendencias) => (
+            <Card
+              key={tendencias.idProducto}
+              consola="default"
+              titulo={tendencias.nombreProducto}
+              precio={tendencias.precioProducto}
+              imagen={tendencias.idProducto}
+            />
+          ))}
           </ProductosCards>
           </BodyCard>
 
           <BodyCard>
-          <h2 className="Titulos">Las ofertas de la semana</h2>
+          <h2 className="Titulos">Las Mejores Ofertas</h2>
           <ProductosCards>
          <Card consola="default"/>
           <Card consola="default"/>

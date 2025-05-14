@@ -18,7 +18,13 @@ switch ($ruta) {
         ControladorUsuario::login();
         break;
     case 'obtenerProductosDesc':
-        ControladorMostrarProducto::productosEconomicos();
+        ControladorMostrarProducto::productosMasVendidos();
+        break;
+    case 'obtenerProductosTendencias':
+        ControladorMostrarProducto::productosTendencias();
+        break;
+    case 'obtenerProductosExclusivos':
+        ControladorMostrarProducto::productosExclusivos();
         break;
     default:
         echo json_encode(["mensaje" => "Ruta no encontrada.", "ruta_solicitada" => $ruta]);
