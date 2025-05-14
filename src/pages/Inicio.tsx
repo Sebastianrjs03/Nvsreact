@@ -57,18 +57,9 @@ export function Inicio() {
           <BodyCard>
           <h2 className="Titulos">Tendencias</h2>
           <ProductosCards>
-          <Link  to="/DetallesVideoJuego">
-          <Card consola="default"/>
-          </Link>
-          <Card consola="default"/>
-          <Card consola="default"/>
-          <Card consola="default"/>
-          <Card consola="default"/>
-          <Card consola="default"/>
-          <Card consola="default"/>
-          <Card consola="default"/>
-          <Card consola="default"/>
+         
           {tendencias.map((tendencias) => (
+             <Link  to="/DetallesVideoJuego">
             <Card
               key={tendencias.idProducto}
               consola="default"
@@ -76,6 +67,7 @@ export function Inicio() {
               precio={tendencias.precioProducto}
               imagen={tendencias.idProducto}
             />
+            </Link>
           ))}
           </ProductosCards>
           </BodyCard>
@@ -83,9 +75,7 @@ export function Inicio() {
           <BodyCard>
           <h2 className="Titulos">Las Mejores Ofertas</h2>
           <ProductosCards>
-         <Card consola="default"/>
-          <Card consola="default"/>
-          <Card consola="default"/>
+            <h1>ya pongo los productos jijij</h1>
           </ProductosCards>
           </BodyCard>
         </Tienda>
