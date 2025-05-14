@@ -9,6 +9,8 @@ import ProductosCards from "../components/Tienda/ProductosCards";
 import Card from '../components/Tienda/Card'
 import { Link } from 'react-router-dom';
 
+
+import '../styles/Tienda/Link.css';
 import '../styles/pages/Inicio.css';
 
 
@@ -25,11 +27,10 @@ export function Inicio() {
   
     useEffect(() => {
       const tipoProducto = "Videojuego";
-      const plataforma = "Playstation";
   
       const urls = [
-        `http://localhost/api-php?ruta=obtenerProductosDesc&tipoProducto=${tipoProducto}&plataforma=${plataforma}`,
-        `http://localhost/api-php?ruta=obtenerProductosTendencias&tipoProducto=${tipoProducto}&plataforma=${plataforma}`
+        `http://localhost/api-php?ruta=obtenerProductosDesc&tipoProducto=${tipoProducto}`,
+        `http://localhost/api-php?ruta=obtenerProductosTendencias&tipoProducto=${tipoProducto}`
       ];
   
       Promise.all(urls.map(url => fetch(url).then(res => res.json())))
@@ -57,9 +58,8 @@ export function Inicio() {
           <BodyCard>
           <h2 className="Titulos">Tendencias</h2>
           <ProductosCards>
-         
           {tendencias.map((tendencias) => (
-             <Link  to="/DetallesVideoJuego">
+            <Link  to="/DetallesVideoJuego" className="linkCards">
             <Card
               key={tendencias.idProducto}
               consola="default"
@@ -75,7 +75,9 @@ export function Inicio() {
           <BodyCard>
           <h2 className="Titulos">Las Mejores Ofertas</h2>
           <ProductosCards>
-            <h1>ya pongo los productos jijij</h1>
+         <Card consola="default"/>
+          <Card consola="default"/>
+          <Card consola="default"/>
           </ProductosCards>
           </BodyCard>
         </Tienda>

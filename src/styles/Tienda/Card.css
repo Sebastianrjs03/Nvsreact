@@ -1,5 +1,7 @@
 .card-contenedor {
   border-radius: clamp(1rem, 2.5vw, 2.5rem);
+  height: 100%;
+  width: 100%;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -73,7 +75,6 @@
 
 @media (max-width: 600px) {
   .card-contenedor {
-    flex: 0 0 70%;
     scroll-snap-align: start;
   }
   .card-contenedor:hover {

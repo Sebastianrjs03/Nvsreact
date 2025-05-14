@@ -78,7 +78,9 @@ export function Videojuegos() {
 
           <BodyCard>
             <h2 className="Titulos">Las Mejores Ofertas</h2>
-            <ProductosCards></ProductosCards>
+            <ProductosCards>
+              
+            </ProductosCards>
           </BodyCard>
         </Tienda>
       </main>
