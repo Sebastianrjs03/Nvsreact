@@ -22,21 +22,21 @@ interface Producto {
 
 export function Inicio() {
   
-    const [productos, setProductos] = useState<Producto[]>([]);
-    const [tendencias, setTendencias] = useState<Producto[]>([]);
+  const [tendencias, setTendencias] = useState<Producto[]>([]);
+  const [ofertas, setOfertas] = useState<Producto[]>([]);
   
     useEffect(() => {
       const tipoProducto = "Videojuego";
   
       const urls = [
-        `http://localhost/api-php?ruta=obtenerProductosDesc&tipoProducto=${tipoProducto}`,
-        `http://localhost/api-php?ruta=obtenerProductosTendencias&tipoProducto=${tipoProducto}`
+        `http://localhost/api-php?ruta=obtenerProductosTendencias&tipoProducto=${tipoProducto}`,
+        `http://localhost/api-php?ruta=obtenerProductosOfertas&tipoProducto=${tipoProducto}`
       ];
   
       Promise.all(urls.map(url => fetch(url).then(res => res.json())))
-      .then(([dataVendidos, dataTendencias]) => {
-        setProductos(dataVendidos);
+      .then(([ dataTendencias, dataVendidos]) => {
         setTendencias(dataTendencias);
+        setOfertas(dataVendidos);
       })
       .catch((error) => {
         console.error("Error al obtener datos:", error);
@@ -75,9 +75,18 @@ export function Inicio() {
           <BodyCard>
           <h2 className="Titulos">Las Mejores Ofertas</h2>
           <ProductosCards>
-          <Card consola="default"/>
-          <Card consola="default"/>
-          <Card consola="default"/>
+          
+          {ofertas.map((ofertas) => (
+            <Link  to={`/DetallesVideoJuego/${ofertas.idProducto}`} className="linkCards">
+            <Card
+              key={ofertas.idProducto}
+              consola="default"
+              titulo={ofertas.nombreProducto}
+              precio={ofertas.precioProducto}
+              imagen={ofertas.idProducto}
+            />
+            </Link>
+          ))}
           </ProductosCards>
           </BodyCard>
         </Tienda>
