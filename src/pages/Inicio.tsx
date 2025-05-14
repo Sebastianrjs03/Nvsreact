@@ -59,7 +59,7 @@ export function Inicio() {
           <h2 className="Titulos">Tendencias</h2>
           <ProductosCards>
           {tendencias.map((tendencias) => (
-            <Link  to="/DetallesVideoJuego" className="linkCards">
+            <Link  to={`/DetallesVideoJuego/${tendencias.idProducto}`} className="linkCards">
             <Card
               key={tendencias.idProducto}
               consola="default"
@@ -75,7 +75,7 @@ export function Inicio() {
           <BodyCard>
           <h2 className="Titulos">Las Mejores Ofertas</h2>
           <ProductosCards>
-         <Card consola="default"/>
+          <Card consola="default"/>
           <Card consola="default"/>
           <Card consola="default"/>
           </ProductosCards>

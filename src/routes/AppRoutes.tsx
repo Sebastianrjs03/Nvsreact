@@ -32,7 +32,7 @@ export default function AppRoutes() {
         <Route path="/registro" element={<Registro/>} />
         <Route path="/RecuperarContrasena" element={<RecuperarContrasena/>} />
         <Route path="/DetallesConsola" element={<DetallesConsola/>} />
-        <Route path="/DetallesVideoJuego" element={<DetallesVideoJuego/>} />
+        <Route path="/DetallesVideoJuego/:id" element={<DetallesVideoJuego/>} />
 
       </Routes>
     </Router>
