@@ -13,6 +13,9 @@ import Registro from '../pages/login/registro/registro';
 import RecuperarContrasena from '../pages/login/recuperarContrasena/RecuperarContrasena';
 import DetallesConsola from '../pages/detallesProducto/detallesConsola';
 import DetallesVideoJuego from '../pages/detallesProducto/detallesVideoJuego'
+//Admin
+import Sidebar from '../components/Admin/Sidebar';
+import CalificacionCliente from '../pages/admin/Calificaciones/CalCliente';
 
 
 export default function AppRoutes() {
@@ -33,7 +36,9 @@ export default function AppRoutes() {
         <Route path="/RecuperarContrasena" element={<RecuperarContrasena/>} />
         <Route path="/DetallesConsola" element={<DetallesConsola/>} />
         <Route path="/DetallesVideoJuego/:id" element={<DetallesVideoJuego/>} />
-
+        <Route path="/Administrador" element={<Sidebar/>}>
+          <Route path='/Administrador/Calificacion_Cliente' element={<CalificacionCliente/>}></Route>
+        </Route>
       </Routes>
     </Router>
   );
