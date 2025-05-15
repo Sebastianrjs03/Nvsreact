@@ -1,0 +1,48 @@
+.categoriasCard-contenedor {
+  border-radius: clamp(1rem, 2.5vw, 1rem);
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.xbox{
+  background-color: #03240e;
+}
+
+.play{
+  background-color: #011544;
+}
+
+.nintendo{
+  background-color: #520700;
+}
+
+.default-categorias{
+  background-color: #310f74;
+}
+
+.categoriasCard-contenedor:hover {
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.507);
+  transform: scale(1.05);
+}
+
+.categoriasCard-titulo{
+  font-size: clamp(0.65rem, 1.1vw, 1.1rem);
+  font-weight: bolder;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .categoriasCard-contenedor {
+    scroll-snap-align: start;
+  }
+  .categoriasCard-contenedor:hover {
+    box-shadow: none;
+    transform: none;
+  }
+}
