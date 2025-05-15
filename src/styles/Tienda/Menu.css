@@ -26,6 +26,7 @@
   list-style: none;
   display: flex;
   flex-direction: row;
+  margin: 0;
 }
 
 .menu-header ul li {

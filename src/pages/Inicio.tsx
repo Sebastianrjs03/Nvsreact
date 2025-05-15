@@ -56,7 +56,7 @@ export function Inicio() {
         <Tienda>
           <Banner Imagen="MilesMorales" Titulo="Marvel´s Spider-Man: Miles Morales" Recorte="Morado"/>
           <BodyCard>
-          <h2 className="Titlos">Tendencias</h2>
+          <h2 className="Titulos">Tendencias</h2>
           <ProductosCards>
           {tendencias.map((tendencias) => (
             <Link  to={`/DetallesVideoJuego/${tendencias.idProducto}`} className="linkCards">
