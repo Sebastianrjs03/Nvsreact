@@ -9,9 +9,15 @@
 .Titulos {
   font-size: clamp(1.2rem, 4vw, 4rem);
   line-height: 1;
-  align-self: flex-start;
   margin-left: 9rem;
   margin-bottom: 1em;
+}
+
+.Titulos-disposicion{
+  font-size: clamp(1.2rem, 4vw, 4rem);
+  line-height: 1;
+  margin-bottom: 1em;
+  text-align: center;
 }
 
 @media (max-width: 1667px) {

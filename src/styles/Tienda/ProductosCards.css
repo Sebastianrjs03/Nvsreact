@@ -16,7 +16,7 @@
   max-width: 1300px;
   gap: clamp(1rem, 2vw, 2rem);
   grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: clamp(9.6rem, 19vw, 16rem);
+  grid-auto-rows: clamp(9.6rem, 19vw, 16rem);
 }
 
 .productosCards-contenedor i {

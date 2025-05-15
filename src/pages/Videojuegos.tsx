@@ -102,6 +102,23 @@ export function Videojuegos() {
           ))}
             </ProductosCards>
           </BodyCard>
+          <BodyCard>
+          <h2 className="Titulos-disposicion">Filtra Por Tus preferencias</h2>
+            <ProductosCards>
+              {productos.map((producto) => (
+                <Link  to={`/DetallesVideoJuego/${producto.idProducto}`} className="linkCards">
+                <Card
+                  key={producto.idProducto}
+                  consola="default"
+                  titulo={producto.nombreProducto}
+                  precio={producto.precioProducto}
+                  imagen={producto.idProducto}
+                />
+                </Link>
+              ))}
+            </ProductosCards>
+
+          </BodyCard>
         </Tienda>
       </main>
     </React.Fragment>
