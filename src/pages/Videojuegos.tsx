@@ -7,10 +7,11 @@ import ProductosCards from "../components/Tienda/ProductosCards";
 import Card from "../components/Tienda/Card";
 import CategotiasContenedor from "../components/Tienda/CategoriasContenedor";
 import Categorias from "../components/Tienda/Categorias";
-import { Link } from 'react-router-dom';
+import { ApiPublic } from "../hooks/UseFetch.tsx";
+import { Link } from "react-router-dom";
 
 import "../styles/pages/Videojuegos.css";
-import '../styles/Tienda/Link.css';
+import "../styles/Tienda/Link.css";
 
 interface Producto {
   idProducto: string;
@@ -19,29 +20,40 @@ interface Producto {
 }
 
 export function Videojuegos() {
+
+  // estados de los productos que traigo de la api
   const [productos, setProductos] = useState<Producto[]>([]);
   const [tendencias, setTendencias] = useState<Producto[]>([]);
   const [ofertas, setOfertas] = useState<Producto[]>([]);
 
 
+  // useEffect para renderizar junto con el componente
   useEffect(() => {
+
+    // Definimos el tipo de producto que queremos obtener
     const tipoProducto = "Videojuego";
 
-    const urls = [
-      `http://localhost/api-php?ruta=obtenerProductosDesc&tipoProducto=${tipoProducto}`,
-      `http://localhost/api-php?ruta=obtenerProductosTendencias&tipoProducto=${tipoProducto}`,
-      `http://localhost/api-php?ruta=obtenerProductosOfertas&tipoProducto=${tipoProducto}`  
-    ];
+    // Función asíncrona para llamar la API
+    const fetchData = async () => {
+      try {
+        // Llamamos a ApiPublic enviando el parámetro como objeto
+        // y guardamos los resultados en variables (se ejecutan varias promises al mismo tiempo y se espera a que todas terminen)
+        const [dataVendidos, dataTendencias, dataOfertas] = await Promise.all([
+          ApiPublic("obtenerProductosDesc", { tipoProducto }),
+          ApiPublic("obtenerProductosTendencias", { tipoProducto }),
+          ApiPublic("obtenerProductosOfertas", { tipoProducto }),
+        ]);
 
-    Promise.all(urls.map((url) => fetch(url).then((res) => res.json())))
-      .then(([dataVendidos, dataTendencias, dataOfertas]) => {
-        setProductos(dataVendidos);
-        setTendencias(dataTendencias);
-        setOfertas(dataOfertas);
-      })
-      .catch((error) => {
+        // Guardamos los datos recibidos en el estado
+        setProductos(dataVendidos || []);
+        setTendencias(dataTendencias || []);
+        setOfertas(dataOfertas || []);
+      } catch (error) {
         console.error("Error al obtener datos:", error);
-      });
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
@@ -59,14 +71,17 @@ export function Videojuegos() {
 
             <ProductosCards>
               {productos.map((producto) => (
-                <Link  to={`/DetallesVideoJuego/${producto.idProducto}`} className="linkCards">
-                <Card
+                <Link
+                  to={`/DetallesVideoJuego/${producto.idProducto}`}
+                  className="linkCards"
                   key={producto.idProducto}
-                  consola="default"
-                  titulo={producto.nombreProducto}
-                  precio={producto.precioProducto}
-                  imagen={producto.idProducto}
-                />
+                >
+                  <Card
+                    consola="default"
+                    titulo={producto.nombreProducto}
+                    precio={producto.precioProducto}
+                    imagen={producto.idProducto}
+                  />
                 </Link>
               ))}
             </ProductosCards>
@@ -75,14 +90,17 @@ export function Videojuegos() {
             <h2 className="Titulos">Tendencias</h2>
             <ProductosCards>
               {tendencias.map((tendencias) => (
-                <Link  to={`/DetallesVideoJuego/${tendencias.idProducto}`} className="linkCards">
-                <Card
+                <Link
+                  to={`/DetallesVideoJuego/${tendencias.idProducto}`}
+                  className="linkCards"
                   key={tendencias.idProducto}
-                  consola="default"
-                  titulo={tendencias.nombreProducto}
-                  precio={tendencias.precioProducto}
-                  imagen={tendencias.idProducto}
-                />
+                >
+                  <Card
+                    consola="default"
+                    titulo={tendencias.nombreProducto}
+                    precio={tendencias.precioProducto}
+                    imagen={tendencias.idProducto}
+                  />
                 </Link>
               ))}
             </ProductosCards>
@@ -91,49 +109,34 @@ export function Videojuegos() {
           <BodyCard>
             <h2 className="Titulos">Las Mejores Ofertas</h2>
             <ProductosCards>
-                     {ofertas.map((ofertas) => (
-            <Link  to={`/DetallesVideoJuego/${ofertas.idProducto}`} className="linkCards">
-            <Card
-              key={ofertas.idProducto}
-              consola="default"
-              titulo={ofertas.nombreProducto}
-              precio={ofertas.precioProducto}
-              imagen={ofertas.idProducto}
-            />
-            </Link>
-          ))}
+              {ofertas.map((ofertas) => (
+                <Link
+                  to={`/DetallesVideoJuego/${ofertas.idProducto}`}
+                  className="linkCards"
+                  key={ofertas.idProducto}
+                >
+                  <Card
+                    consola="default"
+                    titulo={ofertas.nombreProducto}
+                    precio={ofertas.precioProducto}
+                    imagen={ofertas.idProducto}
+                  />
+                </Link>
+              ))}
             </ProductosCards>
           </BodyCard>
           <BodyCard>
-          <h2 className="Titulos-disposicion">Filtra Por Tus preferencias</h2>
-          <CategotiasContenedor>
-
-          <Categorias consola="Default" titulo="Xbox Series X">
-            
-          </Categorias>
-          <Categorias consola="Default" titulo="Xbox Series X">
-            
-          </Categorias>
-          <Categorias consola="Default" titulo="Xbox Series X">
-            
-          </Categorias>
-          <Categorias consola="Default" titulo="Xbox Series X">
-            
-          </Categorias>
-          <Categorias consola="Default" titulo="Xbox Series X">
-            
-          </Categorias>
-          <Categorias consola="Default" titulo="Xbox Series X">
-            
-          </Categorias>
-           <Categorias consola="Default" titulo="Xbox Series X">
-            
-          </Categorias>
-           <Categorias consola="Default" titulo="Xbox Series X">
-            
-          </Categorias>
-
-          </CategotiasContenedor>
+            <h2 className="Titulos-disposicion">Filtra Por Tus preferencias</h2>
+            <CategotiasContenedor>
+              <Categorias consola="Default" titulo="Xbox Series X"></Categorias>
+              <Categorias consola="Default" titulo="Xbox Series X"></Categorias>
+              <Categorias consola="Default" titulo="Xbox Series X"></Categorias>
+              <Categorias consola="Default" titulo="Xbox Series X"></Categorias>
+              <Categorias consola="Default" titulo="Xbox Series X"></Categorias>
+              <Categorias consola="Default" titulo="Xbox Series X"></Categorias>
+              <Categorias consola="Default" titulo="Xbox Series X"></Categorias>
+              <Categorias consola="Default" titulo="Xbox Series X"></Categorias>
+            </CategotiasContenedor>
           </BodyCard>
         </Tienda>
       </main>

@@ -1,34 +1,47 @@
 const Base_Url = import.meta.env.VITE_URL_API
 
-export const ApiPublic = async (endpoint: string, id1?: string | number, id2?: string | number,
-    nombre1?: string, nombre2?: string) => {
+// Declara y exporta la foncion de forma asincronica
 
-    try {
+export const ApiPublic = async (
 
-        let url = `${Base_Url}${endpoint}`;
+// Recibe el endponint 
+  endpoint: string,
 
-        if (id1 && id2 && nombre1 && nombre2) {
-            url += `&id1=${id1}&id2=${id2}&nombre1=${nombre1}&nombre2=${nombre2}`;
-        }
-        else if (id1 && nombre1) {
-            url += `&id1=${id1}&nombre1=${nombre1}`;
-        } else if (id2 && nombre2) {
-            url += `&id2=${id2}&nombre2=${nombre2}`;
-        }
+// este es un objeto opcional   
+  params?: Record<string, string | number>
+) => {
+  try {
 
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+// Crea el objeto URL
+    let url = new URL(`${Base_Url}${endpoint}`);
 
-        if (response.status === 200 || response.status === 201) {
-            return await response.json();
-        }
-    } catch (error) {
-        console.error("Error en ApiPublic:", error);
+// Verifica si params fue enviado    
+    if (params) {
+
+      // Array de pares con su clave y valor  { clave: 1, valor: "uno" }
+      Object.entries(params).forEach(([key, value]) => {  // se recorre cada par con forEach
+
+        // Agrega el param como parametro de consulta
+        url.searchParams.append(key, String(value));
+      });
     }
+
+    // convierte a string usa await para esperar la respuesta
+    const response = await fetch(url.toString(), {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.ok) {
+      return await response.json();
+    } else {
+      console.error(`Error HTTP: ${response.status}`);
+    }
+  } catch (error) {
+    console.error("Error en ApiPublic:", error);
+  }
 };
 
 export const ApiPrivate = async (endpoint: string, data: any) => {
