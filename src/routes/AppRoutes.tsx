@@ -16,6 +16,8 @@ import DetallesVideoJuego from '../pages/detallesProducto/detallesVideoJuego'
 //Admin
 import Sidebar from '../components/Admin/Sidebar';
 import CalificacionCliente from '../pages/admin/Calificaciones/CalCliente';
+import FormaPago from '../pages/admin/Facturas/FormaPago';
+import Factura from '../pages/admin/Facturas/Factura';
 
 
 export default function AppRoutes() {
@@ -38,6 +40,8 @@ export default function AppRoutes() {
         <Route path="/DetallesVideoJuego/:id" element={<DetallesVideoJuego/>} />
         <Route path="/Administrador" element={<Sidebar/>}>
           <Route path='/Administrador/Calificacion_Cliente' element={<CalificacionCliente/>}></Route>
+          <Route path='/Administrador/Forma_Pago' element={<FormaPago/>}></Route>
+          <Route path='/Administrador/Facturas' element={<Factura/>}></Route>
         </Route>
       </Routes>
     </Router>

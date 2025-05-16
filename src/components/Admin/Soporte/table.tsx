@@ -1,13 +1,13 @@
 //hooks
 import { useEffect, useState } from "react";
-import { ApiPublic, ApiPrivate } from '../../../../hooks/UseFetch.tsx';
+import { ApiPublic, ApiPrivate } from '../../../hooks/UseFetch.tsx';
 
 //librerias
 import Swal from 'sweetalert2';
 
 //Components
 import ExampleModal from "./modalUsuario.tsx";
-import { Calificacion } from "../../Types/TypesDatos.tsx";
+import { Calificacion } from "../Types/TypesDatos.tsx";
 
 const Table = () => {
 

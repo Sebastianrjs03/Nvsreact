@@ -1,5 +1,5 @@
 //Routes
-import { Outlet } from 'react-router-dom';
+import { Outlet, Link } from 'react-router-dom';
 //css
 
 //assets
@@ -68,27 +68,24 @@ const Sidebar = () => {
                                     </label>
                                     <input type="checkbox" id="factura" />
                                     <ul>
-                                        <a href="../factura/factura.php">
-                                            <li>Facturas</li>
-                                        </a>
-                                        <a href="../htmlFor/indexhtmlFor.php">
-                                            <li>htmlFor Pago</li>
-                                        </a>
+                                    <Link to={"/Administrador/Facturas"}>
+                                            <li>Factura</li>
+                                        </Link>
+                                        <Link to={"/Administrador/Forma_Pago"}>
+                                            <li>Forma Pagos</li>
+                                        </Link>
                                     </ul>
                                 </li>
 
                                 <li>
                                     <label htmlFor="calificacion">
-                                        <i className="fa-solid fa-comment-dots" style={{ fontSize: "30px" }}></i> Calificacion
+                                        <i className="fa-solid fa-star" style={{ fontSize: "30px" }}></i> Calificacion
                                     </label>
                                     <input type="checkbox" id="calificacion" />
                                     <ul>
-                                        <a href="calificacion_producto-Cliente.php">
-                                            <li>Calificacion Producto-Cliente</li>
-                                        </a>
-                                        <a href="calificacion_producto-Final.php">
-                                            <li>Calificacion Producto-Final</li>
-                                        </a>
+                                        <Link to={"/Administrador/Calificacion_Cliente"}>
+                                            <li>Calificaciones Producto</li>
+                                        </Link>
                                     </ul>
                                 </li>
 

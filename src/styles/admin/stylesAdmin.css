@@ -302,7 +302,7 @@ width: 4vw;
     z-index: 1000;
   }
 
-.modal-content {
+.modal_content {
     background-color: #ffffff !important;
     margin: 15% auto !important;
     padding: 20px !important;
@@ -322,11 +322,15 @@ width: 4vw;
     border-radius: 20px;
     border: none !important;
     outline: none !important;
-    width: 150px ;
+    width: 95% ;
     text-align: center;
     background-color: #707070 !important;
     color: #ffffff !important;
     margin-left: 5px;
+}
+
+.form-select {
+
 }
 
 .form-control::placeholder {

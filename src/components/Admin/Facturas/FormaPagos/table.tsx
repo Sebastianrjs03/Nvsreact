@@ -7,19 +7,18 @@ import Swal from 'sweetalert2';
 
 //Components
 import ExampleModal from "./modalUsuario.tsx";
-import { Calificacion } from "../../Types/TypesDatos.tsx";
+import { FormaPago } from "../../Types/TypesDatos.tsx";
+import FormaPago from '../../Types/TypesDatos';
 
 const Table = () => {
 
-
-
-  const endpoint: string = 'Consultar_CalificacionCliente';
-  const [data, setData] = useState<Calificacion[]>([]);
-  const [selectedCalificacion, setSelectedCalificacion] = useState<Calificacion | null>(null);
+  const endpoint: string = 'Consultar_FormaPago';
+  const [data, setData] = useState<FormaPago[]>([]);
+  const [selectedFormaPago, setSelectedFormaPago] = useState<FormaPago | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
 
-  const getCalifications = async () => {
+  const getFormaPago = async () => {
     const result = await ApiPublic(endpoint);
 
     if (result) {
@@ -30,10 +29,10 @@ const Table = () => {
   };
 
   useEffect(() => {
-    getCalifications();
+    getFormaPago();
   }, []);
 
-  const Delete = ( idCliente: number, idProducto: number) => {
+  const Delete = ( idFormaPago: string) => {
     Swal.fire({
       title: '¿Estás seguro?',
       text: 'No podrás revertir esto',
@@ -44,10 +43,8 @@ const Table = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         const PK = {
-          id1: idCliente,
-          id2: idProducto,
-          nombre1: "idCliente",
-          nombre2: "idProducto"
+          id1: idFormaPago,
+          nombre1: "idFormaPago",
         }
         deleteFetch(PK);
       }
@@ -55,15 +52,15 @@ const Table = () => {
   };
 
   const deleteFetch = async (PK: any) => {
-    const response = await ApiPrivate('Eliminar_CalificacionCliente', PK)
+    const response = await ApiPrivate('Eliminar_FormaPago', PK)
     if (response) {
-      Swal.fire('Eliminado', 'La calificación ha sido eliminada.', 'success');
-      getCalifications();
+      Swal.fire('Eliminado', 'La Forma de pago ha sido eliminada.', 'success');
+      getFormaPago();
     } else {
       Swal.fire({
         icon: "error",
         title: "Acción fallida",
-        text: "No se elimino la calificacion",
+        text: "No se elimino la FormaPago",
       });
     }
   }
@@ -74,27 +71,23 @@ const Table = () => {
         <table className="table table-striped table-dark table_Admin">
           <thead>
             <tr>
-              <th scope="col">Id Cliente</th>
-              <th scope="col">ID Producto</th>
-              <th scope="col">Numero Calificacion</th>
-              <th scope="col">Comentario</th>
+              <th scope="col">Id FormaPago</th>
+              <th scope="col">Stock Forma</th>
               <th scope="col">Editar</th>
               <th scope="col">Eliminar</th>
 
             </tr>
           </thead>
           <tbody>
-            {data.map((calificacion) => (
-              <tr key={`${calificacion.idCliente}-${calificacion.idProducto}`}>
-                <td>{calificacion.idCliente}</td>
-                <td>{calificacion.idProducto}</td>
-                <td>{calificacion.numeroCalificacion}</td>
-                <td>{calificacion.comentarioCalificacion}</td>
+            {data.map((FormaPago) => (
+              <tr key={`${FormaPago.idFormaPago}`}>
+                <td>{FormaPago.idFormaPago}</td>
+                <td>{FormaPago.estadoMetodoPago == 1? "Activo" : "Inactivo"}</td>
                 <td>
                   <button
                     type="button"
                     className="btn btn-primary"
-                    onClick={() => { setSelectedCalificacion(calificacion); setIsOpen(true) }}
+                    onClick={() => { setSelectedFormaPago(FormaPago); setIsOpen(true) }}
                   >
                     <i className="fa-solid fa-pen"></i>
                   </button>
@@ -102,7 +95,7 @@ const Table = () => {
 
                 </td>
                 <td>
-                  <button className="btn btn-danger" onClick={() => Delete(calificacion.idCliente, calificacion.idProducto)}>
+                  <button className="btn btn-danger" onClick={() => Delete(FormaPago.idFormaPago)}>
                     <i className="fa-solid fa-trash"></i>
                   </button>
                 </td>
@@ -118,23 +111,22 @@ const Table = () => {
             style={{ backgroundColor: '#4415A2', border: 'none' }}
             onClick={() => setIsOpen(true)}
           >
-            <i className="fa-solid fa-plus"></i> Nueva Calificación
+            <i className="fa-solid fa-plus"></i> Nueva Forma de Pago
           </button>
-          {isOpen && !selectedCalificacion && (
+          {isOpen && !selectedFormaPago && (
             <ExampleModal
               setIsOpen={setIsOpen}
               modal="Agregar"
-              get={getCalifications}
+              get={getFormaPago}
             />
           )}
-          {isOpen && selectedCalificacion && (
+          {isOpen && selectedFormaPago && (
             <ExampleModal
-              idCliente={selectedCalificacion.idCliente}
-              idProducto={selectedCalificacion.idProducto}
-              setCalificacionB={setSelectedCalificacion}
+              idFormaPago={selectedFormaPago.idFormaPago}
+              setFormaPagoB={setSelectedFormaPago}
               setIsOpen={setIsOpen}
               modal="Editar"
-              get={getCalifications}
+              get={getFormaPago}
             />
           )}
         </section>

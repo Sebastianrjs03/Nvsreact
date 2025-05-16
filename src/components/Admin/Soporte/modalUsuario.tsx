@@ -1,10 +1,10 @@
 //hooks
 import { useState, useEffect } from "react";
-import { ApiPrivate, ApiPublic } from '../../../../hooks/UseFetch';
+import { ApiPrivate, ApiPublic } from '../../../hooks/UseFetch';
 //librerias
 import Swal from "sweetalert2";
 
-import { Calificacion, Cliente, ProductoA } from "./../../Types/TypesDatos";
+import { Calificacion, Cliente, ProductoA } from "../Types/TypesDatos";
 
 interface MyModalProps {
   get: () => void;
@@ -32,7 +32,7 @@ const ExampleModal: React.FC<MyModalProps> = ({ idCliente, idProducto, setIsOpen
     const FetchCli_Pro_Cal = async () => {
       try {
         if (modal === "Editar") {
-          const resultC = await ApiPublic(endpointC, idCliente, "idCliente",idProducto, "idProducto")
+          const resultC = await ApiPublic(endpointC, idCliente, idProducto, "idCliente", "idProducto")
           if (resultC) { setCalificacion(resultC); }
           if (calificacion) {
             setCalificaciont(calificacion.numeroCalificacion);
