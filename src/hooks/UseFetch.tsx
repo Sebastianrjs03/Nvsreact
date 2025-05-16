@@ -3,36 +3,47 @@ import Swal from "sweetalert2";
 
 const Base_Url = import.meta.env.VITE_URL_API
 
-export const ApiPublic = async (endpoint: string, id1?: string | number,nombre1?: string, id2?: string | number,
-     nombre2?: string) => {
+// Declara y exporta la foncion de forma asincrona
+export const ApiPublic = async (
 
-    try {
+// Recibe el endponint 
+  endpoint: string,
 
-        let url = `${Base_Url}${endpoint}`;
+// este es un objeto opcional   
+  params?: Record<string, string | number>
+) => {
+  try {
 
-        if (id1 && id2 && nombre1 && nombre2) {
-            let nombre1s = nombre1.replace(/['"]/g, '');
-            let nombre2s = nombre2.replace(/['"]/g, '');
-            url += `&id1=${id1}&id2=${id2}&nombre1=${nombre1s}&nombre2=${nombre2s}`;
-        }
-        else if (id1 && nombre1) {
-            let nombre1s = nombre1.replace(/['"]/g, '');
-            url += `&id1=${id1}&nombre1=${nombre1s}`;
-        }
-        console.log(url)
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+// Crea el objeto URL
+    let url = new URL(`${Base_Url}${endpoint}`);
 
-        if (response.status === 200 || response.status === 201) {
-            return await response.json();
-        }
-    } catch (error) {
-        console.error("Error en ApiPublic:", error);
+// Verifica si params fue enviado    
+    if (params) {
+
+      // Array de pares con su clave y valor  { clave: 1, valor: "uno" }
+      Object.entries(params).forEach(([key, value]) => {  // se recorre cada par con forEach
+
+        // Agrega el param como parametro de consulta
+        url.searchParams.append(key, String(value));
+      });
     }
+
+    // convierte a string usa await para esperar la respuesta
+    const response = await fetch(url.toString(), {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.ok) {
+      return await response.json();
+    } else {
+      console.error(`Error HTTP: ${response.status}`);
+    }
+  } catch (error) {
+    console.error("Error en ApiPublic:", error);
+  }
 };
 
 export const ApiPrivate = async (endpoint: string, data: []) => {

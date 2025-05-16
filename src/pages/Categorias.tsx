@@ -7,7 +7,6 @@ import ProductosCards from "../components/Tienda/ProductosCards";
 import Card from "../components/Tienda/Card";
 import CategotiasContenedor from "../components/Tienda/CategoriasContenedor";
 import Categorias from "../components/Tienda/Categorias";
-import { ApiPublic } from "../hooks/UseFetch.tsx";
 import { Link } from "react-router-dom";
 
 import "../styles/pages/Videojuegos.css";
@@ -20,40 +19,28 @@ interface Producto {
 }
 
 export function Videojuegos() {
-
-  // estados de los productos que traigo de la api
   const [productos, setProductos] = useState<Producto[]>([]);
   const [tendencias, setTendencias] = useState<Producto[]>([]);
   const [ofertas, setOfertas] = useState<Producto[]>([]);
 
-
-  // useEffect para renderizar junto con el componente
   useEffect(() => {
-
-    // Definimos el tipo de producto que queremos obtener
     const tipoProducto = "Videojuego";
 
-    // Función asíncrona para llamar la API
-    const fetchData = async () => {
-      try {
-        // Llamamos a ApiPublic enviando el parámetro como objeto
-        // y guardamos los resultados en variables (se ejecutan varias promises al mismo tiempo y se espera a que todas terminen)
-        const [dataVendidos, dataTendencias, dataOfertas] = await Promise.all([
-          ApiPublic("obtenerProductosDesc", { tipoProducto }),
-          ApiPublic("obtenerProductosTendencias", { tipoProducto }),
-          ApiPublic("obtenerProductosOfertas", { tipoProducto }),
-        ]);
+    const urls = [
+      `http://localhost/api-php?ruta=obtenerProductosDesc&tipoProducto=${tipoProducto}`,
+      `http://localhost/api-php?ruta=obtenerProductosTendencias&tipoProducto=${tipoProducto}`,
+      `http://localhost/api-php?ruta=obtenerProductosOfertas&tipoProducto=${tipoProducto}`,
+    ];
 
-        // Guardamos los datos recibidos en el estado
-        setProductos(dataVendidos || []);
-        setTendencias(dataTendencias || []);
-        setOfertas(dataOfertas || []);
-      } catch (error) {
+    Promise.all(urls.map((url) => fetch(url).then((res) => res.json())))
+      .then(([dataVendidos, dataTendencias, dataOfertas]) => {
+        setProductos(dataVendidos);
+        setTendencias(dataTendencias);
+        setOfertas(dataOfertas);
+      })
+      .catch((error) => {
         console.error("Error al obtener datos:", error);
-      }
-    };
-
-    fetchData();
+      });
   }, []);
 
   return (
@@ -74,9 +61,9 @@ export function Videojuegos() {
                 <Link
                   to={`/DetallesVideoJuego/${producto.idProducto}`}
                   className="linkCards"
-                  key={producto.idProducto}
                 >
                   <Card
+                    key={producto.idProducto}
                     consola="default"
                     titulo={producto.nombreProducto}
                     precio={producto.precioProducto}
@@ -93,9 +80,9 @@ export function Videojuegos() {
                 <Link
                   to={`/DetallesVideoJuego/${tendencias.idProducto}`}
                   className="linkCards"
-                  key={tendencias.idProducto}
                 >
                   <Card
+                    key={tendencias.idProducto}
                     consola="default"
                     titulo={tendencias.nombreProducto}
                     precio={tendencias.precioProducto}
@@ -113,9 +100,9 @@ export function Videojuegos() {
                 <Link
                   to={`/DetallesVideoJuego/${ofertas.idProducto}`}
                   className="linkCards"
-                  key={ofertas.idProducto}
                 >
                   <Card
+                    key={ofertas.idProducto}
                     consola="default"
                     titulo={ofertas.nombreProducto}
                     precio={ofertas.precioProducto}
@@ -124,19 +111,6 @@ export function Videojuegos() {
                 </Link>
               ))}
             </ProductosCards>
-          </BodyCard>
-          <BodyCard>
-            <h2 className="Titulos-disposicion">Filtra Por Tus preferencias</h2>
-            <CategotiasContenedor>
-              <Categorias consola="Default" titulo="Xbox Series X"></Categorias>
-              <Categorias consola="Default" titulo="Xbox Series X"></Categorias>
-              <Categorias consola="Default" titulo="Xbox Series X"></Categorias>
-              <Categorias consola="Default" titulo="Xbox Series X"></Categorias>
-              <Categorias consola="Default" titulo="Xbox Series X"></Categorias>
-              <Categorias consola="Default" titulo="Xbox Series X"></Categorias>
-              <Categorias consola="Default" titulo="Xbox Series X"></Categorias>
-              <Categorias consola="Default" titulo="Xbox Series X"></Categorias>
-            </CategotiasContenedor>
           </BodyCard>
         </Tienda>
       </main>

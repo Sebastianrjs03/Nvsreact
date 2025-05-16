@@ -66,6 +66,7 @@
 .card-titulo{
   font-size: clamp(0.65rem, 1.1vw, 1.1rem);
   font-weight: normal;
+  margin: 0;
 }
 
 .card-precio{
