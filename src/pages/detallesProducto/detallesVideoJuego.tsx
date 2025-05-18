@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../../styles/pages/detallesConsola.css"
+import "../../styles/pages/detallesConsola.css";
 import Menu from "../../components/Tienda/Menu";
 import InformacionProducto from "../../components/DetallesProductos/InformacionProducto";
 import DatosProducto from "../../components/DetallesProductos/datosProducto";
@@ -23,65 +23,45 @@ interface Detalle {
 }
 
 function DetalleConsola() {
-
- const { id } = useParams<{ id: string   }>();
+  const { id } = useParams();
   const [detalles, setDetalles] = useState<Detalle[]>([]);
 
   useEffect(() => {
-
-
     const fetchData = async () => {
-
-
       try {
-        const [dataDetalles] = await ApiPublic
-          ("obtenerDetallesProducto", {id})
-          ;
-
+        const dataDetalles = await ApiPublic("obtenerDetallesProducto", { id });
         setDetalles(dataDetalles || []);
       } catch (error) {
         console.error("Error al obtener datos:", error);
       }
-
-
     };
 
     fetchData();
-
   }, []);
 
-    const nombreProducto = detalles[0]?.nombreProducto ?? '';
-
-
   return (
-
     <React.Fragment>
-
       <Menu />
+      {detalles.map((detalle) => (
+        <main className="detallesConsola-main">
+          <InformacionProducto>
+            <ImagenVideojuego />
 
-      <main className="detallesConsola-main">
+            <DatosProducto
+              titulo={detalle.nombreProducto}
+              marca={detalle.plataforma}
+              precio="2.000.000"
+            />
+          </InformacionProducto>
 
+          <DescripcionProducto />
 
-        <InformacionProducto>
+          <GaleriaVideoJuego />
 
-          <ImagenVideojuego />
-
-            <DatosProducto titulo={nombreProducto} marca="playStation" precio="2.000.000" />
-        
-
-        </InformacionProducto>
-
-        <DescripcionProducto />
-
-        <GaleriaVideoJuego />
-
-        <CalificacionesProducto />
-
-
-      </main>
-
+          <CalificacionesProducto />
+        </main>
+      ))}
     </React.Fragment>
-
   );
 }
 

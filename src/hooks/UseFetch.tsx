@@ -25,6 +25,7 @@ export const ApiPublic = async (
 
         // Agrega el param como parametro de consulta
         url.searchParams.append(key, String(value));
+
       });
     }
 
