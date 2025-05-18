@@ -17,6 +17,11 @@ interface Producto {
   idProducto: string;
   nombreProducto: string;
   precioProducto: number;
+};
+
+interface GeneroJuegos {
+  idGeneroJuego: string;
+  estadoGeneroJuego: string;
 }
 
 export function Videojuegos() {
@@ -25,6 +30,7 @@ export function Videojuegos() {
   const [productos, setProductos] = useState<Producto[]>([]);
   const [tendencias, setTendencias] = useState<Producto[]>([]);
   const [ofertas, setOfertas] = useState<Producto[]>([]);
+  const [generos, setGeneros] = useState<GeneroJuegos[]>([]);
 
 
   // useEffect para renderizar junto con el componente
@@ -32,22 +38,25 @@ export function Videojuegos() {
 
     // Definimos el tipo de producto que queremos obtener
     const tipoProducto = "Videojuego";
+    const categoria = "1";
 
     // Función asíncrona para llamar la API
     const fetchData = async () => {
       try {
         // Llamamos a ApiPublic enviando el parámetro como objeto
         // y guardamos los resultados en variables (se ejecutan varias promises al mismo tiempo y se espera a que todas terminen)
-        const [dataVendidos, dataTendencias, dataOfertas] = await Promise.all([
+        const [dataVendidos, dataTendencias, dataOfertas, dataGeneros] = await Promise.all([
           ApiPublic("obtenerProductosDesc", { tipoProducto }),
           ApiPublic("obtenerProductosTendencias", { tipoProducto }),
           ApiPublic("obtenerProductosOfertas", { tipoProducto }),
+          ApiPublic("obtenerProductosDesc", { tipoProducto, categoria })
         ]);
 
         // Guardamos los datos recibidos en el estado
         setProductos(dataVendidos || []);
         setTendencias(dataTendencias || []);
         setOfertas(dataOfertas || []);
+        setGeneros(dataGeneros || []);
       } catch (error) {
         console.error("Error al obtener datos:", error);
       }
@@ -128,14 +137,15 @@ export function Videojuegos() {
           <BodyCard>
             <h2 className="Titulos-disposicion">Filtra Por Tus preferencias</h2>
             <CategotiasContenedor>
-              <Categorias consola="Default" titulo="Xbox Series X"></Categorias>
-              <Categorias consola="Default" titulo="Xbox Series X"></Categorias>
-              <Categorias consola="Default" titulo="Xbox Series X"></Categorias>
-              <Categorias consola="Default" titulo="Xbox Series X"></Categorias>
-              <Categorias consola="Default" titulo="Xbox Series X"></Categorias>
-              <Categorias consola="Default" titulo="Xbox Series X"></Categorias>
-              <Categorias consola="Default" titulo="Xbox Series X"></Categorias>
-              <Categorias consola="Default" titulo="Xbox Series X"></Categorias>
+              {generos.map((genero) => (
+                <Link
+                  to={`/DetallesVideoJuego/${genero.idGeneroJuego}`}
+                  className="linkCards"
+                  key={genero.idGeneroJuego}
+                >
+                  <Categorias consola="Default" titulo={genero.idGeneroJuego}></Categorias>
+                </Link>
+              ))}
             </CategotiasContenedor>
           </BodyCard>
         </Tienda>
