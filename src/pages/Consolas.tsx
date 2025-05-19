@@ -19,17 +19,23 @@ interface Producto {
 
 export function Consolas() {
   const [productos, setProductos] = React.useState<Producto[]>([]);
+  const [tendencias, setTendencias] = React.useState<Producto[]>([]);
+  const [ofertas, setOfertas] = React.useState<Producto[]>([]);
 
   useEffect(() => {
     const tipoProducto = "Consola";
 
     const FetchData = async () => {
       try {
-        const dataProductos = await ApiPublic("obtenerProductosDesc", {
-          tipoProducto,
-        });
+        const [dataProductos, dataTendencias, dataOfertas] = await Promise.all([
+          ApiPublic("obtenerProductosDesc", { tipoProducto }),
+          ApiPublic("obtenerProductosTendencias", { tipoProducto }),
+          ApiPublic("obtenerProductosOfertas", { tipoProducto }),
+        ]);
 
         setProductos(dataProductos || []);
+        setTendencias(dataTendencias || []);
+        setOfertas(dataOfertas || []);
       } catch (error) {
         console.error("Error al obtener datos:", error);
       }
@@ -70,24 +76,40 @@ export function Consolas() {
           <BodyCard>
             <h2 className="Titulos">Tendencias</h2>
             <ProductosCards>
-              <Card consola="default" />
-              <Card consola="default" />
-              <Card consola="default" />
-              <Card consola="default" />
-              <Card consola="default" />
-              <Card consola="default" />
-              <Card consola="default" />
-              <Card consola="default" />
-              <Card consola="default" />
+              {tendencias.map((tendencia) => (
+                <Link
+                  className="linkCards"
+                  key={tendencia.idProducto}
+                  to="/DetallesConsola"
+                >
+                  <Card
+                    consola="default"
+                    titulo={tendencia.nombreProducto}
+                    precio={tendencia.precioProducto}
+                    imagen={tendencia.idProducto}
+                  />
+                </Link>
+              ))}
             </ProductosCards>
           </BodyCard>
 
           <BodyCard>
             <h2 className="Titulos">Las ofertas de la semana</h2>
             <ProductosCards>
-              <Card consola="default" />
-              <Card consola="default" />
-              <Card consola="default" />
+              {ofertas.map((oferta) => (
+                <Link
+                  className="linkCards"
+                  key={oferta.idProducto}
+                  to="/DetallesConsola"
+                >
+                  <Card
+                    consola="default"
+                    titulo={oferta.nombreProducto}
+                    precio={oferta.precioProducto}
+                    imagen={oferta.idProducto}
+                  />
+                </Link>
+              ))}
             </ProductosCards>
           </BodyCard>
         </Tienda>
