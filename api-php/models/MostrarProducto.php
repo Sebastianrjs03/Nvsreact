@@ -179,6 +179,7 @@ class MostrarProducto
             SELECT
 			p.idProducto, 
             p.precioProducto, 
+            p.totalPrecio,
             p.nombreProducto, 
             pl.idPlataforma AS plataforma 
             FROM producto p 

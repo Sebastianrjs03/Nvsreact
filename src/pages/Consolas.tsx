@@ -1,15 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Menu from "../components/Tienda/Menu";
 import Tienda from "../components/Tienda/Tienda";
 import Banner from "../components/Tienda/Banner";
 import BodyCard from "../components/Tienda/BodyCards";
 import ProductosCards from "../components/Tienda/ProductosCards";
 import Card from "../components/Tienda/Card";
-import { Link } from 'react-router-dom';
-
+import { Link } from "react-router-dom";
+import "../styles/Tienda/Link.css";
 import "../styles/pages/Videojuegos.css";
+import { ApiPublic } from "../hooks/UseFetch";
+
+interface Producto {
+  idProducto: string;
+  totalProducto: number;
+  precioProducto: number;
+  nombreProducto: string;
+}
 
 export function Consolas() {
+  const [productos, setProductos] = React.useState<Producto[]>([]);
+
+  useEffect(() => {
+    const tipoProducto = "Consola";
+
+    const FetchData = async () => {
+      try {
+        const dataProductos = await ApiPublic("obtenerProductosDesc", {
+          tipoProducto,
+        });
+
+        setProductos(dataProductos || []);
+      } catch (error) {
+        console.error("Error al obtener datos:", error);
+      }
+    };
+
+    FetchData();
+  }, []);
+
   return (
     <React.Fragment>
       <Menu />
@@ -18,14 +46,25 @@ export function Consolas() {
           <Banner
             Imagen="Consolas"
             Titulo="PlayStation 5 Slim"
-            Recorte="Morado"
+            Recorte="Default"
           />
           <BodyCard>
             <h2 className="Titulos">Lo más vendido</h2>
             <ProductosCards>
-              <Link to="/DetallesConsola">
-              <Card consola="default" />
-              </Link>
+              {productos.map((producto) => (
+                <Link
+                  className="linkCards"
+                  key={producto.idProducto}
+                  to="/DetallesConsola"
+                >
+                  <Card
+                    consola="default"
+                    titulo={producto.nombreProducto}
+                    precio={producto.precioProducto}
+                    imagen={producto.idProducto}
+                  />
+                </Link>
+              ))}
             </ProductosCards>
           </BodyCard>
           <BodyCard>

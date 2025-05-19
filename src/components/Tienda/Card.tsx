@@ -1,10 +1,26 @@
 import '../../styles/Tienda/Card.css';
 
-const imagenes = import.meta.glob('../../assets/Videojuegos/Portada/*.webp', { eager: true });
+const imagenesVideojuegos = import.meta.glob('../../assets/Videojuegos/Portada/*.webp', { eager: true });
+const imagenesConsolas = import.meta.glob('../../assets/Consolas/Portada/*.webp', { eager: true });
+
+const todasLasImagenes = {
+  ...imagenesVideojuegos,
+  ...imagenesConsolas,
+};
 
 const getImage = (name: string) => {
-    return (imagenes[`../../assets/Videojuegos/Portada/${name}.webp`] as { default: string })?.default;
-  };
+  const rutas = [
+    `../../assets/Videojuegos/Portada/${name}.webp`,
+    `../../assets/Consolas/Portada/${name}.webp`,
+  ];
+
+  for (const ruta of rutas) {
+    const imagen = todasLasImagenes[ruta] as { default: string } | undefined;
+    if (imagen) return imagen.default;
+  }
+
+  return ''; // Si no se encuentra imagen, retorna string vacío o un placeholder
+};
 
   type CardProps = {
     consola: string;

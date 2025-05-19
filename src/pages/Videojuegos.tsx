@@ -6,7 +6,7 @@ import BodyCard from "../components/Tienda/BodyCards";
 import ProductosCards from "../components/Tienda/ProductosCards";
 import Card from "../components/Tienda/Card";
 import CategotiasContenedor from "../components/Tienda/CategoriasContenedor";
-import Categorias from "../components/Tienda/Categorias";
+import Categorias from "../components/Tienda/CategoriasComponent.tsx";
 import { ApiPublic } from "../hooks/UseFetch.tsx";
 import { Link } from "react-router-dom";
 
@@ -15,9 +15,10 @@ import "../styles/Tienda/Link.css";
 
 interface Producto {
   idProducto: string;
-  nombreProducto: string;
+  totalProducto: number;
   precioProducto: number;
-};
+  nombreProducto: string;
+}
 
 interface GeneroJuegos {
   idGeneroJuego: string;
@@ -25,38 +26,36 @@ interface GeneroJuegos {
 }
 
 export function Videojuegos() {
-
   // estados de los productos que traigo de la api
   const [productos, setProductos] = useState<Producto[]>([]);
   const [tendencias, setTendencias] = useState<Producto[]>([]);
   const [ofertas, setOfertas] = useState<Producto[]>([]);
-  const [generos, setGeneros] = useState<GeneroJuegos[]>([]);
-
+  const [generosJuegos, setGenerosJuegos] = useState<GeneroJuegos[]>([]);
 
   // useEffect para renderizar junto con el componente
   useEffect(() => {
-
     // Definimos el tipo de producto que queremos obtener
     const tipoProducto = "Videojuego";
-    const categoria = "1";
+    const generosJuegos = "1";
 
     // Función asíncrona para llamar la API
     const fetchData = async () => {
       try {
         // Llamamos a ApiPublic enviando el parámetro como objeto
         // y guardamos los resultados en variables (se ejecutan varias promises al mismo tiempo y se espera a que todas terminen)
-        const [dataVendidos, dataTendencias, dataOfertas, dataGeneros] = await Promise.all([
-          ApiPublic("obtenerProductosDesc", { tipoProducto }),
-          ApiPublic("obtenerProductosTendencias", { tipoProducto }),
-          ApiPublic("obtenerProductosOfertas", { tipoProducto }),
-          ApiPublic("obtenerProductosDesc", { tipoProducto, categoria })
-        ]);
+        const [dataVendidos, dataTendencias, dataOfertas, dataGenerosJuegos] =
+          await Promise.all([
+            ApiPublic("obtenerProductosDesc", { tipoProducto }),
+            ApiPublic("obtenerProductosTendencias", { tipoProducto }),
+            ApiPublic("obtenerProductosOfertas", { tipoProducto }),
+            ApiPublic("obtenerProductosDesc", { tipoProducto, generosJuegos }),
+          ]);
 
         // Guardamos los datos recibidos en el estado
         setProductos(dataVendidos || []);
         setTendencias(dataTendencias || []);
         setOfertas(dataOfertas || []);
-        setGeneros(dataGeneros || []);
+        setGenerosJuegos(dataGenerosJuegos || []);
       } catch (error) {
         console.error("Error al obtener datos:", error);
       }
@@ -65,15 +64,23 @@ export function Videojuegos() {
     fetchData();
   }, []);
 
+  const primerProducto = tendencias[0];
+  const precioTotal = primerProducto?.totalProducto;
+  const precio = primerProducto?.precioProducto;
+
+  const descuento = precioTotal === precio ? undefined : precio;
+
   return (
     <React.Fragment>
       <Menu />
       <main className="videojuegos-main">
         <Tienda>
           <Banner
-            Imagen="RedDeadRedemption2"
-            Titulo="Red Dead Redemption II"
-            Recorte="Morado"
+            Imagen={primerProducto?.idProducto}
+            Titulo={primerProducto?.nombreProducto}
+            Recorte="Default"
+            precio={precioTotal}
+            descuento={descuento}
           />
           <BodyCard>
             <h2 className="Titulos">Lo más vendido</h2>
@@ -137,13 +144,16 @@ export function Videojuegos() {
           <BodyCard>
             <h2 className="Titulos-disposicion">Filtra Por Tus preferencias</h2>
             <CategotiasContenedor>
-              {generos.map((genero) => (
+              {generosJuegos.map((genero) => (
                 <Link
-                  to={`/DetallesVideoJuego/${genero.idGeneroJuego}`}
-                  className="linkCards"
+                  to={`/Categorias/${genero.idGeneroJuego}`}
+                  className="linkCardsGeneros"
                   key={genero.idGeneroJuego}
                 >
-                  <Categorias consola="Default" titulo={genero.idGeneroJuego}></Categorias>
+                  <Categorias
+                    consola="Default"
+                    titulo={genero.idGeneroJuego}
+                  ></Categorias>
                 </Link>
               ))}
             </CategotiasContenedor>

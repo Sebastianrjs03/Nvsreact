@@ -4,57 +4,95 @@ import Tienda from "../components/Tienda/Tienda";
 import Banner from "../components/Tienda/Banner";
 import BodyCard from "../components/Tienda/BodyCards";
 import ProductosCards from "../components/Tienda/ProductosCards";
-import Card from "../components/Tienda/Card";
-import CategotiasContenedor from "../components/Tienda/CategoriasContenedor";
-import Categorias from "../components/Tienda/Categorias";
+import Card from '../components/Tienda/Card';
+import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import "../styles/pages/Videojuegos.css";
+import "../styles/pages/CategoriasMain.css";
 import "../styles/Tienda/Link.css";
+import { ApiPublic } from "../hooks/UseFetch";
 
 interface Producto {
   idProducto: string;
-  nombreProducto: string;
   precioProducto: number;
+  totalProducto: number;
+  nombreProducto: string;
 }
 
-export function Videojuegos() {
+export function Categorias() {
+  const {id, idPlataforma} = useParams();
+  const plataforma = idPlataforma;
+  const genero = id;
+  const tipoProducto = "Videojuego";
+  
   const [productos, setProductos] = useState<Producto[]>([]);
-  const [tendencias, setTendencias] = useState<Producto[]>([]);
-  const [ofertas, setOfertas] = useState<Producto[]>([]);
 
   useEffect(() => {
-    const tipoProducto = "Videojuego";
 
-    const urls = [
-      `http://localhost/api-php?ruta=obtenerProductosDesc&tipoProducto=${tipoProducto}`,
-      `http://localhost/api-php?ruta=obtenerProductosTendencias&tipoProducto=${tipoProducto}`,
-      `http://localhost/api-php?ruta=obtenerProductosOfertas&tipoProducto=${tipoProducto}`,
-    ];
+    const dataToSend: any = {
+  tipoProducto,
+  genero
+};
 
-    Promise.all(urls.map((url) => fetch(url).then((res) => res.json())))
-      .then(([dataVendidos, dataTendencias, dataOfertas]) => {
-        setProductos(dataVendidos);
-        setTendencias(dataTendencias);
-        setOfertas(dataOfertas);
-      })
-      .catch((error) => {
-        console.error("Error al obtener datos:", error);
-      });
-  }, []);
+if (plataforma) {
+  dataToSend.plataforma = plataforma;
+}
+
+      const fetchData = async () => {
+        try {
+          const dataProductos = await ApiPublic("obtenerProductosDesc", dataToSend);
+          setProductos(dataProductos || []);
+        }catch (error) {
+          console.error("Error al obtener datos:", error);
+        }
+      }
+      fetchData();
+  }, [genero, plataforma]);
+
+  const primerProducto = productos[0];
+  const precioTotal = primerProducto?.totalProducto;
+  const precio = primerProducto?.precioProducto;
+
+ const descuento = precioTotal === precio ? undefined : precio;
+
+ let recorte;
+ let CardColor;
+
+  switch (plataforma) {
+    case "Xbox":
+      recorte = "Xbox";
+      CardColor = "xbox";
+      break;
+    case "PlayStation":
+      recorte = "Playstation";
+      CardColor = "play";
+      break;
+    case "Nintendo":
+      recorte = "Nintendo";
+      CardColor = "nintendo";
+      break;
+    default:
+      recorte = "Default";
+      CardColor = "default";
+      break;
+  }
+
+  const mainColor = `${recorte}Categorias`
 
   return (
     <React.Fragment>
       <Menu />
-      <main className="videojuegos-main">
+      <main className={mainColor}>
         <Tienda>
           <Banner
-            Imagen="RedDeadRedemption2"
-            Titulo="Red Dead Redemption II"
-            Recorte="Morado"
+            Imagen= {primerProducto?.idProducto}
+            Titulo={primerProducto?.nombreProducto}
+            Recorte={recorte}
+            precio={precioTotal}
+            descuento={descuento}
           />
           <BodyCard>
-            <h2 className="Titulos">Lo más vendido</h2>
+            <h2 className="Titulos">Lo mejor en {id}</h2>
 
             <ProductosCards>
               {productos.map((producto) => (
@@ -64,7 +102,7 @@ export function Videojuegos() {
                 >
                   <Card
                     key={producto.idProducto}
-                    consola="default"
+                    consola={CardColor}
                     titulo={producto.nombreProducto}
                     precio={producto.precioProducto}
                     imagen={producto.idProducto}
@@ -73,49 +111,10 @@ export function Videojuegos() {
               ))}
             </ProductosCards>
           </BodyCard>
-          <BodyCard>
-            <h2 className="Titulos">Tendencias</h2>
-            <ProductosCards>
-              {tendencias.map((tendencias) => (
-                <Link
-                  to={`/DetallesVideoJuego/${tendencias.idProducto}`}
-                  className="linkCards"
-                >
-                  <Card
-                    key={tendencias.idProducto}
-                    consola="default"
-                    titulo={tendencias.nombreProducto}
-                    precio={tendencias.precioProducto}
-                    imagen={tendencias.idProducto}
-                  />
-                </Link>
-              ))}
-            </ProductosCards>
-          </BodyCard>
-
-          <BodyCard>
-            <h2 className="Titulos">Las Mejores Ofertas</h2>
-            <ProductosCards>
-              {ofertas.map((ofertas) => (
-                <Link
-                  to={`/DetallesVideoJuego/${ofertas.idProducto}`}
-                  className="linkCards"
-                >
-                  <Card
-                    key={ofertas.idProducto}
-                    consola="default"
-                    titulo={ofertas.nombreProducto}
-                    precio={ofertas.precioProducto}
-                    imagen={ofertas.idProducto}
-                  />
-                </Link>
-              ))}
-            </ProductosCards>
-          </BodyCard>
-        </Tienda>
+         </Tienda>
       </main>
     </React.Fragment>
   );
 }
 
-export default Videojuegos;
+export default Categorias;
