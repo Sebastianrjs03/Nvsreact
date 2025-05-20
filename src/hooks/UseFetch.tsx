@@ -15,7 +15,7 @@ export const ApiPublic = async (
   try {
 
 // Crea el objeto URL
-    let url = new URL(`${Base_Url}${endpoint}`);
+    const url = new URL(`${Base_Url}${endpoint}`);
 
 // Verifica si params fue enviado    
     if (params) {
