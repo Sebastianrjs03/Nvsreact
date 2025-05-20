@@ -1,7 +1,14 @@
 import "../../styles/DetallesProducto/descripcionProducto.css"
 
+type DescripcionProps = {
+  descripcion: string;
+  añoLanzamiento: string;
+  generos:string
 
-function DescripcionProducto() {
+};
+
+
+function DescripcionProducto({descripcion, añoLanzamiento, generos}: DescripcionProps) {
     return (
 
         <section className="descripcionProducto">
@@ -10,8 +17,28 @@ function DescripcionProducto() {
 
             <div>
 
-                <p>Disfruta el combo PlayStation 5 Slim que incluye: Ratchet & Clank: Rift Apart y Returnal. Dos juegos aclamados por la crítica de PlayStation Studios ampliando tus posibilidades de juego. Además disfruta de emocionantes aventuras y experiencias
-                    ... Leer mas.
+                <p>
+                    {descripcion}
+                </p>
+
+            </div>
+
+             <div>
+
+                <h2>Año de lanzamineto:</h2>
+
+                <p>
+                {añoLanzamiento}
+                </p>
+
+            </div>
+
+            <div>
+
+                 <h2>Generos:</h2>
+
+                <p>
+                {generos}
                 </p>
 
             </div>

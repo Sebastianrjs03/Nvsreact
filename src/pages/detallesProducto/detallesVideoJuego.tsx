@@ -12,17 +12,17 @@ import { ApiPublic } from "../../hooks/UseFetch";
 
 interface Detalle {
   idProducto: string;
-  precioProducto: string;
+  precioProducto: number;
   nombreProducto: string;
   descuentoProducto: string;
-  totalProducto: string;
+  totalProducto: number;
   anoLanzamineto: string;
   descripcionJuego: string;
-  genero: string;
-  plataforma: string;
+  aux_genero: string;    
+  aux_plataforma: string; 
 }
 
-function DetalleConsola() {
+function DetalleJuego() {
   const { id } = useParams();
   const [detalles, setDetalles] = useState<Detalle[]>([]);
 
@@ -37,7 +37,7 @@ function DetalleConsola() {
     };
 
     fetchData();
-  }, []);
+  }, []); 
 
   return (
     <React.Fragment>
@@ -45,17 +45,21 @@ function DetalleConsola() {
       {detalles.map((detalle) => (
         <main className="detallesConsola-main">
           <InformacionProducto>
-            <ImagenVideojuego />
+            <ImagenVideojuego imagen={detalle.idProducto} />
 
             <DatosProducto
               titulo={detalle.nombreProducto}
-              marca={detalle.plataforma}
-              precio="2.000.000"
+              marca={detalle.aux_plataforma}
+              precio={detalle.totalProducto}
             />
-          </InformacionProducto>
+          </InformacionProducto>  
 
-          <DescripcionProducto />
-
+          <DescripcionProducto 
+              descripcion={detalle.descripcionJuego} 
+              añoLanzamiento={detalle.anoLanzamineto} 
+              generos={detalle.aux_genero} 
+          />
+          
           <GaleriaVideoJuego />
 
           <CalificacionesProducto />
@@ -65,4 +69,4 @@ function DetalleConsola() {
   );
 }
 
-export default DetalleConsola;
+export default DetalleJuego;

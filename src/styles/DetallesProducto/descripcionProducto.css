@@ -11,3 +11,7 @@
 .descripcionProducto H2 {
     font-size: 30px;
 }
+
+.descripcionProducto p {
+    font-size: 20px;
+}

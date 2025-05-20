@@ -5,6 +5,14 @@ import Visual1 from "../../assets/detallesProducto/visual1_12.jpg"
 import Visual2 from "../../assets/detallesProducto/visual2_12.jpg"
 import Visual3 from "../../assets/detallesProducto/visual3_12.jpg"
 
+const galeriaVideojuego = import.meta.glob(
+  "../../assets/Videojuegos/Trailers/*.mp4",
+  { eager: true }
+);
+
+const getImage = (name: string) => { 
+  return (galeriaVideojuego[`../../assets/Videojuegos/Trailers/${name}.mp4`] as {default: string})?.default; 
+};
 
 
 function GaleriaVideoJuego() {
