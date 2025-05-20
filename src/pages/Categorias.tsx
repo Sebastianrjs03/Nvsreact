@@ -5,6 +5,7 @@ import Banner from "../components/Tienda/Banner";
 import BodyCard from "../components/Tienda/BodyCards";
 import ProductosCards from "../components/Tienda/ProductosCards";
 import Card from '../components/Tienda/Card';
+import Descuento from "../components/Tienda/Descuento";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -14,10 +15,12 @@ import { ApiPublic } from "../hooks/UseFetch";
 
 interface Producto {
   idProducto: string;
-  precioProducto: number;
   totalProducto: number;
+  precioProducto: number;
   nombreProducto: string;
+  descuentoProducto: number;
 }
+
 
 export function Categorias() {
   const {id, idPlataforma} = useParams();
@@ -96,18 +99,30 @@ if (plataforma) {
 
             <ProductosCards>
               {productos.map((producto) => (
-                <Link
-                  to={`/DetallesVideoJuego/${producto.idProducto}`}
-                  className="linkCards"
-                >
-                  <Card
+                  <Link
+                    to={`/DetallesVideoJuego/${producto.idProducto}`}
+                    className="linkCards"
                     key={producto.idProducto}
-                    consola={CardColor}
-                    titulo={producto.nombreProducto}
-                    precio={producto.precioProducto}
-                    imagen={producto.idProducto}
-                  />
-                </Link>
+                  >
+                    {producto.descuentoProducto != 0 && (
+                      <Descuento
+                        consola={CardColor}
+                        precio={producto.descuentoProducto}
+                      />
+                    )}
+
+                    <Card
+                      consola={CardColor}
+                      titulo={producto.nombreProducto}
+                      precio={producto.totalProducto}
+                      descuento={
+                        producto.totalProducto === producto.precioProducto
+                          ? undefined
+                          : producto.precioProducto
+                      }
+                      imagen={producto.idProducto}
+                    />
+                  </Link>
               ))}
             </ProductosCards>
           </BodyCard>

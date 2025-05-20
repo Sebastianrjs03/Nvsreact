@@ -7,6 +7,7 @@ import ProductosCards from "../components/Tienda/ProductosCards";
 import Card from "../components/Tienda/Card";
 import CategotiasContenedor from "../components/Tienda/CategoriasContenedor";
 import Categorias from "../components/Tienda/CategoriasComponent";
+import Descuento from "../components/Tienda/Descuento";
 import "../styles/Tienda/Link.css";
 import { Link } from "react-router-dom";
 
@@ -15,8 +16,9 @@ import "../styles/pages/Xbox.css";
 interface Producto {
   idProducto: string;
   totalProducto: number;
-  nombreProducto: string;
   precioProducto: number;
+  nombreProducto: string;
+  descuentoProducto: number;
 }
 
 interface GeneroJuegos {
@@ -76,26 +78,60 @@ export function Xbox() {
               <h2 className="Titulos">Lo más vendido</h2>
               <ProductosCards>
                 {productos.map((producto) => (
-                  <Card
+                <Link
+                    to={`/DetallesVideoJuego/${producto.idProducto}`}
+                    className="linkCards"
                     key={producto.idProducto}
-                    consola="xbox"
-                    titulo={producto.nombreProducto}
-                    precio={producto.precioProducto}
-                    imagen={producto.idProducto}
-                  />
+                  >
+                    {producto.descuentoProducto != 0 && (
+                      <Descuento
+                        consola="xbox"
+                        precio={producto.descuentoProducto}
+                      />
+                    )}
+
+                    <Card
+                      consola="xbox"
+                      titulo={producto.nombreProducto}
+                      precio={producto.totalProducto}
+                      descuento={
+                        producto.totalProducto === producto.precioProducto
+                          ? undefined
+                          : producto.precioProducto
+                      }
+                      imagen={producto.idProducto}
+                    />
+                  </Link>
                 ))}
               </ProductosCards>
             </BodyCard>
             <h2 className="Titulos">Tendencias</h2>
             <ProductosCards>
               {tendencias.map((tendencias) => (
-                <Card
-                  key={tendencias.idProducto}
-                  consola="xbox"
-                  titulo={tendencias.nombreProducto}
-                  precio={tendencias.precioProducto}
-                  imagen={tendencias.idProducto}
-                />
+                 <Link
+                    to={`/DetallesVideoJuego/${tendencias.idProducto}`}
+                    className="linkCards"
+                    key={tendencias.idProducto}
+                  >
+                    {tendencias.descuentoProducto != 0 && (
+                      <Descuento
+                        consola="xbox"
+                        precio={tendencias.descuentoProducto}
+                      />
+                    )}
+
+                    <Card
+                      consola="xbox"
+                      titulo={tendencias.nombreProducto}
+                      precio={tendencias.totalProducto}
+                      descuento={
+                        tendencias.totalProducto === tendencias.precioProducto
+                          ? undefined
+                          : tendencias.precioProducto
+                      }
+                      imagen={tendencias.idProducto}
+                    />
+                  </Link>
               ))}
             </ProductosCards>
           </BodyCard>
@@ -104,13 +140,30 @@ export function Xbox() {
             <h2 className="Titulos">Exclusivos de Xbox</h2>
             <ProductosCards>
               {exclusivos.map((exclusivo) => (
-                <Card
-                  key={exclusivo.idProducto}
-                  consola="xbox"
-                  titulo={exclusivo.nombreProducto}
-                  precio={exclusivo.precioProducto}
-                  imagen={exclusivo.idProducto}
-                />
+                      <Link
+                    to={`/DetallesVideoJuego/${exclusivo.idProducto}`}
+                    className="linkCards"
+                    key={exclusivo.idProducto}
+                  >
+                    {exclusivo.descuentoProducto != 0 && (
+                      <Descuento
+                        consola="xbox"
+                        precio={exclusivo.descuentoProducto}
+                      />
+                    )}
+
+                    <Card
+                      consola="xbox"
+                      titulo={exclusivo.nombreProducto}
+                      precio={exclusivo.totalProducto}
+                      descuento={
+                        exclusivo.totalProducto === exclusivo.precioProducto
+                          ? undefined
+                          : exclusivo.precioProducto
+                      }
+                      imagen={exclusivo.idProducto}
+                    />
+                  </Link>
               ))}
             </ProductosCards>
           </BodyCard>

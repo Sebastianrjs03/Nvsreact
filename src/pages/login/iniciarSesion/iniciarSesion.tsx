@@ -6,8 +6,8 @@ import DecorativeFigure from "../../../components/login/figure"
 
 const Login = () => {
   return (
-    <div className="container">
-      <main className="container">
+    <div className="login-container">
+      <main className="login-container">
         <section>
           <LoginForm />
         </section>

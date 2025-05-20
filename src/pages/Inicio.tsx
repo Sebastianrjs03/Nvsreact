@@ -7,6 +7,7 @@ import Banner from "../components/Tienda/Banner";
 import BodyCard from "../components/Tienda/BodyCards";
 import ProductosCards from "../components/Tienda/ProductosCards";
 import Card from "../components/Tienda/Card";
+import Descuento from "../components/Tienda/Descuento";
 import { Link } from "react-router-dom";
 
 import "../styles/Tienda/Link.css";
@@ -17,8 +18,8 @@ interface Producto {
   totalProducto: number;
   precioProducto: number;
   nombreProducto: string;
+  descuentoProducto: number;
 }
-
 
 export function Inicio() {
   const [tendencias, setTendencias] = useState<Producto[]>([]);
@@ -75,12 +76,23 @@ export function Inicio() {
                 <Link
                   to={`/DetallesVideoJuego/${tendencias.idProducto}`}
                   className="linkCards"
+                  key={tendencias.idProducto}
                 >
+                  {tendencias.descuentoProducto != 0 && (
+                    <Descuento
+                      consola="default"
+                      precio={tendencias.descuentoProducto}
+                    />
+                  )}
                   <Card
-                    key={tendencias.idProducto}
                     consola="default"
                     titulo={tendencias.nombreProducto}
-                    precio={tendencias.precioProducto}
+                    precio={tendencias.totalProducto}
+                    descuento={
+                      tendencias.totalProducto === tendencias.precioProducto
+                        ? undefined
+                        : tendencias.precioProducto
+                    }
                     imagen={tendencias.idProducto}
                   />
                 </Link>
@@ -95,12 +107,23 @@ export function Inicio() {
                 <Link
                   to={`/DetallesVideoJuego/${ofertas.idProducto}`}
                   className="linkCards"
+                  key={ofertas.idProducto}
                 >
+                  {ofertas.descuentoProducto != 0 && (
+                    <Descuento
+                      consola="default"
+                      precio={ofertas.descuentoProducto}
+                    />
+                  )}
                   <Card
-                    key={ofertas.idProducto}
                     consola="default"
                     titulo={ofertas.nombreProducto}
-                    precio={ofertas.precioProducto}
+                    precio={ofertas.totalProducto}
+                    descuento={
+                      ofertas.totalProducto === ofertas.precioProducto
+                        ? undefined
+                        : ofertas.precioProducto
+                    }
                     imagen={ofertas.idProducto}
                   />
                 </Link>

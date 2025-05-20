@@ -5,6 +5,7 @@ import Banner from "../components/Tienda/Banner";
 import BodyCard from "../components/Tienda/BodyCards";
 import ProductosCards from "../components/Tienda/ProductosCards";
 import Card from "../components/Tienda/Card";
+import Descuento from "../components/Tienda/Descuento.tsx";
 import CategotiasContenedor from "../components/Tienda/CategoriasContenedor";
 import Categorias from "../components/Tienda/CategoriasComponent.tsx";
 import { ApiPublic } from "../hooks/UseFetch.tsx";
@@ -18,6 +19,7 @@ interface Producto {
   totalProducto: number;
   precioProducto: number;
   nombreProducto: string;
+  descuentoProducto: number;
 }
 
 interface GeneroJuegos {
@@ -92,10 +94,22 @@ export function Videojuegos() {
                   className="linkCards"
                   key={producto.idProducto}
                 >
+                  {producto.descuentoProducto != 0 && (
+                    <Descuento
+                      consola="default"
+                      precio={producto.descuentoProducto}
+                    />
+                  )}
+
                   <Card
                     consola="default"
                     titulo={producto.nombreProducto}
-                    precio={producto.precioProducto}
+                    precio={producto.totalProducto}
+                    descuento={
+                      producto.totalProducto === producto.precioProducto
+                        ? undefined
+                        : producto.precioProducto
+                    }
                     imagen={producto.idProducto}
                   />
                 </Link>
@@ -111,10 +125,21 @@ export function Videojuegos() {
                   className="linkCards"
                   key={tendencias.idProducto}
                 >
+                  {tendencias.descuentoProducto != 0 && (
+                    <Descuento
+                      consola="default"
+                      precio={tendencias.descuentoProducto}
+                    />
+                  )}
                   <Card
                     consola="default"
                     titulo={tendencias.nombreProducto}
-                    precio={tendencias.precioProducto}
+                    precio={tendencias.totalProducto}
+                    descuento={
+                      tendencias.totalProducto === tendencias.precioProducto
+                        ? undefined
+                        : tendencias.precioProducto
+                    }
                     imagen={tendencias.idProducto}
                   />
                 </Link>
@@ -131,10 +156,21 @@ export function Videojuegos() {
                   className="linkCards"
                   key={ofertas.idProducto}
                 >
+                  {ofertas.descuentoProducto != 0 && (
+                    <Descuento
+                      consola="default"
+                      precio={ofertas.descuentoProducto}
+                    />
+                  )}
                   <Card
                     consola="default"
                     titulo={ofertas.nombreProducto}
-                    precio={ofertas.precioProducto}
+                    precio={ofertas.totalProducto}
+                    descuento={
+                      ofertas.totalProducto === ofertas.precioProducto
+                        ? undefined
+                        : ofertas.precioProducto
+                    }
                     imagen={ofertas.idProducto}
                   />
                 </Link>

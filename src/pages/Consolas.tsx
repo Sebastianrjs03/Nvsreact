@@ -5,6 +5,7 @@ import Banner from "../components/Tienda/Banner";
 import BodyCard from "../components/Tienda/BodyCards";
 import ProductosCards from "../components/Tienda/ProductosCards";
 import Card from "../components/Tienda/Card";
+import Descuento from "../components/Tienda/Descuento";
 import { Link } from "react-router-dom";
 import "../styles/Tienda/Link.css";
 import "../styles/pages/Videojuegos.css";
@@ -15,6 +16,7 @@ interface Producto {
   totalProducto: number;
   precioProducto: number;
   nombreProducto: string;
+  descuentoProducto: number;
 }
 
 export function Consolas() {
@@ -53,6 +55,8 @@ export function Consolas() {
             Imagen="Consolas"
             Titulo="PlayStation 5 Slim"
             Recorte="Default"
+            precio={1800000}
+            descuento={2000000}
           />
           <BodyCard>
             <h2 className="Titulos">Lo más vendido</h2>
@@ -63,10 +67,22 @@ export function Consolas() {
                   key={producto.idProducto}
                   to="/DetallesConsola"
                 >
+                  {producto.descuentoProducto != 0 && (
+                    <Descuento
+                      consola="default"
+                      precio={producto.descuentoProducto}
+                    />
+                  )}
+
                   <Card
                     consola="default"
                     titulo={producto.nombreProducto}
-                    precio={producto.precioProducto}
+                    precio={producto.totalProducto}
+                    descuento={
+                      producto.totalProducto === producto.precioProducto
+                        ? undefined
+                        : producto.precioProducto
+                    }
                     imagen={producto.idProducto}
                   />
                 </Link>
@@ -82,10 +98,22 @@ export function Consolas() {
                   key={tendencia.idProducto}
                   to="/DetallesConsola"
                 >
+                     {tendencia.descuentoProducto != 0 && (
+                    <Descuento
+                      consola="default"
+                      precio={tendencia.descuentoProducto}
+                    />
+                  )}
+
                   <Card
                     consola="default"
                     titulo={tendencia.nombreProducto}
-                    precio={tendencia.precioProducto}
+                    precio={tendencia.totalProducto}
+                    descuento={
+                      tendencia.totalProducto === tendencia.precioProducto
+                        ? undefined
+                        : tendencia.precioProducto
+                    }
                     imagen={tendencia.idProducto}
                   />
                 </Link>
@@ -102,10 +130,22 @@ export function Consolas() {
                   key={oferta.idProducto}
                   to="/DetallesConsola"
                 >
+               {oferta.descuentoProducto != 0 && (
+                    <Descuento
+                      consola="default"
+                      precio={oferta.descuentoProducto}
+                    />
+                  )}
+
                   <Card
                     consola="default"
                     titulo={oferta.nombreProducto}
-                    precio={oferta.precioProducto}
+                    precio={oferta.totalProducto}
+                    descuento={
+                      oferta.totalProducto === oferta.precioProducto
+                        ? undefined
+                        : oferta.precioProducto
+                    }
                     imagen={oferta.idProducto}
                   />
                 </Link>
