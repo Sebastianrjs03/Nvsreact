@@ -1,0 +1,31 @@
+.descuento-body {
+  position: absolute;
+  color: white;
+  display: flex;
+  text-align: center;
+  font-weight: bolder;
+  padding: 0.2rem 1rem;
+  border-radius: 0.5rem;
+  font-size: clamp(0.8rem, 1.5vw, 1.5rem);
+  z-index: 2;
+  top: -0.5rem;
+  left: -0.5rem;
+}
+
+.defaultDescuento{
+    background: linear-gradient(270deg, #00bbff 0%, #6a35cf 100%);
+}
+.playDescuento{
+       background: linear-gradient(270deg, #012aa5 0%, #1b42f1 100%);
+}
+.xboxDescuento{
+       background: linear-gradient(270deg, #28b22e 0%, #157301 100%);
+}
+
+@media (max-width: 600px) {
+  .descuento-body {
+   border-radius: 0.8rem 0rem 0.3rem 0rem;
+    top: 0rem;
+    left: 0rem;
+  }
+}

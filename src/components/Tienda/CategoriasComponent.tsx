@@ -5,19 +5,19 @@ import '../../styles/Tienda/Categorias.css';
     titulo: string;
   }
 
-function Categorias({consola, titulo}: CardProps) {
+function CategoriasComponent({consola, titulo}: CardProps) {
 
     let color;
 
     switch (consola) {
       case "xbox":
-        color = "xbox";
+        color = "xboxCategoria";
         break;
       case "play":
-        color = "play";
+        color = "playCategoria";
         break;
       case "nintendo":
-        color = "nintendo";
+        color = "nintendoCategoria";
         break;
         default:
         color = "default-categorias";
@@ -35,4 +35,4 @@ function Categorias({consola, titulo}: CardProps) {
     );
 }
 
-export default Categorias;
+export default CategoriasComponent;

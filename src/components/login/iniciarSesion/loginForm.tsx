@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const LoginForm = () => {
   return (
-    <div className="container-form">
+    <div className="login-container-form">
       <Logo/>
       <form>
         <input
@@ -24,7 +24,7 @@ const LoginForm = () => {
       <button type="submit" className="buttom">
         Entrar
       </button>
-      <a href="/index.html" className="buttom2">Cancelar</a>
+      <Link to={"/"} className="buttom2">Cancelar</Link>
       <Link className="a1" to={"/registro"}>Registrarse</Link>
       <Link
         to={"/RecuperarContrasena"}

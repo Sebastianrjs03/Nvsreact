@@ -10,7 +10,7 @@ export const ApiPublic = async (
   endpoint: string,
 
 // este es un objeto opcional   
-  params?: Record<string, string | number>
+  params?: Record<string, string | undefined>
 ) => {
   try {
 
@@ -25,6 +25,7 @@ export const ApiPublic = async (
 
         // Agrega el param como parametro de consulta
         url.searchParams.append(key, String(value));
+
       });
     }
 
