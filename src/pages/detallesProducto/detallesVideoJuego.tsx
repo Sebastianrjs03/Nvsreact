@@ -18,8 +18,8 @@ interface Detalle {
   totalProducto: number;
   anoLanzamineto: string;
   descripcionJuego: string;
-  aux_genero: string;    
-  aux_plataforma: string; 
+  aux_genero: string;
+  aux_plataforma: string;
 }
 
 function DetalleJuego() {
@@ -37,7 +37,7 @@ function DetalleJuego() {
     };
 
     fetchData();
-  }, []); 
+  }, []);
 
   return (
     <React.Fragment>
@@ -50,17 +50,20 @@ function DetalleJuego() {
             <DatosProducto
               titulo={detalle.nombreProducto}
               marca={detalle.aux_plataforma}
+              descuento={detalle.descuentoProducto}
               precio={detalle.totalProducto}
             />
-          </InformacionProducto>  
+          </InformacionProducto>
 
-          <DescripcionProducto 
-              descripcion={detalle.descripcionJuego} 
-              añoLanzamiento={detalle.anoLanzamineto} 
-              generos={detalle.aux_genero} 
+          <DescripcionProducto
+            descripcion={detalle.descripcionJuego}
+            añoLanzamiento={detalle.anoLanzamineto}
+            generos={detalle.aux_genero}
           />
-          
-          <GaleriaVideoJuego />
+
+          <GaleriaVideoJuego
+            visuales={detalle.idProducto}
+          />
 
           <CalificacionesProducto />
         </main>

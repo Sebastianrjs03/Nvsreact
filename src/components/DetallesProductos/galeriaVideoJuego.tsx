@@ -1,44 +1,53 @@
-import "../../styles/DetallesProducto/galeriaVideoJuego.css"
-import Trailer from "../../assets/detallesProducto/trailer_8.mp4"
-import Poster from "../../assets/detallesProducto/banner_12.jpg"
-import Visual1 from "../../assets/detallesProducto/visual1_12.jpg"
-import Visual2 from "../../assets/detallesProducto/visual2_12.jpg"
-import Visual3 from "../../assets/detallesProducto/visual3_12.jpg"
+import "../../styles/DetallesProducto/galeriaVideoJuego.css";
 
-const galeriaVideojuego = import.meta.glob(
+const trailers = import.meta.glob(
   "../../assets/Videojuegos/Trailers/*.mp4",
   { eager: true }
 );
 
-const getImage = (name: string) => { 
-  return (galeriaVideojuego[`../../assets/Videojuegos/Trailers/${name}.mp4`] as {default: string})?.default; 
+const posters = import.meta.glob(
+  "../../assets/Videojuegos/Banners/*.jpg",
+  { eager: true }
+);
+
+const visuales = import.meta.glob(
+  "../../assets/Videojuegos/visualesVideojuego/*.jpg",
+  { eager: true }
+);
+
+const getVideo = (id: string) =>
+  (trailers[`../../assets/Videojuegos/Trailers/${id}.mp4`] as { default: string })?.default;
+
+const getPoster = (id: string) =>
+  (posters[`../../assets/Videojuegos/Banners/${id}.jpg`] as { default: string })?.default;
+
+const getVisual = (id: string, index: number) =>
+  (visuales[`../../assets/Videojuegos/visualesVideojuego/visual${index}_${id}.jpg`] as { default: string })?.default;
+
+type GaleriaVideoJuegoProps = {
+  visuales: string;
 };
 
+function GaleriaVideoJuego({ visuales }: GaleriaVideoJuegoProps) {
+  const trailerSrc = getVideo(visuales);
+  const posterSrc = getPoster(visuales);
+  const visualImages = [1, 2, 3].map((i) => getVisual(visuales, i));
 
-function GaleriaVideoJuego() {
-    return (
-
-        <section className="galeriaVideoJuego">
-
-            <h2>Visuales</h2>
-            <div className="galeriaVideoJuego-visuales">
-                <div className="galeriaVideoJuego-video">
-
-                    <video src={Trailer} controls muted poster={Poster}></video>
-
-                </div>
-                <div  className="galeriaVideoJuego-imagenes">
-                    <img src={Visual1} alt="" />
-                    <img src={Visual2} alt="" />
-                    <img src={Visual3} alt="" />
-                </div>
-            </div>
-
-        </section>
-
-
-
-    );
+  return (
+    <section className="galeriaVideoJuego">
+      <h2>Visuales</h2>
+      <div className="galeriaVideoJuego-visuales">
+        <div className="galeriaVideoJuego-video">
+          <video src={trailerSrc} controls muted poster={posterSrc}></video>
+        </div>
+        <div className="galeriaVideoJuego-imagenes">
+          {visualImages.map((src, i) => (
+            <img key={i} src={src} alt={`Visual ${i + 1}`} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
 
 export default GaleriaVideoJuego;
