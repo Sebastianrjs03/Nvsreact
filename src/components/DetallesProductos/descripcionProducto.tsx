@@ -1,14 +1,14 @@
 import "../../styles/DetallesProducto/descripcionProducto.css"
 
 type DescripcionProps = {
-  descripcion: string;
-  añoLanzamiento: string;
-  generos:string
-
+    descripcion: string;
+    añoLanzamiento: string;
+    generos: string;
+    tipoProducto: string;
 };
 
 
-function DescripcionProducto({descripcion, añoLanzamiento, generos}: DescripcionProps) {
+function DescripcionProducto({ descripcion, añoLanzamiento, generos, tipoProducto }: DescripcionProps) {
     return (
 
         <section className="descripcionProducto">
@@ -22,26 +22,34 @@ function DescripcionProducto({descripcion, añoLanzamiento, generos}: Descripcio
                 </p>
 
             </div>
+            {
+                tipoProducto == 'videojuego' && (
+                    <div>
 
-             <div>
 
-                <h2>Año de lanzamineto:</h2>
+                        <h2>Año de lanzamineto:</h2>
 
-                <p>
-                {añoLanzamiento}
-                </p>
+                        <p>
+                            {añoLanzamiento}
+                        </p>
 
-            </div>
 
-            <div>
 
-                 <h2>Generos:</h2>
+                    </div>
+                )}
+            {
+                tipoProducto == 'videojuego' && (
+                    <div>
 
-                <p>
-                {generos}
-                </p>
 
-            </div>
+                        <h2>Generos:</h2>
+
+                        <p>
+                            {generos}
+                        </p>
+
+                    </div>
+                )}
 
         </section>
 

@@ -40,7 +40,7 @@ export default function AppRoutes() {
         <Route path="/iniciarSesion" element={<Login/>} />
         <Route path="/registro" element={<Registro/>} />
         <Route path="/RecuperarContrasena" element={<RecuperarContrasena/>} />
-        <Route path="/DetallesConsola" element={<DetallesConsola/>} />
+        <Route path="/DetallesConsola/:id" element={<DetallesConsola/>} />
         <Route path="/DetallesVideoJuego/:id" element={<DetallesVideoJuego/>} />
         <Route path="/Administrador" element={<Sidebar/>}>
           <Route path='/Administrador/Calificacion_Cliente' element={<CalificacionCliente/>}></Route>

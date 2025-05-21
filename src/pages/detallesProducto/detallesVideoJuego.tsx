@@ -52,6 +52,7 @@ function DetalleJuego() {
               marca={detalle.aux_plataforma}
               descuento={detalle.descuentoProducto}
               precio={detalle.totalProducto}
+              tipoProducto="videojuego"
             />
           </InformacionProducto>
 
@@ -59,6 +60,7 @@ function DetalleJuego() {
             descripcion={detalle.descripcionJuego}
             añoLanzamiento={detalle.anoLanzamineto}
             generos={detalle.aux_genero}
+            tipoProducto="videojuego"
           />
 
           <GaleriaVideoJuego

@@ -65,7 +65,7 @@ export function Consolas() {
                 <Link
                   className="linkCards"
                   key={producto.idProducto}
-                  to="/DetallesConsola"
+                  to={`/DetallesConsola/${producto.idProducto}`}
                 >
                   {producto.descuentoProducto != 0 && (
                     <Descuento

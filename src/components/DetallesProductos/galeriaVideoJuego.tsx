@@ -38,7 +38,7 @@ function GaleriaVideoJuego({ visuales }: GaleriaVideoJuegoProps) {
       <h2>Visuales</h2>
       <div className="galeriaVideoJuego-visuales">
         <div className="galeriaVideoJuego-video">
-          <video src={trailerSrc} controls muted poster={posterSrc}></video>
+          <video src={trailerSrc} controls muted autoPlay poster={posterSrc}></video>
         </div>
         <div className="galeriaVideoJuego-imagenes">
           {visualImages.map((src, i) => (
