@@ -26,15 +26,9 @@ const Sidebar = () => {
                                     </label>
                                     <input type="checkbox" id="usuarios" />
                                     <ul>
-                                        <a href="../indexadmin.php">
+                                        <Link to={"/Administrador/Usuarios"}>
                                             <li>Modificar Usuarios</li>
-                                        </a>
-                                        <a href="../usuarios/admin.php">
-                                            <li>Modificar Cliente</li>
-                                        </a>
-                                        <a href="../usuarios/admin.php">
-                                            <li>Modificar Administrador</li>
-                                        </a>
+                                        </Link>                        
                                     </ul>
                                 </li>
 

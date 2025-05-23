@@ -10,7 +10,7 @@ export const ApiPublic = async (
   endpoint: string,
 
 // este es un objeto opcional   
-  params?: Record<string, string | undefined>
+  params?: Record<string, string | number | undefined>
 ) => {
   try {
 
@@ -58,7 +58,7 @@ export const ApiPrivate = async (endpoint: string, data: []) => {
             },
             body: JSON.stringify(data)
         });
-
+        
         if (response.ok) {
             return await response.json();
         } else if (response.status == 409) {
@@ -77,6 +77,7 @@ export const ApiPrivate = async (endpoint: string, data: []) => {
             console.error(`Error HTTP: ${response.status}`);
         }
     } catch (error) {
+      console.log(error)
         console.error("Error en ApiPrivate:", error);
     }
 };

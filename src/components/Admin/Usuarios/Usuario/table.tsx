@@ -7,21 +7,18 @@ import Swal from 'sweetalert2';
 
 //Components
 import ExampleModal from "./modalUsuario.tsx";
-import { Calificacion } from "../../Types/TypesDatos.tsx";
+import { Usuario } from "../../Types/TypesDatos.tsx";
 
 const Table = () => {
 
-
-
-  const endpoint: string = 'Consultar_CalificacionCliente';
-  const [data, setData] = useState<Calificacion[]>([]);
-  const [selectedCalificacion, setSelectedCalificacion] = useState<Calificacion | null>(null);
+  const endpoint: string = 'Consultar_UsuarioAdmin';
+  const [data, setData] = useState<Usuario[]>([]);
+  const [selectedUsuario, setSelectedUsuario] = useState<Usuario | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
 
-  const getCalifications = async () => {
+  const getUsuario = async () => {
     const result = await ApiPublic(endpoint);
-    
     if (result) {
       setData(result);
     } else {
@@ -30,10 +27,10 @@ const Table = () => {
   };
 
   useEffect(() => {
-    getCalifications();
+    getUsuario();
   }, []);
 
-  const Delete = ( idCliente: number, idProducto: number) => {
+  const Delete = ( idUsuario: number) => {
     Swal.fire({
       title: '¿Estás seguro?',
       text: 'No podrás revertir esto',
@@ -44,10 +41,8 @@ const Table = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         const PK = {
-          id1: idCliente,
-          id2: idProducto,
-          nombre1: "idCliente",
-          nombre2: "idProducto"
+          id1: idUsuario,
+          nombre1: "idUsuario",
         }
         deleteFetch(PK);
       }
@@ -55,46 +50,55 @@ const Table = () => {
   };
 
   const deleteFetch = async (PK: any) => {
-    const response = await ApiPrivate('Eliminar_CalificacionCliente', PK)
+    const response = await ApiPrivate('Eliminar_UsuarioAdmin', PK)
     if (response) {
-      Swal.fire('Eliminado', 'La calificación ha sido eliminada.', 'success');
-      getCalifications();
+      Swal.fire('Eliminado', 'La Usuario ha sido eliminada.', 'success');
+      getUsuario();
     } else {
       Swal.fire({
         icon: "error",
         title: "Acción fallida",
-        text: "No se elimino la calificacion",
+        text: "No se elimino la Usuario",
       });
     }
   }
-
   return (
     <div>
       <div className="contenedor_Tabla">
         <table className="table table-striped table-dark table_Admin">
           <thead>
             <tr>
-              <th scope="col">Id Cliente</th>
-              <th scope="col">ID Producto</th>
-              <th scope="col">Numero Calificacion</th>
-              <th scope="col">Comentario</th>
+              <th scope="col">Id Usuario</th>
+              <th scope="col">Nombre Usuario</th>
+              <th scope="col">Segundo Nombre</th>
+              <th scope="col">Apellido Usuario</th>
+              <th scope="col">Segundo Apellido</th>
+              <th scope="col">Correo</th>
+              <th scope="col">Celular</th>
+              <th scope="col">Contraseña</th>
+              <th scope="col">Rol</th>
               <th scope="col">Editar</th>
               <th scope="col">Eliminar</th>
 
             </tr>
           </thead>
           <tbody>
-            {data.map((calificacion) => (
-              <tr key={`${calificacion.idCliente}-${calificacion.idProducto}`}>
-                <td>{calificacion.idCliente}</td>
-                <td>{calificacion.idProducto}</td>
-                <td>{calificacion.numeroCalificacion}</td>
-                <td>{calificacion.comentarioCalificacion}</td>
+            {data.map((Usuario) => (
+              <tr key={`${Usuario.idUsuario}`}>
+                <td>{Usuario.idUsuario}</td>
+                <td>{Usuario.nombreUsuario}</td>
+                <td>{Usuario.senombreUsuario}</td>
+                <td>{Usuario.apellidoUsuario}</td>
+                <td>{Usuario.seapellidoUsuario}</td>
+                <td>{Usuario.correoUsuario}</td>
+                <td>{Usuario.celularUsuario}</td>
+                <td>{Usuario.contrasenaUsuario}</td>
+                <td>{Usuario.idRol}</td>
                 <td>
                   <button
                     type="button"
                     className="btn btn-primary"
-                    onClick={() => { setSelectedCalificacion(calificacion); setIsOpen(true) }}
+                    onClick={() => { setSelectedUsuario(Usuario); setIsOpen(true) }}
                   >
                     <i className="fa-solid fa-pen"></i>
                   </button>
@@ -102,7 +106,7 @@ const Table = () => {
 
                 </td>
                 <td>
-                  <button className="btn btn-danger" onClick={() => Delete(calificacion.idCliente, calificacion.idProducto)}>
+                  <button className="btn btn-danger" onClick={() => Delete(Usuario.idUsuario)}>
                     <i className="fa-solid fa-trash"></i>
                   </button>
                 </td>
@@ -118,23 +122,22 @@ const Table = () => {
             style={{ backgroundColor: '#4415A2', border: 'none' }}
             onClick={() => setIsOpen(true)}
           >
-            <i className="fa-solid fa-plus"></i> Nueva Calificación
+            <i className="fa-solid fa-plus"></i> Nueva Forma de Pago
           </button>
-          {isOpen && !selectedCalificacion && (
+          {isOpen && !selectedUsuario && (
             <ExampleModal
               setIsOpen={setIsOpen}
               modal="Agregar"
-              get={getCalifications}
+              get={getUsuario}
             />
           )}
-          {isOpen && selectedCalificacion && (
+          {isOpen && selectedUsuario && (
             <ExampleModal
-              idCliente={selectedCalificacion.idCliente}
-              idProducto={selectedCalificacion.idProducto}
-              setCalificacionB={setSelectedCalificacion}
+              idUsuario={selectedUsuario.idUsuario}
+              setUsuarioB={setSelectedUsuario}
               setIsOpen={setIsOpen}
               modal="Editar"
-              get={getCalifications}
+              get={getUsuario}
             />
           )}
         </section>

@@ -311,6 +311,13 @@ width: 4vw;
     border-radius: 10px !important;
     position: relative !important;
     color: #000000;
+    max-height: 465px;
+    overflow-y: auto;
+}
+
+.modal_content::-webkit-scrollbar-thumb {
+  background-color: rgb(0, 0, 0);
+  border-radius: 4px;
 }
 
 .modal-content label {

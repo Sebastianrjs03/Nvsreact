@@ -15,10 +15,10 @@ import DetallesConsola from '../pages/detallesProducto/detallesConsola';
 import DetallesVideoJuego from '../pages/detallesProducto/detallesVideoJuego'
 //Admin
 import Sidebar from '../components/Admin/Sidebar';
-import CalificacionCliente from '../pages/admin/Calificaciones/CalCliente';
+import Usuario from '../pages/admin/Usuarios/Usuario';
 import FormaPago from '../pages/admin/Facturas/FormaPago';
 import Factura from '../pages/admin/Facturas/Factura';
-
+import CalificacionCliente from '../pages/admin/Calificaciones/CalCliente';
 
 export default function AppRoutes() {
   return (
@@ -39,9 +39,10 @@ export default function AppRoutes() {
         <Route path="/DetallesConsola" element={<DetallesConsola/>} />
         <Route path="/DetallesVideoJuego/:id" element={<DetallesVideoJuego/>} />
         <Route path="/Administrador" element={<Sidebar/>}>
-          <Route path='/Administrador/Calificacion_Cliente' element={<CalificacionCliente/>}></Route>
+          <Route path='/Administrador/Usuarios' element={<Usuario/>}></Route>
           <Route path='/Administrador/Forma_Pago' element={<FormaPago/>}></Route>
           <Route path='/Administrador/Facturas' element={<Factura/>}></Route>
+          <Route path='/Administrador/Calificacion_Cliente' element={<CalificacionCliente/>}></Route>
         </Route>
       </Routes>
     </Router>

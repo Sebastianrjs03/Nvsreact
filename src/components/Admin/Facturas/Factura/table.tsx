@@ -19,7 +19,6 @@ const Table = () => {
 
   const getFactura = async () => {
     const result = await ApiPublic(endpoint);
-
     if (result) {
       setData(result);
     } else {
@@ -63,7 +62,6 @@ const Table = () => {
       });
     }
   }
-
   return (
     <div>
       <div className="contenedor_Tabla">
@@ -71,7 +69,12 @@ const Table = () => {
           <thead>
             <tr>
               <th scope="col">Id Factura</th>
-              <th scope="col">Stock Forma</th>
+              <th scope="col">Fecha Factura</th>
+              <th scope="col">IVA</th>
+              <th scope="col">Base Compra</th>
+              <th scope="col">Total Compra</th>
+              <th scope="col">id Cliente</th>
+              <th scope="col">id Forma Pago</th>
               <th scope="col">Editar</th>
               <th scope="col">Eliminar</th>
 
@@ -81,7 +84,7 @@ const Table = () => {
             {data.map((Factura) => (
               <tr key={`${Factura.idFactura}`}>
                 <td>{Factura.idFactura}</td>
-                <td>{Factura.fechaFactura}</td>
+                <td>{Factura.fechaFactura.toString()}</td>
                 <td>{Factura.iva}</td>
                 <td>{Factura.base}</td>
                 <td>{Factura.totalCompra}</td>
@@ -126,7 +129,7 @@ const Table = () => {
           )}
           {isOpen && selectedFactura && (
             <ExampleModal
-              idFormaPago={selectedFactura.idFactura}
+              idFactura={selectedFactura.idFactura}
               setFacturaB={setSelectedFactura}
               setIsOpen={setIsOpen}
               modal="Editar"
