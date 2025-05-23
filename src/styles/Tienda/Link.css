@@ -1,6 +1,22 @@
+.linkCards{
+  position: relative;
+   transition: all 0.2s ease-in-out;
+}
+.linkCards:hover {
+  transform: scale(1.05);
+}
+
 @media (max-width: 600px) {
   .linkCards {
     flex: 0 0 70%;
+    scroll-snap-align: start;
+  }
+  .linkCards:hover {
+    box-shadow: none;
+    transform: none;
+  }
+    .linkCardsGeneros {
+    flex: 0 0 30%;
     scroll-snap-align: start;
   }
 }

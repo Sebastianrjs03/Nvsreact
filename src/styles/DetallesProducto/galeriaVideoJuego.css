@@ -43,6 +43,7 @@
 .galeriaVideoJuego-imagenes img {
     flex: 1;
     border-radius: 15px;
+    width: 50px;
 }
 
 @media (max-width: 768px) {

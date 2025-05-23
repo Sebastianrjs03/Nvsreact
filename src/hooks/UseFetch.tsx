@@ -1,6 +1,3 @@
-//librerias
-import Swal from "sweetalert2";
-
 const Base_Url = import.meta.env.VITE_URL_API
 
 // Declara y exporta la foncion de forma asincrona
@@ -15,7 +12,7 @@ export const ApiPublic = async (
   try {
 
 // Crea el objeto URL
-    let url = new URL(`${Base_Url}${endpoint}`);
+    const url = new URL(`${Base_Url}${endpoint}`);
 
 // Verifica si params fue enviado    
     if (params) {
@@ -47,6 +44,7 @@ export const ApiPublic = async (
   }
 };
 
+<<<<<<< HEAD
 export const ApiPrivate = async (endpoint: string, data: []) => {
     //const token = sessionStorage.getItem("token");
     try {
@@ -79,8 +77,40 @@ export const ApiPrivate = async (endpoint: string, data: []) => {
     } catch (error) {
       console.log(error)
         console.error("Error en ApiPrivate:", error);
+=======
+export const ApiPrivate = async (endpoint: string, data: any) => {
+  try {
+    const response = await fetch(`${Base_Url}${endpoint}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // 'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    const res = await response.json();
+
+    if (response.ok) {
+      return res;
+    } else {
+      return {
+        error: true,
+        status: response.status,
+        mensaje: res?.mensaje ?? "Error en la solicitud.",
+      };
+>>>>>>> 0aefbf5d1d82719fac9501b004e0b753af81d912
     }
+  } catch (error) {
+    console.error("Error en ApiPrivate:", error);
+    return {
+      error: true,
+      status: 500,
+      mensaje: "Error de red o del servidor.",
+    };
+  }
 };
+
 
 
 

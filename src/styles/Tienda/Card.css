@@ -1,4 +1,6 @@
 .card-contenedor {
+  position: relative;
+  z-index: 1;
   border-radius: clamp(1rem, 2.5vw, 2.5rem);
   height: 100%;
   width: 100%;
@@ -10,68 +12,78 @@
   cursor: pointer;
 }
 
-.xbox{
+.card-precioContenedor {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.xbox {
   background-color: #03240e;
 }
 
-.play{
+.play {
   background-color: #011544;
 }
 
-.nintendo{
+.nintendo {
   background-color: #520700;
 }
 
-.default{
+.default {
   background-color: #0c0220;
 }
 
-.card-contenedor:hover {
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.507);
-  transform: scale(1.05);
-}
-
-.card-imagen{
+.card-imagen {
   width: 100%;
   height: 75%;
 }
 
-.card-imagenPortada{
+.card-imagenPortada {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.xbox-imagen{
+.xbox-imagen {
   background-color: #04461a;
 }
 
-.play-imagen{
+.play-imagen {
   background-color: #011b57;
 }
 
-.nintendo-imagen{
+.nintendo-imagen {
   background-color: #6b0f07;
 }
 
-.default-imagen{
+.default-imagen {
   background-color: #140336;
 }
 
-
-.card-informacion{
+.card-informacion {
   padding-left: 4%;
 }
 
-.card-titulo{
-  font-size: clamp(0.65rem, 1.1vw, 1.1rem);
+.card-titulo {
+  font-size: clamp(0.8rem, 1.3vw, 1.3rem);
   font-weight: normal;
   margin: 0;
 }
 
-.card-precio{
-  font-size: clamp(0.65rem, 1.1vw, 1.1rem);
+.card-precio {
+  font-size: clamp(0.7rem, 1.1vw, 1.1rem);
   font-weight: 700;
+  margin: 0;
+}
+
+.card-precioDesc {
+  font-size: clamp(0.65rem, 1vw, 1rem);
+  font-weight: lighter;
+  color: #ffffffc2;
+  text-decoration: line-through;
+  margin: 0;
 }
 
 @media (max-width: 600px) {
@@ -82,4 +94,23 @@
     box-shadow: none;
     transform: none;
   }
+  .card-titulo {
+    font-size: clamp(0.8rem, 1.3vw, 1.3rem);
+    font-weight: normal;
+    margin: 0;
+  }
+  .card-titulo {
+    font-size: clamp(0.8rem, 1.3vw, 1.3rem);
+    font-weight: normal;
+    margin: 0;
+  }
+  .card-titulo {
+    font-size: clamp(0.1rem, 3.2vw, 4rem);
+  }
+  .card-precio {
+        font-size: clamp(0.1rem, 2.5vw, 4rem);
+  }
+  .card-precioDesc {
+  font-size: clamp(0.1rem, 2.5vw, 4rem);
+}
 }

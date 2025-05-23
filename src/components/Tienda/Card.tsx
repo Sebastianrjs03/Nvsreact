@@ -1,57 +1,86 @@
-import '../../styles/Tienda/Card.css';
+import "../../styles/Tienda/Card.css";
+import Descuento from "./Descuento";
 
-const imagenes = import.meta.glob('../../assets/Videojuegos/Portada/*.webp', { eager: true });
+const imagenesVideojuegos = import.meta.glob(
+  "../../assets/Videojuegos/Portada/*.webp",
+  { eager: true }
+);
+const imagenesConsolas = import.meta.glob(
+  "../../assets/Consolas/Portada/*.webp",
+  { eager: true }
+);
+
+const todasLasImagenes = {
+  ...imagenesVideojuegos,
+  ...imagenesConsolas,
+};
 
 const getImage = (name: string) => {
-    return (imagenes[`../../assets/Videojuegos/Portada/${name}.webp`] as { default: string })?.default;
-  };
+  const rutas = [
+    `../../assets/Videojuegos/Portada/${name}.webp`,
+    `../../assets/Consolas/Portada/${name}.webp`,
+  ];
 
-  type CardProps = {
-    consola: string;
-    titulo: string;
-    precio: number;
-    imagen: string;
+  for (const ruta of rutas) {
+    const imagen = todasLasImagenes[ruta] as { default: string } | undefined;
+    if (imagen) return imagen.default;
   }
 
-function Card({consola, titulo, precio, imagen}: CardProps) {
-    
-    const imagenPortada = getImage(imagen);
+  return ""; // Si no se encuentra imagen, retorna string vacío o un placeholder
+};
 
-    const precioFormateado = new Intl.NumberFormat('es-CL').format(precio);
-    let color;
+type CardProps = {
+  consola: string;
+  titulo: string;
+  precio: number;
+  descuento?: number;
+  imagen: string;
+};
 
-    switch (consola) {
-      case "xbox":
-        color = "xbox";
-        break;
-      case "play":
-        color = "play";
-        break;
-      case "nintendo":
-        color = "nintendo";
-        break;
-        default:
-        color = "default";
-        break;
-    }
+function Card({ consola, titulo, precio, descuento, imagen }: CardProps) {
+  const imagenPortada = getImage(imagen);
 
-    const cardContenedor = `card-contenedor ${color}`;
-    const cardImagen = `card-imagen ${color}-imagen`;
-  
+  const precioFormateado = new Intl.NumberFormat("es-CL").format(precio);
+  const precioDescuento = descuento
+    ? new Intl.NumberFormat("es-CL").format(descuento)
+    : undefined;
 
-    return(
+  let color;
+
+  switch (consola) {
+    case "xbox":
+      color = "xbox";
+      break;
+    case "play":
+      color = "play";
+      break;
+    case "nintendo":
+      color = "nintendo";
+      break;
+    default:
+      color = "default";
+      break;
+  }
+
+  const cardContenedor = `card-contenedor ${color}`;
+  const cardImagen = `card-imagen ${color}-imagen`;
+
+  return (
     <article className={cardContenedor}>
-        <div className={cardImagen}>
-            <img className='card-imagenPortada' src={imagenPortada} alt="" />
+      <div className={cardImagen}>
+        <img className="card-imagenPortada" src={imagenPortada} alt="" />
+      </div>
+      <div className="card-informacion">
+        <h3 className="card-titulo">{titulo}</h3>
+        <div className="card-precioContenedor">
+          <p className="card-precio">${precioFormateado} COP</p>
+          {precioDescuento && (
+            <p className="card-precioDesc">{precioDescuento}COP</p>
+          )}
         </div>
-        <div className='card-informacion'>
-            <h3 className='card-titulo'>{titulo}</h3>
-            <p className='card-precio'>${precioFormateado} COP</p>
-        </div>
-
+      </div>
     </article>
-
-    );
+  );
 }
 
 export default Card;

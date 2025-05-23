@@ -77,16 +77,16 @@ const Menu: React.FC = () => {
               <i className="fa-solid fa-magnifying-glass"></i>
             </a>
           </li>
-          <li className="menu-listaResponsive-botones">
-            <Link to={"/iniciarSesion"}>
+          <Link to={"/iniciarSesion"}>
+            <li className="menu-listaResponsive-botones">
               <i className="fa-regular fa-user"></i>
-            </Link>
-          </li>
-          <li className="menu-listaResponsive-botones">
-            <Link to={"/Carrito"}>
+            </li>
+          </Link>
+          <Link to={"/Carrito"}>
+            <li className="menu-listaResponsive-botones">
               <i className="fa-solid fa-cart-shopping"></i>
-            </Link>
-          </li>
+            </li>
+          </Link>
         </ul>
       </nav>
     </header>

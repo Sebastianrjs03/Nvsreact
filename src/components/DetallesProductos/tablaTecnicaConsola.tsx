@@ -1,7 +1,20 @@
 import "../../styles/DetallesProducto/tablaTecnicaConsola.css"
 
+type TablaTecnicaProps = {
 
-function TablaTecnicaConsola() {
+    colorConsola: string;
+    tipoControles: string;
+    controles: string;
+    controlesSoporta: string;
+    procesador: string;
+    resolucion: string;
+    alimentacion: string;
+    conectividad: string;
+    puertos: string;
+
+};
+
+function TablaTecnicaConsola({ colorConsola, tipoControles, controles, controlesSoporta, procesador, resolucion, alimentacion, conectividad, puertos  }: TablaTecnicaProps) {
     return (
 
         <section className="tablaTecnicaConsola">
@@ -9,39 +22,39 @@ function TablaTecnicaConsola() {
             <table>
                 <tr>
                     <td className="tablaTecnicaConsola-tituloTabla">Color</td>
-                    <td>Blanco</td>
+                    <td>{colorConsola}</td>
                 </tr>
                 <tr>
                     <td className="tablaTecnicaConsola-tituloTabla">Tipo de Controles</td>
-                    <td>DualSense</td>
+                    <td>{tipoControles}</td>
                 </tr>
                 <tr>
                     <td className="tablaTecnicaConsola-tituloTabla">Controles incluidos</td>
-                    <td>1</td>
+                    <td>{controles}</td>
                 </tr>
                 <tr>
                     <td className="tablaTecnicaConsola-tituloTabla">Controles que Soporta</td>
-                    <td>4</td>
+                    <td>{controlesSoporta}</td>
                 </tr>
                 <tr>
                     <td className="tablaTecnicaConsola-tituloTabla">Procesador</td>
-                    <td>AMD Ryzen Zen 2 (8 núcleos | 16 hilos | 3,5 GHz)</td>
+                    <td>{procesador}</td>
                 </tr>
                 <tr>
                     <td className="tablaTecnicaConsola-tituloTabla">Resolución</td>
-                    <td>4K | hasta 120 FPS</td>
+                    <td>{resolucion}</td>
                 </tr>
                 <tr>
                     <td className="tablaTecnicaConsola-tituloTabla">Alimentación</td>
-                    <td>SSD de 1 TB | 5,5 GB/s</td>
+                    <td>{alimentacion}</td>
                 </tr>
                 <tr>
                     <td className="tablaTecnicaConsola-tituloTabla">Conectividad</td>
-                    <td>Wi-Fi Bluetooth: 2.1 Ethernet</td>
+                    <td>{conectividad}</td>
                 </tr>
                 <tr>
                     <td className="tablaTecnicaConsola-tituloTabla">Puertos</td>
-                    <td>Puerto de salida HDMI™ (salida HDR compatible) 2x...</td>
+                    <td>{puertos}</td>
                 </tr>
             </table>
         </section>
