@@ -1,6 +1,3 @@
-//librerias
-import Swal from "sweetalert2";
-
 const Base_Url = import.meta.env.VITE_URL_API
 
 // Declara y exporta la foncion de forma asincrona
@@ -47,39 +44,38 @@ export const ApiPublic = async (
   }
 };
 
-export const ApiPrivate = async (endpoint: string, data: []) => {
-    //const token = sessionStorage.getItem("token");
-    try {
-        const response = await fetch(`${Base_Url}${endpoint}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                //'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify(data)
-        });
+export const ApiPrivate = async (endpoint: string, data: any) => {
+  try {
+    const response = await fetch(`${Base_Url}${endpoint}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // 'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
 
-        if (response.ok) {
-            return await response.json();
-        } else if (response.status == 409) {
-            await Swal.fire({
-                icon: "error",
-                title: "Acción fallida",
-                text: "Identificador duplicado",
-            });
-            return null;
-        } else {
-            await Swal.fire({
-                icon: "error",
-                title: "Acción fallida",
-                text: "Error conexion",
-            });
-            console.error(`Error HTTP: ${response.status}`);
-        }
-    } catch (error) {
-        console.error("Error en ApiPrivate:", error);
+    const res = await response.json();
+
+    if (response.ok) {
+      return res;
+    } else {
+      return {
+        error: true,
+        status: response.status,
+        mensaje: res?.mensaje ?? "Error en la solicitud.",
+      };
     }
+  } catch (error) {
+    console.error("Error en ApiPrivate:", error);
+    return {
+      error: true,
+      status: 500,
+      mensaje: "Error de red o del servidor.",
+    };
+  }
 };
+
 
 
 
