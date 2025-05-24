@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "../../styles/pages/Carrito.css"
-import MenuCarrito from "../../components/Carrito/MenuCarrito"
-import BodyCarrito from "../../components/Carrito/BodyCarrito"
-import CartCarrito from "../../components/Carrito/CartCarrito"
-import ResumenCarrito from "../../components/Carrito/ResumenCarrito"
-import DetalleResumenCarrito from "../../components/Carrito/DetalleResumenCarrito"
+import "../../styles/pages/Carrito.css";
+import MenuCarrito from "../../components/Carrito/MenuCarrito";
+import BodyCarrito from "../../components/Carrito/BodyCarrito";
+import CartCarrito from "../../components/Carrito/CartCarrito";
+import ResumenCarrito from "../../components/Carrito/ResumenCarrito";
+import DetalleResumenCarrito from "../../components/Carrito/DetalleResumenCarrito";
 import { ApiPrivate } from "../../hooks/UseFetch";
 
 interface Producto {
@@ -27,7 +27,7 @@ function Carrito() {
         const data = await ApiPrivate("obtenerCarrito", { ids });
         console.log("Datos productos recibidos:", data);
 
-        if (Array.isArray(data)) {
+      if (Array.isArray(data)) {
           setProductos(data);
         } else {
           console.error("La respuesta no es un arreglo de productos:", data);
@@ -43,7 +43,9 @@ function Carrito() {
 
   const handleDeleteProducto = (id: string) => {
     const ids = JSON.parse(localStorage.getItem("ids") || "[]");
-    const nuevosIds = ids.filter((storedId: string | number) => storedId.toString() !== id.toString());
+    const nuevosIds = ids.filter(
+      (storedId: string | number) => storedId.toString() !== id.toString()
+    );
 
     localStorage.setItem("ids", JSON.stringify(nuevosIds));
     setProductos(productos.filter((p) => p.idProducto !== id));
@@ -84,7 +86,9 @@ function Carrito() {
           <DetalleResumenCarrito
             Total="total"
             Detalle="SubTotal"
-            Precio={productos.reduce((acc, p) => acc + p.totalProducto, 0).toString()}
+            Precio={productos
+              .reduce((acc, p) => acc + p.totalProducto, 0)
+              .toString()}
           />
         </ResumenCarrito>
       </main>
