@@ -1,4 +1,5 @@
 import FormaPago from '../../../pages/admin/Facturas/FormaPago';
+import Usuario from '../../../pages/admin/Usuarios/Usuario';
 export interface Calificacion {
     idCliente: number;
     idProducto: number;
@@ -36,4 +37,33 @@ export interface Factura {
   totalCompra: number,
   idCliente: number,
   idFormaPago: string,
+}
+
+export interface Usuario {
+  idUsuario: number;
+  nombreUsuario: string;
+  senombreUsuario: string;
+  apellidoUsuario: string;
+  seapellidoUsuario: string;
+  correoUsuario: string;
+  celularUsuario: string;
+  contrasenaUsuario: string;
+  idRol: number;
+}
+
+export interface Administrador {
+  idAdministrador: number;
+  documentoAdministrador: string;
+  pf_fk_tdoc: string;
+}
+
+export interface Rol {
+  idRol: number;
+  descRol: string;
+}
+
+export interface TipoDoc {
+  t_doc: string;
+  desc_tdoc: string;
+  estado_tdoc: number;
 }

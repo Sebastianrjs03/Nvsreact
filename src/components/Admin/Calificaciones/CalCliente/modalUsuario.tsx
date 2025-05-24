@@ -32,7 +32,14 @@ const ExampleModal: React.FC<MyModalProps> = ({ idCliente, idProducto, setIsOpen
     const FetchCli_Pro_Cal = async () => {
       try {
         if (modal === "Editar") {
-          const resultC = await ApiPublic(endpointC, idCliente, "idCliente",idProducto, "idProducto")
+          const resultC = await ApiPublic(endpointC,
+            {
+              id1 : idCliente,
+              nombre1 : "idCliente",
+              id2 : idProducto,
+              nombre2 : "idProducto"
+            }
+          )
           if (resultC) { setCalificacion(resultC); }
           if (calificacion) {
             setCalificaciont(calificacion.numeroCalificacion);
