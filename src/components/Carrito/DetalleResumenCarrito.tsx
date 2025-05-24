@@ -21,11 +21,18 @@ function DetalleResumenCarrito({Total, Detalle, Precio }: DetalleResumenCarritoP
 
     const styleTotal = color
 
+    
+  const precioFormateado = new Intl.NumberFormat('es-CO', {
+  style: 'currency',
+  currency: 'COP',
+  minimumFractionDigits: 0,
+}).format(Number(Precio));
+
     return (
 
         <div className={styleTotal}>
             <span>{Detalle}</span>
-            <span>{Precio}</span>
+            <span>{precioFormateado}</span>
         </div>
 
     );

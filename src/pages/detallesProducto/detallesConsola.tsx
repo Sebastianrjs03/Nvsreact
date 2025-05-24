@@ -30,8 +30,6 @@ interface Detalle {
 
 }
 
-
-
 function DetalleConsola() {
   const { id } = useParams();
   const [detalles, setDetalles] = useState<Detalle[]>([]);
@@ -48,6 +46,25 @@ function DetalleConsola() {
 
     fetchData();
   }, []);
+
+ function agregarAlCarrito(idProducto: string | number) {
+  // Forzar IDs como número (si ese es el tipo en la API)
+  const id = Number(idProducto);
+
+  // Recuperar y validar el carrito como array de números
+  const ids: number[] = JSON.parse(localStorage.getItem("ids") || "[]")
+    .filter((item: any) => typeof item === "number");
+
+  // Verificar si ya existe
+  if (!ids.includes(id)) {
+    ids.push(id); 
+    localStorage.setItem("ids", JSON.stringify(ids));
+    alert("Producto agregado al carrito");
+  } else {
+    alert("Este producto ya está en el carrito");
+  }
+}
+
 
   return (
 
@@ -68,6 +85,7 @@ function DetalleConsola() {
               descuento={detalle.descuentoProducto}
               precio={detalle.totalProducto}
               tipoProducto="consola"
+              onAgregarAlCarrito={() => agregarAlCarrito(detalle.idProducto)}
             />
 
           </InformacionProducto>
@@ -98,6 +116,8 @@ function DetalleConsola() {
         </main>
       ))}
     </React.Fragment>
+
+
 
   );
 }

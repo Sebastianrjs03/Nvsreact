@@ -4,6 +4,7 @@ type ResumenCarritoProps = { children: React.ReactNode }
 
 
 function ResumenCarrito({ children }: ResumenCarritoProps) {
+    
     return (
 
         <aside className="resumenCarrito-aside">
