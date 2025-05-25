@@ -9,7 +9,7 @@ interface CeladorProps {
 const Celador = ({ children, rolPermitido}: CeladorProps) => {
   const token = sessionStorage.getItem('token');
   const rol = sessionStorage.getItem('rol');
-
+  
   if (!token || rol !== rolPermitido) {
     return <Navigate to="/" />;
   }

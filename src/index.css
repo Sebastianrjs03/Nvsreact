@@ -7,6 +7,9 @@ main{
   font-family: system-ui;
   overflow-x: hidden;
 }
+p{
+  margin: 0;
+}
 *{
   box-sizing: border-box !important;
   margin: 0;

@@ -55,7 +55,7 @@ const LoginForm = () => {
     sessionStorage.setItem("rol", res.usuario.idRol);
 
     if (res.usuario.idRol === "2") {
-      navigate("/Administrador");
+      navigate("/Administrador/Usuarios");
     } else {
       navigate("/");
     }

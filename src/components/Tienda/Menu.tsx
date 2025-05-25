@@ -12,6 +12,12 @@ const Menu: React.FC = () => {
     setMenuAbierto((prev) => !prev);
   };
 
+  const token = sessionStorage.getItem("token");
+  const rol = sessionStorage.getItem("rol");
+
+  console.log("Token:", token);
+  console.log("Rol:", rol);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -77,11 +83,31 @@ const Menu: React.FC = () => {
               <i className="fa-solid fa-magnifying-glass"></i>
             </a>
           </li>
-          <Link to={"/iniciarSesion"}>
-            <li className="menu-listaResponsive-botones">
-              <i className="fa-regular fa-user"></i>
-            </li>
-          </Link>
+
+          {!token && (
+            <Link to="/iniciarSesion">
+              <li className="menu-listaResponsive-botones">
+                <i className="fa-solid fa-user-plus"></i>
+              </li>
+            </Link>
+          )}
+
+          {token && rol === "1" && (
+            <Link to="/Perfil">
+              <li className="menu-listaResponsive-botones">
+                <i className="fa-solid fa-user-gear"></i>{" "}
+              </li>
+            </Link>
+          )}
+
+          {token && rol === "2" && (
+            <Link to="/Administrador/Usuarios">
+              <li className="menu-listaResponsive-botones">
+                <i className="fa-solid fa-user-shield"></i>
+              </li>
+            </Link>
+          )}
+
           <Link to={"/Carrito"}>
             <li className="menu-listaResponsive-botones">
               <i className="fa-solid fa-cart-shopping"></i>
