@@ -12,12 +12,9 @@ const Menu: React.FC = () => {
     setMenuAbierto((prev) => !prev);
   };
 
-  const token = sessionStorage.getItem("token");
-  const rol = sessionStorage.getItem("rol");
-
-  console.log("Token:", token);
-  console.log("Rol:", rol);
-
+  const token = localStorage.getItem("token");
+  const rol = localStorage.getItem("rol");
+  
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -93,7 +90,7 @@ const Menu: React.FC = () => {
           )}
 
           {token && rol === "1" && (
-            <Link to="/Perfil">
+            <Link to="/Perfil/Cambiar/Email">
               <li className="menu-listaResponsive-botones">
                 <i className="fa-solid fa-user-gear"></i>{" "}
               </li>

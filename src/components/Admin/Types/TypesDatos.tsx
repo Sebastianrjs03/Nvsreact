@@ -67,3 +67,21 @@ export interface TipoDoc {
   desc_tdoc: string;
   estado_tdoc: number;
 }
+
+export interface DetaFactura {
+  fk_pk_Factura : number,
+  fk_pk_Producto: number,
+  cantidadProducto: number,
+  valorUnitarioProducto: number,
+  totalProducto: number,
+}
+
+export interface Genero {
+  idGeneroJuego: string,
+  estadoGeneroJuego: number;
+}
+
+export interface Plataforma {
+  idPlataforma: string,
+  estadoPlataforma: number,
+}

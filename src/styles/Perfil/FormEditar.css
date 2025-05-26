@@ -1,0 +1,60 @@
+.formEditar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;  
+  flex: 2;
+  align-items: center;
+}
+.formEditar-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.formEditar-form input {
+  width: clamp(10rem, 28vw, 28rem);
+  min-width: 200px;
+  height: clamp(2rem, 4.5vw, 3.5rem);
+  padding-left: 10px;
+  color: aliceblue;
+  border-radius: 7px;
+  border: 2px solid transparent;
+  outline: none;
+  background-color: #522d9f;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.formEditar-form input:focus {
+  background-color: #522d9f;
+  animation: borderGradient 2s linear infinite; 
+  box-shadow: 0 0 0 3px rgba(0, 160, 218, 0.842), 0 0 0 3px rgba(106, 53, 207, 0.6); 
+  border-color: transparent;
+}
+
+
+.formEditar-form input::placeholder{ 
+    padding: 2px;
+    color: rgba(255, 255, 255, 0.651);
+}
+
+.formEditar-button {
+    font-weight: bolder;
+    background: linear-gradient(to left, #00bbff, #6a35cf);
+    color: white;
+    font-size: clamp(0.8rem, 1.2vw, 1.2rem);
+    transition: .2s;
+    outline: none;
+    border: none;
+    width: clamp(5rem, 10vw, 10rem);
+    height: clamp(2rem, 3vw, 3rem);
+    border-radius: clamp(0.5rem, 2vw, 2rem);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.formEditar-button:hover{
+    text-shadow: #b4b4b4c2 1px 0 10px;
+    box-shadow: #3500c7 1px 0 10px;
+    transform: scale(1.05);
+}

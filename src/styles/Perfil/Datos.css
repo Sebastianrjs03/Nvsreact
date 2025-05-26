@@ -1,0 +1,14 @@
+.Datos-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: start;
+  padding: clamp(1rem, 3vw, 3rem) clamp(1rem, 3vw, 3rem);
+  gap: 1rem;
+}
+
+.Datos-container h2 {
+  color: #ffffff;
+  font-size: clamp(1.5rem, 3vw, 3rem);
+  font-weight: bold;
+}
