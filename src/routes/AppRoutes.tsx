@@ -17,6 +17,8 @@ import DetallesVideoJuego from '../pages/detallesProducto/detallesVideoJuego'
 
 import Celador from '../components/login/Celador';
 import Perfil from '../pages/Perfil';
+import Email from '../pages/perfil/Email';
+import Contrasena from '../pages/perfil/Contrasena';
 
 
 //Admin
@@ -54,6 +56,9 @@ export default function AppRoutes() {
           <Celador rolPermitido='1'>
              <Perfil/>
           </Celador>}>
+          <Route path='Cambiar/Email' element={<Email/>}></Route>
+          <Route path='Cambiar/Contrasena' element={<Contrasena/>}></Route>
+
         </Route>
         <Route path="/Administrador" 
          element={

@@ -7,8 +7,8 @@ interface CeladorProps {
     }   
 
 const Celador = ({ children, rolPermitido}: CeladorProps) => {
-  const token = sessionStorage.getItem('token');
-  const rol = sessionStorage.getItem('rol');
+  const token = localStorage.getItem('token');
+  const rol = localStorage.getItem('rol');
   
   if (!token || rol !== rolPermitido) {
     return <Navigate to="/" />;

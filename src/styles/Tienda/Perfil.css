@@ -69,7 +69,7 @@
 
 .perfil-contenedorDatos {
   display: flex;
-  padding: 2vw 0; 
+  padding: 1vw 0; 
   flex: 3;
   width: 100%;
   max-width: 86rem;
@@ -144,4 +144,25 @@
   flex: 4;
   padding: 2vw;
   gap: 2vw;
+}
+
+@media (max-width: 1200px) {
+
+  .perfil-header {
+  margin-top: clamp(80px, 10vw, 120px);
+   height: clamp(5rem, 13vw, 13rem);
+   flex: 0.5;
+
+}
+  .perfil-contenedorDatos {
+  display: flex;
+  padding: 1vw 0; 
+  flex: 3;
+  width: 100%;
+  max-width: 86rem;
+  flex-direction: column;
+  align-items: center; 
+}
+
+
 }

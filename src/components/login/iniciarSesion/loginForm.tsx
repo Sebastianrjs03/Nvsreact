@@ -59,8 +59,8 @@ const LoginForm = () => {
       confirmButtonColor: "#7e4efc",
     });
 
-    sessionStorage.setItem("token", res.token);
-    sessionStorage.setItem("rol", res.usuario.idRol);
+    localStorage.setItem("token", res.token);
+    localStorage.setItem("rol", res.usuario.idRol);
 
     if (res.usuario.idRol === "2") {
       navigate("/Administrador/Usuarios");
