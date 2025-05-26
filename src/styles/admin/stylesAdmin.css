@@ -395,6 +395,22 @@
   cursor: pointer;
 }
 
+.ButtonCloseModal {
+    background: linear-gradient(90deg, #6144d2, #2db8ff);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 20%;
+    margin-top: 20px;
+}
+
 .submit {
   background: linear-gradient(90deg, #6144d2, #2db8ff);
   border: none;

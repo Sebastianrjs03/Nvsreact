@@ -13,8 +13,6 @@ interface MyModalProps {
   idUsuario?: number;
   modal: string;
 }
-
-
 const ExampleModal: React.FC<MyModalProps> = ({ idUsuario, setIsOpen, setUsuarioB, modal, get }) => {
 
   const [Usuario, setUsuario] = useState<Usuario | null>(null);
@@ -74,7 +72,7 @@ const ExampleModal: React.FC<MyModalProps> = ({ idUsuario, setIsOpen, setUsuario
   }, []);
 
   useEffect(() => {
-    const FetchRol = async () => {
+    const FetchUsu = async () => {
       if (Usuario) {
         setNombre(Usuario.nombreUsuario);
         setSeNombre(Usuario.senombreUsuario);
@@ -94,10 +92,6 @@ const ExampleModal: React.FC<MyModalProps> = ({ idUsuario, setIsOpen, setUsuario
           if (resultC) {
             setCliente(resultC);
           }
-          if (cliente) {
-            setDireccion(cliente.direccion)
-            setComplemento(cliente.complemento)
-          }
         } else {
           const resultA = await ApiPublic("ConsultarPorID_Administrador",
             {
@@ -108,15 +102,23 @@ const ExampleModal: React.FC<MyModalProps> = ({ idUsuario, setIsOpen, setUsuario
           if (resultA) {
             setAdministrador(resultA);
           }
-          if (Administrador) {
-            setDocumentoA(Administrador.documentoAdministrador)
-            setTipoDocSeleccionado(Administrador.pf_fk_tdoc)
-          }
         }
       }
     };
-    FetchRol();
+    FetchUsu();
   }, [Usuario]);
+
+  useEffect(() => {
+    if (cliente) {
+      setDireccion(cliente.direccion)
+      setComplemento(cliente.complemento)
+    }
+
+    if (Administrador) {
+      setDocumentoA(Administrador.documentoAdministrador)
+      setTipoDocSeleccionado(Administrador.pf_fk_tdoc)
+    }
+  }, [cliente, Administrador]);
 
   const handleRolChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setRolSeleccionado(Number(e.target.value));
@@ -127,43 +129,78 @@ const ExampleModal: React.FC<MyModalProps> = ({ idUsuario, setIsOpen, setUsuario
   };
 
   const Validar = (e: React.FormEvent<HTMLFormElement>) => {
+    console.log(contrasena)
+    console.log(Ccontrasena)
     e.preventDefault();
     const data = {
+      id: idUsuario,
       nombre: nombre,
       segundoNombre: seNombre,
       apellido: apellido,
       segundoApellido: seApellido,
       correo: correo,
       celular: celular,
-      contrasena: Ccontrasena,
+      contrasena: contrasena,
       idRol: RolSeleccionado,
     };
-    
-    if (RolSeleccionado == 0 || tipoDocSeleccionado == "") {
+
+    if (nombre == "" || seNombre == "" || apellido == "" || seApellido == "" || correo == "" || celular == "" || RolSeleccionado == 0) {
       Swal.fire({
         icon: "error",
         title: "Acción fallida",
-        text: "Cliente o Rol en 0",
+        text: "complete todos los campos",
       });
-    }if(RolSeleccionado == 1){
+      return;
+    } else if (modal === "Agregar") {
+      if (contrasena == "" || Ccontrasena == "" ) {
+        Swal.fire({
+          icon: "error",
+          title: "Acción fallida",
+          text: "complete todos los campos",
+        });
+        return;
+      } else if (contrasena !== Ccontrasena) {
+        Swal.fire({
+          icon: "error",
+          title: "Acción fallida",
+          text: "Contraseñas no coinciden",
+        });
+        return;
+      }
+    }
+    if (RolSeleccionado == 1) {
+      if (direccion == "" || complemento == "") {
+        Swal.fire({
+          icon: "error",
+          title: "Acción fallida",
+          text: "direccion o complemento en blanco",
+        }); return;
+      }
       const actualizado = { ...data, direccion: direccion, complemento: complemento };
       if (modal === "Agregar") {
-      Agregar(actualizado);
-    } else if (modal === "Editar") {
-      Editar(data);
-    }
-    }else{
+        Agregar(actualizado);
+      } else if (modal === "Editar") {
+        Editar(actualizado);
+      }
+    } else {
+      if (documentoA == "" || tipoDocSeleccionado == "") {
+        Swal.fire({
+          icon: "error",
+          title: "Acción fallida",
+          text: "documento en blanco o tipo de documento sin seleccionar",
+        }); return;
+      }
       const actualizado = { ...data, documentoAdministrador: documentoA, tipoDoc: tipoDocSeleccionado };
       if (modal === "Agregar") {
-      Agregar(actualizado);
-    } else if (modal === "Editar") {
-      Editar(data);
-    }
+        Agregar(actualizado);
+      } else if (modal === "Editar") {
+        Editar(actualizado);
+      }
     }
   };
 
   const Agregar = async (data: any) => {
-    const response = await ApiPrivate("Crear_Usuario", data);
+    const response = await ApiPrivate("Crear_UsuarioAdmin", data);
     if (response) {
       Swal.fire({
         icon: "success",
@@ -186,7 +223,7 @@ const ExampleModal: React.FC<MyModalProps> = ({ idUsuario, setIsOpen, setUsuario
   }
 
   const Editar = async (data: any) => {
-    const response = await ApiPrivate("Editar_Usuario", data);
+    const response = await ApiPrivate("Editar_UsuarioAdmin", data);
     if (response) {
       Swal.fire({
         icon: "success",
@@ -214,7 +251,6 @@ const ExampleModal: React.FC<MyModalProps> = ({ idUsuario, setIsOpen, setUsuario
   }
 
   return (
-
     <div className="modal-backdrop">
       <div className="modal_content">
         <div className="modal-header">
@@ -252,10 +288,10 @@ const ExampleModal: React.FC<MyModalProps> = ({ idUsuario, setIsOpen, setUsuario
                 </div>
                 <div className="col" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                   <label htmlFor="formGroupExampleInput">Celular Usuario</label>
-                  <input type="text" className="form-control shadow-none" value={celular} onChange={(e) => setCelular(e.target.value)} onFocus={(e) => { if (e.target.value === "0") { e.target.value = ""; } }} />
+                  <input type="number" className="form-control shadow-none" value={celular} onChange={(e) => setCelular(e.target.value)} onFocus={(e) => { if (e.target.value === "0") { e.target.value = ""; } }} />
                 </div>
               </div>
-              <div className="row" style={{ marginBottom: "12px" }}>
+              {modal === "Agregar" && <div className="row" style={{ marginBottom: "12px" }}>
                 <div className="col" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                   <label htmlFor="formGroupExampleInput">Contraseña Usuario</label>
                   <input type="password" className="form-control shadow-none" value={contrasena} onChange={(e) => setContrasena(e.target.value)} onFocus={(e) => { if (e.target.value === "0") { e.target.value = ""; } }} />
@@ -264,11 +300,11 @@ const ExampleModal: React.FC<MyModalProps> = ({ idUsuario, setIsOpen, setUsuario
                   <label htmlFor="formGroupExampleInput">Confirmar Contraseña</label>
                   <input type="password" className="form-control shadow-none" value={Ccontrasena} onChange={(e) => setCcontrasena(e.target.value)} onFocus={(e) => { if (e.target.value === "0") { e.target.value = ""; } }} />
                 </div>
-              </div>
+              </div>}
               <div className="row" style={{ marginBottom: "12px" }}>
                 <div className="col" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                   <select className="form-select" aria-label="Default select example" style={{ backgroundColor: "lightgray", alignItems: "center", marginBottom: "10px" }} value={RolSeleccionado ?? ''} onChange={handleRolChange}>
-                    {RolSeleccionado == 0 ? <option value="">Seleccione un Rol</option> : <option value={RolSeleccionado}>{RolSeleccionado}</option>}
+                    {RolSeleccionado == 0 ? <option value="">Seleccione un Rol</option> : <option value={RolSeleccionado}>{RolSeleccionado == 1 ? <p>Usuario</p> : <p>Administrador</p>}</option>}
                     {RolSeleccionado
                       ? Rol
                         .filter((rol) => rol.idRol !== RolSeleccionado)
@@ -297,38 +333,39 @@ const ExampleModal: React.FC<MyModalProps> = ({ idUsuario, setIsOpen, setUsuario
                   </div>
                 </div>
                 : RolSeleccionado == 2 ?
-                <div className="row" style={{ marginBottom: "12px" }}>
-                  <div className="col" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                    <label htmlFor="formGroupExampleInput">Numero de Documento</label>
-                    <input type="text" className="form-control shadow-none" value={documentoA} onChange={(e) => setDocumentoA(e.target.value)} onFocus={(e) => { if (e.target.value === "0") { e.target.value = ""; } }} />
+                  <div className="row" style={{ marginBottom: "12px" }}>
+                    <div className="col" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                      <label htmlFor="formGroupExampleInput">Numero de Documento</label>
+                      <input type="number" className="form-control shadow-none" value={documentoA} onChange={(e) => setDocumentoA(e.target.value)} onFocus={(e) => { if (e.target.value === "0") { e.target.value = ""; } }} />
+                    </div>
+                    <div className="col" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "end", marginBottom: "3px" }}>
+                      <label htmlFor="formGroupExampleInput">Seleccione</label>
+                      <select className="form-select" aria-label="Default select example" style={{ backgroundColor: "lightgray", alignItems: "center" }} value={tipoDocSeleccionado ?? ''} onChange={handleTipoDocChange}>
+                        {tipoDocSeleccionado == "" ? <option value="">Tipo Documento</option> : <option value={tipoDocSeleccionado}>{tipoDocSeleccionado}</option>}
+                        {tipoDocSeleccionado
+                          ? tipoDoc
+                            .filter((tipo) => tipo.t_doc !== tipoDocSeleccionado)
+                            .map((tipo) => (
+                              <option key={tipo.t_doc} value={tipo.t_doc}>
+                                {tipo.desc_tdoc}
+                              </option>
+                            )) :
+                          tipoDoc
+                            .map((tipo) => (
+                              <option key={tipo.t_doc} value={tipo.t_doc}>
+                                {tipo.desc_tdoc}
+                              </option>
+                            ))
+                        }
+                      </select>
+                    </div>
                   </div>
-                  <div className="col" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                    <select className="form-select" aria-label="Default select example" style={{ backgroundColor: "lightgray", alignItems: "center", marginBottom: "10px" }} value={tipoDocSeleccionado ?? ''} onChange={handleTipoDocChange}>
-                      {tipoDocSeleccionado == "" ? <option value="">Seleccione un Cliente</option> : <option value={tipoDocSeleccionado}>{tipoDocSeleccionado}</option>}
-                      {tipoDocSeleccionado
-                        ? tipoDoc
-                          .filter((tipo) => tipo.t_doc !== tipoDocSeleccionado)
-                          .map((tipo) => (
-                            <option key={tipo.t_doc} value={tipo.t_doc}>
-                              {tipo.desc_tdoc}
-                            </option>
-                          )) :
-                        tipoDoc
-                          .map((tipo) => (
-                            <option key={tipo.t_doc} value={tipo.t_doc}>
-                              {tipo.desc_tdoc}
-                            </option>
-                          ))
-                      }
-                    </select>
+                  :
+                  <div className="row" style={{ marginBottom: "12px" }}>
+                    <div className="col" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                      <p>Escoge un rol</p>
+                    </div>
                   </div>
-                </div> 
-                :
-                <div className="row" style={{ marginBottom: "12px" }}>
-                  <div className="col" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                    <p>Escoge un rol</p>
-                  </div>
-                </div>
               }
               <div className="row">
                 <div className="col" style={{ display: "flex", justifyContent: "center", gap: "35px" }}>

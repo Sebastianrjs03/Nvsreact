@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 
 //Components
 import ExampleModal from "./modalUsuario.tsx";
+import ModalDetalles from "./modalDetalles.tsx";
 import { Usuario } from "../../Types/TypesDatos.tsx";
 
 const Table = () => {
@@ -15,7 +16,7 @@ const Table = () => {
   const [data, setData] = useState<Usuario[]>([]);
   const [selectedUsuario, setSelectedUsuario] = useState<Usuario | null>(null);
   const [isOpen, setIsOpen] = useState(false);
-
+  const [isOpenD, setIsOpenD] = useState(false);
 
   const getUsuario = async () => {
     const result = await ApiPublic(endpoint);
@@ -52,7 +53,7 @@ const Table = () => {
   const deleteFetch = async (PK: any) => {
     const response = await ApiPrivate('Eliminar_UsuarioAdmin', PK)
     if (response) {
-      Swal.fire('Eliminado', 'La Usuario ha sido eliminada.', 'success');
+      Swal.fire('Eliminado', 'El Usuario ha sido eliminada.', 'success');
       getUsuario();
     } else {
       Swal.fire({
@@ -75,10 +76,11 @@ const Table = () => {
               <th scope="col">Segundo Apellido</th>
               <th scope="col">Correo</th>
               <th scope="col">Celular</th>
-              <th scope="col">Contraseña</th>
+              <th scope="col" style={{ maxWidth: "200px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Contraseña</th>
               <th scope="col">Rol</th>
+              <th scope="col">Info</th>
               <th scope="col">Editar</th>
-              <th scope="col">Eliminar</th>
+              <th scope="col">Delete</th>
 
             </tr>
           </thead>
@@ -92,8 +94,17 @@ const Table = () => {
                 <td>{Usuario.seapellidoUsuario}</td>
                 <td>{Usuario.correoUsuario}</td>
                 <td>{Usuario.celularUsuario}</td>
-                <td>{Usuario.contrasenaUsuario}</td>
+                <td style={{ maxWidth: "200px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{Usuario.contrasenaUsuario}</td>
                 <td>{Usuario.idRol}</td>
+                <td>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => { setSelectedUsuario(Usuario); setIsOpenD(true) }}
+                  >
+                    <i className="fa-solid fa-hand-point-up"></i>
+                  </button>
+                </td>
                 <td>
                   <button
                     type="button"
@@ -102,8 +113,6 @@ const Table = () => {
                   >
                     <i className="fa-solid fa-pen"></i>
                   </button>
-
-
                 </td>
                 <td>
                   <button className="btn btn-danger" onClick={() => Delete(Usuario.idUsuario)}>
@@ -122,13 +131,21 @@ const Table = () => {
             style={{ backgroundColor: '#4415A2', border: 'none' }}
             onClick={() => setIsOpen(true)}
           >
-            <i className="fa-solid fa-plus"></i> Nueva Forma de Pago
+            <i className="fa-solid fa-plus"></i> Nuevo Usuario
           </button>
           {isOpen && !selectedUsuario && (
             <ExampleModal
               setIsOpen={setIsOpen}
               modal="Agregar"
               get={getUsuario}
+            />
+          )}
+          {isOpenD && selectedUsuario && (
+            <ModalDetalles
+              idUsuario={selectedUsuario.idUsuario}
+              idRol={selectedUsuario.idRol}
+              setUsuarioB={setSelectedUsuario}
+              setIsOpenD={setIsOpenD}
             />
           )}
           {isOpen && selectedUsuario && (

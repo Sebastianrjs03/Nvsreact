@@ -8,8 +8,8 @@ export const ApiPublic = async (
   // Recibe el endponint
   endpoint: string,
 
-  // este es un objeto opcional
-  params?: Record<string, string | undefined>
+// este es un objeto opcional   
+  params?: Record<string, string | number | undefined>
 ) => {
   try {
     // Crea el objeto URL
