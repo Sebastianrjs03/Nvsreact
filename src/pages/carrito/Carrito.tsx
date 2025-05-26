@@ -13,6 +13,7 @@ interface Producto {
   totalProducto: number;
   aux_plataforma: string;
   stock: number;
+  cantidadSeleccionada: number; 
 }
 
 function Carrito() {
@@ -27,8 +28,12 @@ function Carrito() {
         const data = await ApiPrivate("obtenerCarrito", { ids });
         console.log("Datos productos recibidos:", data);
 
-      if (Array.isArray(data)) {
-          setProductos(data);
+        if (Array.isArray(data)) {
+          const productosConCantidad = data.map((p) => ({
+            ...p,
+            cantidadSeleccionada: 1, 
+          }));
+          setProductos(productosConCantidad);
         } else {
           console.error("La respuesta no es un arreglo de productos:", data);
           setProductos([]);
@@ -46,30 +51,43 @@ function Carrito() {
     const nuevosIds = ids.filter(
       (storedId: string | number) => storedId.toString() !== id.toString()
     );
-
     localStorage.setItem("ids", JSON.stringify(nuevosIds));
     setProductos(productos.filter((p) => p.idProducto !== id));
+  };
+
+  const handleCantidadChange = (id: string, nuevaCantidad: number) => {
+    const productosActualizados = productos.map((p) =>
+      p.idProducto === id ? { ...p, cantidadSeleccionada: nuevaCantidad } : p
+    );
+    setProductos(productosActualizados);
   };
 
   return (
     <React.Fragment>
       <MenuCarrito />
       <main className="carrito-main">
+
         <BodyCarrito>
           {productos.length === 0 ? (
             <p>No hay productos en el carrito.</p>
           ) : (
-            productos.map((prod) => (
-              <CartCarrito
-                imagen={prod.idProducto}
-                key={prod.idProducto}
-                NombreProducto={prod.nombreProducto}
-                Consola={prod.aux_plataforma}
-                Precio={prod.totalProducto.toString()}
-                stock={prod.stock}
-                onDelete={() => handleDeleteProducto(prod.idProducto)}
-              />
-            ))
+            <div className={`bodyCarrito-contenedorCarts ${productos.length > 3 ? "scrollable" : ""}`}>
+              {productos.map((prod) => (
+                <CartCarrito
+                  imagen={prod.idProducto}
+                  key={prod.idProducto}
+                  NombreProducto={prod.nombreProducto}
+                  Consola={prod.aux_plataforma}
+                  Precio={prod.totalProducto.toString()}
+                  stock={prod.stock}
+                  cantidadSeleccionada={prod.cantidadSeleccionada}
+                  onDelete={() => handleDeleteProducto(prod.idProducto)}
+                  onCantidadChange={(cantidad) =>
+                    handleCantidadChange(prod.idProducto, cantidad)
+                  }
+                />
+              ))}
+            </div>
           )}
         </BodyCarrito>
 
@@ -77,8 +95,8 @@ function Carrito() {
           {productos.map((prod) => (
             <DetalleResumenCarrito
               key={prod.idProducto}
-              Detalle={prod.nombreProducto}
-              Precio={prod.totalProducto.toString()}
+              Detalle={`${prod.nombreProducto} x(${prod.cantidadSeleccionada})`}
+              Precio={(prod.totalProducto * prod.cantidadSeleccionada).toString()}
               Total=""
             />
           ))}
@@ -87,7 +105,7 @@ function Carrito() {
             Total="total"
             Detalle="SubTotal"
             Precio={productos
-              .reduce((acc, p) => acc + p.totalProducto, 0)
+              .reduce((acc, p) => acc + p.totalProducto * p.cantidadSeleccionada, 0)
               .toString()}
           />
         </ResumenCarrito>
