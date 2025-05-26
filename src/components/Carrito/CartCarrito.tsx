@@ -1,13 +1,28 @@
 import Swal from 'sweetalert2';
 import '../../styles/Carrito/CartCarrito.css';
-const imagenCarrito = import.meta.glob(
+
+const imagenConsolas = import.meta.glob(
   "../../assets/Consolas/Portada/*.webp",
   { eager: true }
 );
 
-const getImage = (name: string) => { 
-  return (imagenCarrito[`../../assets/Consolas/Portada/${name}.webp`] as {default: string})?.default; // Si no se encuentra imagen, retorna string vacío o un placeholder
+const imagenVideojuegos = import.meta.glob(
+  "../../assets/Videojuegos/Portada/*.webp",
+  { eager: true }
+);
+
+const getImage = (name: string) => {
+  const pathConsola = `../../assets/Consolas/Portada/${name}.webp`;
+  const pathVideojuego = `../../assets/Videojuegos/Portada/${name}.webp`;
+
+  const imagen =
+    (imagenConsolas[pathConsola] as { default: string })?.default ||
+    (imagenVideojuegos[pathVideojuego] as { default: string })?.default;
+
+  return imagen || ""; 
 };
+
+
 
 type CartCarritoProps = {
   NombreProducto: string;
@@ -15,11 +30,23 @@ type CartCarritoProps = {
   Precio: string;
   stock: number;
   imagen: string;
-  onDelete: () => void; // 👈 nuevo prop
+  cantidadSeleccionada: number;
+  onCantidadChange: (cantidad: number) => void; 
+  onDelete: () => void;
 };
 
-function CartCarrito({ NombreProducto, Consola, Precio, stock, imagen, onDelete }: CartCarritoProps) {
+function CartCarrito({
+  NombreProducto,
+  Consola,
+  Precio,
+  stock,
+  imagen,
+  cantidadSeleccionada,
+  onCantidadChange,
+  onDelete
+}: CartCarritoProps) {
   const imagenPortada = getImage(imagen);
+
   const confirmarEliminacion = () => {
     Swal.fire({
       title: '¿Eliminar producto?',
@@ -41,7 +68,7 @@ function CartCarrito({ NombreProducto, Consola, Precio, stock, imagen, onDelete 
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        onDelete(); // 🔥 Eliminar del localStorage desde el padre
+        onDelete();
         Swal.fire({
           title: 'Eliminado',
           text: 'El producto fue eliminado del carrito.',
@@ -57,21 +84,24 @@ function CartCarrito({ NombreProducto, Consola, Precio, stock, imagen, onDelete 
   };
 
   const precioFormateado = new Intl.NumberFormat('es-CO', {
-  style: 'currency',
-  currency: 'COP',
-  minimumFractionDigits: 0,
-}).format(Number(Precio));
+    style: 'currency',
+    currency: 'COP',
+    minimumFractionDigits: 0,
+  }).format(Number(Precio));
 
   return (
     <div className="cartCarrito">
-      <img src={imagenPortada} alt="EA Sports FC 24" />
+      <img src={imagenPortada} alt={NombreProducto} />
       <div className="cartCarrito-infoProducto">
         <h3>{NombreProducto}</h3>
         <p>{Consola}</p>
         <span>{precioFormateado}</span>
       </div>
       <div>
-        <select>
+        <select
+          value={cantidadSeleccionada}
+          onChange={(e) => onCantidadChange(Number(e.target.value))}
+        >
           {Array.from({ length: stock }, (_, i) => (
             <option key={i + 1} value={i + 1}>
               {i + 1}
