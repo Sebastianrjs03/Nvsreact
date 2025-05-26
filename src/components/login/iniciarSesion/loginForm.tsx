@@ -38,24 +38,32 @@ const LoginForm = () => {
 
     if ("error" in res) {
       await Swal.fire({
+        title: "Contraseña o Correo incorrecto",
+        text: "Verifica tu Contraseña o Correo Eléctronico",
         icon: "error",
-        title: "Error al iniciar sesión",
-        text: res.mensaje,
+        background: "#2a0054",
+        color: "#ffffff",
+        iconColor: "#red",
+        confirmButtonColor: "#7e4efc",
       });
       return;
     }
 
     await Swal.fire({
       icon: "success",
-      title: `Bienvenido ${res.usuario.nombreUsuario}`,
+      title: `¡Bienvenido ${res.usuario.nombreUsuario}!`,
       text: res.mensaje,
+      color: "#ffffff",
+      background: "#2a0054",
+      iconColor: "#00a135",
+      confirmButtonColor: "#7e4efc",
     });
 
     sessionStorage.setItem("token", res.token);
     sessionStorage.setItem("rol", res.usuario.idRol);
 
     if (res.usuario.idRol === "2") {
-      navigate("/Administrador");
+      navigate("/Administrador/Usuarios");
     } else {
       navigate("/");
     }

@@ -43,7 +43,7 @@
     border-color: transparent;
   }
   50% {
-    border-color: #00bbff;  
+    border-color: #00bbffd8;  
   }
   100% {
     border-color: #6a35cf;  
@@ -67,7 +67,7 @@
 .login-container-form input:focus {
   background-color: #522d9f;
   animation: borderGradient 2s linear infinite; 
-  box-shadow: 0 0 0 3px rgba(0, 187, 255, 0.6), 0 0 0 3px rgba(106, 53, 207, 0.6); 
+  box-shadow: 0 0 0 3px rgba(0, 160, 218, 0.842), 0 0 0 3px rgba(106, 53, 207, 0.6); 
   border-color: transparent;
 }
 
@@ -75,7 +75,7 @@
 
 .login-container-form input::placeholder{ 
     padding: 2px;
-    color: rgba(255, 255, 255, 0.492);
+    color: rgba(255, 255, 255, 0.651);
 }
 
 

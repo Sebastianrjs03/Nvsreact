@@ -15,6 +15,10 @@ import RecuperarContrasena from '../pages/login/recuperarContrasena/RecuperarCon
 import DetallesConsola from '../pages/detallesProducto/detallesConsola';
 import DetallesVideoJuego from '../pages/detallesProducto/detallesVideoJuego'
 
+import Celador from '../components/login/Celador';
+import Perfil from '../pages/Perfil';
+
+
 //Admin
 import Sidebar from '../components/Admin/Sidebar';
 import Usuario from '../pages/admin/Usuarios/Usuario';
@@ -45,7 +49,20 @@ export default function AppRoutes() {
         <Route path="/RecuperarContrasena" element={<RecuperarContrasena/>} />
         <Route path="/DetallesConsola/:id" element={<DetallesConsola/>} />
         <Route path="/DetallesVideoJuego/:id" element={<DetallesVideoJuego/>} />
-        <Route path="/Administrador" element={<Sidebar/>}>
+
+      
+
+        <Route path="/Perfil" 
+         element={
+          <Celador rolPermitido='1'>
+             <Perfil/>
+          </Celador>}>
+        </Route>
+        <Route path="/Administrador" 
+         element={
+          <Celador rolPermitido='2'>
+             <Sidebar/>
+          </Celador>}>
           <Route path='/Administrador/Usuarios' element={<Usuario/>}></Route>
           <Route path='/Administrador/Plataforma' element={<Plataforma/>}></Route>
           <Route path='/Administrador/Genero' element={<Genero/>}></Route>

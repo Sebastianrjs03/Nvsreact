@@ -22,3 +22,26 @@
     height: 100%;
     box-sizing: border-box;
 }
+
+.bodyCarrito-contenedorCarts.scrollable {
+    max-height: 500px;
+    /* Ajusta según tu diseño */
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+
+/* (Opcional) Estiliza la barra de scroll para que se vea más elegante */
+
+.bodyCarrito-contenedorCarts.scrollable::-webkit-scrollbar {
+    width: 8px;
+}
+
+.bodyCarrito-contenedorCarts.scrollable::-webkit-scrollbar-thumb {
+    background-color: #7e4efc;
+    border-radius: 4px;
+}
+
+.bodyCarrito-contenedorCarts.scrollable::-webkit-scrollbar-track {
+    background-color: transparent;
+}

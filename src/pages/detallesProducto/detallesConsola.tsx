@@ -9,7 +9,7 @@ import TablaTecnicaConsola from "../../components/DetallesProductos/tablaTecnica
 import CalificacionesProducto from "../../components/DetallesProductos/calificacionesProducto";
 import { useParams } from "react-router-dom";
 import { ApiPublic } from "../../hooks/UseFetch";
-
+import Swal from "sweetalert2";
 
 interface Detalle {
   idProducto: string;
@@ -47,24 +47,39 @@ function DetalleConsola() {
     fetchData();
   }, []);
 
- function agregarAlCarrito(idProducto: string | number) {
-  // Forzar IDs como número (si ese es el tipo en la API)
+
+function agregarAlCarrito(idProducto: string | number) {
   const id = Number(idProducto);
 
-  // Recuperar y validar el carrito como array de números
   const ids: number[] = JSON.parse(localStorage.getItem("ids") || "[]")
     .filter((item: any) => typeof item === "number");
 
-  // Verificar si ya existe
   if (!ids.includes(id)) {
-    ids.push(id); 
+    ids.push(id);
     localStorage.setItem("ids", JSON.stringify(ids));
-    alert("Producto agregado al carrito");
+    
+    Swal.fire({
+      title: "Agregado al carrito",
+      text: "El producto ha sido añadido exitosamente.",
+      icon: "success",
+      background: "#2a0054",
+      color: "#ffffff",
+      iconColor: "#facc15",
+      confirmButtonColor: "#7e4efc",
+    });
+
   } else {
-    alert("Este producto ya está en el carrito");
+    Swal.fire({
+      title: "Producto ya en el carrito",
+      text: "Este producto ya está en tu carrito.",
+      icon: "info",
+      background: "#2a0054",
+      color: "#ffffff",
+      iconColor: "#facc15",
+      confirmButtonColor: "#7e4efc",
+    });
   }
 }
-
 
   return (
 
@@ -97,16 +112,16 @@ function DetalleConsola() {
             tipoProducto="consola"
           />
 
-          <TablaTecnicaConsola 
-          colorConsola={detalle.color}
-          tipoControles={detalle.tipoControles}
-          controles={detalle.controlesIncluidos} 
-          controlesSoporta={detalle.controlesSoporta} 
-          procesador={detalle.tipoProcesador}
-          resolucion={detalle.resolucion} 
-          alimentacion={detalle.fuenteAlimentacion} 
-          conectividad={detalle.opcionConectividad} 
-          puertos={detalle.tipoPuertos} 
+          <TablaTecnicaConsola
+            colorConsola={detalle.color}
+            tipoControles={detalle.tipoControles}
+            controles={detalle.controlesIncluidos}
+            controlesSoporta={detalle.controlesSoporta}
+            procesador={detalle.tipoProcesador}
+            resolucion={detalle.resolucion}
+            alimentacion={detalle.fuenteAlimentacion}
+            conectividad={detalle.opcionConectividad}
+            puertos={detalle.tipoPuertos}
           />
 
           <CalificacionesProducto />
