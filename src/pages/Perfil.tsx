@@ -68,7 +68,9 @@ function Perfil() {
               </ul>
             </nav>
           </aside>
-          <section className="perfil-datos"></section>
+          <section className="perfil-datos">
+            <Outlet/>
+          </section>
         </div>
       </main>
     </React.Fragment>
