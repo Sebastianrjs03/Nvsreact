@@ -1,6 +1,6 @@
 import React from "react";
 import "../../styles/Perfil/Datos.css";
-import FormEditar from "../../components/Editar/formEditar";
+import FormEditar from "../../components/Editar/FormEditar";
 
 function Email() {
   return (
