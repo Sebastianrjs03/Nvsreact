@@ -19,7 +19,7 @@ const Sidebar = () => {
                     </div>
                     <div className="contmenu-logo">
                         <nav className="menu">
-                            <ul className="ul-menu">
+                            <ul className="ul_menu">
                                 <li>
                                     <label htmlFor="usuarios">
                                         <i className="fas fa-users" style={{ fontSize: "30px" }}></i> Usuarios
@@ -47,12 +47,12 @@ const Sidebar = () => {
                                         <a href="../productos/anadir_productos.php">
                                             <li>Modificar Videojuegos</li>
                                         </a>
-                                        <a href="../productos/mod_marca.php">
-                                            <li>Modificar Marca</li>
-                                        </a>
-                                        <a href="../productos/mod_genero.php">
-                                            <li>Modificar Genero</li>
-                                        </a>
+                                        <Link to={"/Administrador/Plataforma"}>
+                                            <li>Plataforma</li>
+                                        </Link>
+                                        <Link to={"/Administrador/Genero"}>
+                                            <li>Genero Juego</li>
+                                        </Link>
                                     </ul>
                                 </li>
 
@@ -64,6 +64,9 @@ const Sidebar = () => {
                                     <ul>
                                     <Link to={"/Administrador/Facturas"}>
                                             <li>Factura</li>
+                                        </Link>
+                                        <Link to={"/Administrador/Detalles_Factura"}>
+                                            <li>Detalles Factura</li>
                                         </Link>
                                         <Link to={"/Administrador/Forma_Pago"}>
                                             <li>Forma Pagos</li>

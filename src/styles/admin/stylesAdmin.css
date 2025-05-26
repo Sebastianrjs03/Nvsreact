@@ -13,7 +13,7 @@
 }
 
 .sidebar {
-    color: #fff !important;
+    color: #ffffff !important;
     overflow-y: scroll !important;
     height: 100vh!important;
     width: 17% !important ;
@@ -85,7 +85,7 @@
     text-align: left;
 }
 
-.menu .ul-menu {
+.menu .ul_menu {
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -94,16 +94,17 @@
     margin: 0;
 }
 
-.menu .ul-menu li {
+.menu .ul_menu li {
     margin: 0;
     cursor: pointer;
     display: block;
-    align-items: flex-start;
+    align-items: flex;
     position: relative;
     transition: .1s;
+    gap: 5px;
 }
 
-.menu .ul-menu li .icon {
+.menu .ul_menu li .icon {
     margin-right: 10px;
     font-size: 30px;
 }
@@ -115,6 +116,7 @@
     border-radius: 5px;
     cursor: pointer;
     width: 100%;
+    gap: 10px;
 }
 
 .menu ul li ul {
@@ -123,7 +125,6 @@
     transition: max-height 0.3s ease;
     border-radius: 5px;
     margin-top: 0;
-    padding-left: 30px;
 }
 
 .menu ul li input[type="checkbox"] {
@@ -139,6 +140,7 @@
     cursor: pointer;
     font-size: 12px; 
     margin-bottom: 1px;
+    margin-left: 5px;
 }
 
 .menu ul li ul li:hover {
@@ -250,6 +252,7 @@ width: 4vw;
     padding-left: 10px;
     justify-content: center;
     align-items: center;
+    max-width: 40px;
 }
 
 .user-table tbody tr:nth-child(even) {
@@ -368,6 +371,22 @@ color: rgb(194, 194, 194) !important;
     cursor: pointer;
 }
 
+.ButtonCloseModal {
+    background: linear-gradient(90deg, #6144d2, #2db8ff);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 20%;
+    margin-top: 20px;
+}
+
 .submit {
     background: linear-gradient(90deg, #6144d2, #2db8ff);
     border: none;
@@ -380,7 +399,7 @@ color: rgb(194, 194, 194) !important;
     font-size: 16px;
     cursor: pointer;
     transition: background 0.3s ease;
-    width: 40%;
+    width: 23%;
     margin-top: 20px;
 }
 

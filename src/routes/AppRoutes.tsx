@@ -21,6 +21,9 @@ import Usuario from '../pages/admin/Usuarios/Usuario';
 import FormaPago from '../pages/admin/Facturas/FormaPago';
 import Factura from '../pages/admin/Facturas/Factura';
 import CalificacionCliente from '../pages/admin/Calificaciones/CalCliente';
+import DetallesFactura from '../pages/admin/Facturas/DetalleFactura';
+import Genero from '../pages/admin/Productos/Genero';
+import Plataforma from '../pages/admin/Productos/Plataforma';
 
 export default function AppRoutes() {
   return (
@@ -44,8 +47,11 @@ export default function AppRoutes() {
         <Route path="/DetallesVideoJuego/:id" element={<DetallesVideoJuego/>} />
         <Route path="/Administrador" element={<Sidebar/>}>
           <Route path='/Administrador/Usuarios' element={<Usuario/>}></Route>
-          <Route path='/Administrador/Forma_Pago' element={<FormaPago/>}></Route>
+          <Route path='/Administrador/Plataforma' element={<Plataforma/>}></Route>
+          <Route path='/Administrador/Genero' element={<Genero/>}></Route>
           <Route path='/Administrador/Facturas' element={<Factura/>}></Route>
+          <Route path='/Administrador/Forma_Pago' element={<FormaPago/>}></Route>
+          <Route path='/Administrador/Detalles_Factura' element={<DetallesFactura/>}></Route>         
           <Route path='/Administrador/Calificacion_Cliente' element={<CalificacionCliente/>}></Route>
         </Route>
       </Routes>

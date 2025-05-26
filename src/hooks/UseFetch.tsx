@@ -10,7 +10,7 @@ export const ApiPublic = async (
   endpoint: string,
 
 // este es un objeto opcional   
-  params?: Record<string, string | undefined>
+  params?: Record<string, string | number | undefined>
 ) => {
   try {
 
