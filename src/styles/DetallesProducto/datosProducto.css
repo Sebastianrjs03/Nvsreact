@@ -1,59 +1,59 @@
 .datosProducto {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color: #3b158691;
-    backdrop-filter: blur(0.3rem);
-    width: 100%;
-    height: 100%;
-    border-radius: 20px;
-    padding: 1em;
-    justify-content: space-between;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #25066391;
+  backdrop-filter: blur(1.3rem);
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  padding: 1em;
+  justify-content: space-between;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.411);
 }
 
 .datosProducto h2 {
-    font-size: clamp(0.2 rem, 4vh, 4rem);
+  font-size: clamp(0.2 rem, 4vh, 4rem);
 }
 
 .datosProducto-marca {
-    font-size: clamp(0.5rem, 3vh, 4rem);
-    color: #ccc;
-    margin-bottom: 1rem;
+  font-size: clamp(0.5rem, 3vh, 4rem);
+  color: #ccc;
+  margin-bottom: 1rem;
 }
 
 .datosProducto-precio {
-    font-size: clamp(0.5rem, 3vh, 3rem);
-    ;
-    font-weight: bold;
-    margin-bottom: 20px;
+  font-size: clamp(0.5rem, 3vh, 3rem);
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
 .datosProducto-descuento {
-    font-size: clamp(0.5rem, 2.5vh, 2.5rem);
-    color: #00cfff;
-    margin-bottom: 0;
+  font-size: clamp(0.5rem, 2.5vh, 2.5rem);
+  color: #00cfff;
+  margin-bottom: 0;
 }
 
 .datosProducto-botonCarrito {
-    width: 100%;
-    background: linear-gradient(to right, #7e4efc, #00cfff);
-    border: none;
-    padding: 0.8rem;
-    border-radius: 2rem;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: box-shadow 0.3s ease;
+  width: 100%;
+  background: linear-gradient(to right, #7e4efc, #00cfff);
+  border: none;
+  padding: 0.8rem;
+  border-radius: 2rem;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
 }
 
 .datosProducto-botonCarrito:hover {
-    box-shadow: 0 0 10px #7e4efc, 0 0 20px #00cfff, 0 0 30px #480ff4;
+  box-shadow: 0 0 10px #7e4efc, 0 0 20px #00cfff, 0 0 30px #480ff4;
 }
 
 @media (max-width: 768px) {
-    .datosProducto h2 {
-        font-size: 30px;
-        margin-bottom: 10px;
-    }
+  .datosProducto h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+  }
 }
