@@ -26,12 +26,14 @@ import Nombres from '../pages/perfil/Nombres';
 //Admin
 import Sidebar from '../components/Admin/Sidebar';
 import Usuario from '../pages/admin/Usuarios/Usuario';
-import FormaPago from '../pages/admin/Facturas/FormaPago';
-import Factura from '../pages/admin/Facturas/Factura';
-import CalificacionCliente from '../pages/admin/Calificaciones/CalCliente';
-import DetallesFactura from '../pages/admin/Facturas/DetalleFactura';
+import MostrarProductos from '../pages/admin/Productos/Producto';
 import Genero from '../pages/admin/Productos/Genero';
 import Plataforma from '../pages/admin/Productos/Plataforma';
+import Factura from '../pages/admin/Facturas/Factura';
+import FormaPago from '../pages/admin/Facturas/FormaPago';
+import DetallesFactura from '../pages/admin/Facturas/DetalleFactura';
+import CalificacionCliente from '../pages/admin/Calificaciones/CalCliente';
+
 
 export default function AppRoutes() {
   return (
@@ -72,6 +74,7 @@ export default function AppRoutes() {
              <Sidebar/>
           </Celador>}>
           <Route path='/Administrador/Usuarios' element={<Usuario/>}></Route>
+          <Route path='/Administrador/Productos' element={<MostrarProductos/>}></Route>
           <Route path='/Administrador/Plataforma' element={<Plataforma/>}></Route>
           <Route path='/Administrador/Genero' element={<Genero/>}></Route>
           <Route path='/Administrador/Facturas' element={<Factura/>}></Route>

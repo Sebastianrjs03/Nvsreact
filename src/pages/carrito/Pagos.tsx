@@ -34,7 +34,7 @@ function Pagos() {
     <React.Fragment>
       <MenuPagos />
       <main className="pagos-main">
-        <PayPalScriptProvider options={{ clientId: "AZNhejtlin07MRXowLNYI-JiF_jDQlhRd1A8LZ5pfnvaKYMwxeZAL-jdDOuMWgdzmG6kv1wk9CDYh5vz" }}>
+        <PayPalScriptProvider options={{ clientId: "AZNhejtlin07MRXowLNYI-JiF_jDQlhRd1A8LZ5pfnvaKYMwxeZAL-jdDOuMWgdzmG6kv1wk9CDYh5vz", currency: "COP" }}>
           <BodyPagos total={total} />
         </PayPalScriptProvider>
 

@@ -1,5 +1,4 @@
-import FormaPago from '../../../pages/admin/Facturas/FormaPago';
-import Usuario from '../../../pages/admin/Usuarios/Usuario';
+
 export interface Calificacion {
     idCliente: number;
     idProducto: number;
@@ -84,4 +83,15 @@ export interface Genero {
 export interface Plataforma {
   idPlataforma: string,
   estadoPlataforma: number,
+}
+
+export interface Juego {
+  idJuego: number;
+  anoLanzamiento: Date;
+  descripcionJuego: string;
+}
+
+export interface Consola {
+  idConsola: number,
+  sobreConsola: string,
 }
