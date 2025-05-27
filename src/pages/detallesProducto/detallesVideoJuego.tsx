@@ -7,6 +7,7 @@ import DescripcionProducto from "../../components/DetallesProductos/descripcionP
 import CalificacionesProducto from "../../components/DetallesProductos/calificacionesProducto";
 import ImagenVideojuego from "../../components/DetallesProductos/ImagenVideoJuego";
 import GaleriaVideoJuego from "../../components/DetallesProductos/galeriaVideoJuego";
+import BannerProducto from "../../components/DetallesProductos/bannerProducto";
 import { useParams } from "react-router-dom";
 import { ApiPublic } from "../../hooks/UseFetch";
 import Swal from "sweetalert2";
@@ -73,9 +74,15 @@ function DetalleJuego() {
     }
   }
 
+
   return (
     <React.Fragment>
       <Menu />
+       <BannerProducto
+            Imagen={id!}
+            Recorte="Default"
+          />
+
       {detalles.map((detalle) => (
         <main className="detallesConsola-main">
           <InformacionProducto>

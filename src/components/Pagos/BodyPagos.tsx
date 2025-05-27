@@ -36,7 +36,7 @@ function BodyPagos({ total }: Props) {
                                     purchase_units: [{
                                         amount: {
                                             value: total.toFixed(2),
-                                            currency_code: "USD"
+                                            currency_code: "COP"
                                         }
                                     }]
                                 });
