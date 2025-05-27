@@ -72,14 +72,14 @@ function Perfil() {
                   </li>
                   <i className="fa-solid fa-angle-right"></i>
                 </Link>
-                <Link to="/Perfil/Nombres">
+                <Link to="Cambiar/DatosPersonales">
                   <li>
                     <i className="fa-solid fa-address-card"></i>
-                    <p>Cambiar Nombre</p>
+                    <p>Cambiar datos personales</p>
                   </li>
                   <i className="fa-solid fa-angle-right"></i>
                 </Link>
-                <Link to="/Perfil/Direccion">
+                <Link to="Cambiar/Direccion">
                   <li>
                     <i className="fa-solid fa-location-dot"></i>
                     <p>Cambiar Dirección</p>

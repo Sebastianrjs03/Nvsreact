@@ -19,6 +19,8 @@ import Celador from '../components/login/Celador';
 import Perfil from '../pages/Perfil';
 import Email from '../pages/perfil/Email';
 import Contrasena from '../pages/perfil/Contrasena';
+import Direccion from '../pages/perfil/Direccion';
+import Nombres from '../pages/perfil/Nombres';
 
 
 //Admin
@@ -61,7 +63,8 @@ export default function AppRoutes() {
           </Celador>}>
           <Route path='Cambiar/Email' element={<Email/>}></Route>
           <Route path='Cambiar/Contrasena' element={<Contrasena/>}></Route>
-
+          <Route path='Cambiar/Direccion' element={<Direccion/>}></Route>
+          <Route path='Cambiar/DatosPersonales' element={<Nombres/>}></Route>
         </Route>
         <Route path="/Administrador" 
          element={
