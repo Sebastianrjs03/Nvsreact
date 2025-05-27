@@ -107,6 +107,9 @@ const Sidebar = () => {
                     <Link to={"/Administrador/Facturas"}>
                       <li>Factura</li>
                     </Link>
+                    <Link to={"/Administrador/Detalles_Factura"}>
+                      <li>Detalles Factura</li>
+                    </Link>
                     <Link to={"/Administrador/Forma_Pago"}>
                       <li>Forma Pagos</li>
                     </Link>
