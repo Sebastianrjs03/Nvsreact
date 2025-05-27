@@ -1,32 +1,58 @@
-import React from "react";
-import "../../styles/pages/Pagos.css"
-import MenuPagos from "../../components/Pagos/MenuPagos"
-import BodyPagos from "../../components/Pagos/BodyPagos"
-import ResumenCarrito from "../../components/Carrito/ResumenCarrito"
-import DetalleResumenCarrito from "../../components/Carrito/DetalleResumenCarrito"
+import React, { useEffect, useState } from "react";
+import "../../styles/pages/Pagos.css";
+import MenuPagos from "../../components/Pagos/MenuPagos";
+import BodyPagos from "../../components/Pagos/BodyPagos";
+import ResumenCarrito from "../../components/Carrito/ResumenCarrito";
+import DetalleResumenCarrito from "../../components/Carrito/DetalleResumenCarrito";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+
+interface ProductoResumen {
+  nombre: string;
+  cantidad: number;
+  precioUnitario: number;
+  total: number;
+}
 
 function Pagos() {
-  return (  
+  const [productos, setProductos] = useState<ProductoResumen[]>([]);
+  const [subtotal, setSubtotal] = useState(0);
+  const [iva, setIva] = useState(0);
+  const [total, setTotal] = useState(0);
 
+  useEffect(() => {
+    const data = localStorage.getItem("resumenPago");
+    if (data) {
+      const parsed = JSON.parse(data);
+      setProductos(parsed.productos || []);
+      setSubtotal(parsed.subtotal || 0);
+      setIva(parsed.iva || 0);
+      setTotal(parsed.total || 0);
+    }
+  }, []);
+
+  return (
     <React.Fragment>
-
       <MenuPagos />
-
       <main className="pagos-main">
-
-        <BodyPagos/>
+        <PayPalScriptProvider options={{ clientId: "AZNhejtlin07MRXowLNYI-JiF_jDQlhRd1A8LZ5pfnvaKYMwxeZAL-jdDOuMWgdzmG6kv1wk9CDYh5vz", currency: "COP" }}>
+          <BodyPagos total={total} />
+        </PayPalScriptProvider>
 
         <ResumenCarrito>
-
-          <DetalleResumenCarrito Total="" Detalle="EA FC 24" Precio="200.000"/>
-          <DetalleResumenCarrito Total="total"  Detalle="Total" Precio="200.000"/>
-
+          {productos.map((prod, idx) => (
+            <DetalleResumenCarrito
+              key={idx}
+              Detalle={`${prod.nombre} x(${prod.cantidad})`}
+              Precio={prod.total.toString()}
+              Total=""
+            />
+          ))}
+          <DetalleResumenCarrito Detalle="Subtotal" Precio={subtotal.toFixed(0)} Total="" />
+          <DetalleResumenCarrito Detalle="IVA (19%)" Precio={iva.toFixed(0)} Total="" />
+          <DetalleResumenCarrito Detalle="Total a pagar" Precio={total.toFixed(0)} Total="total" />
         </ResumenCarrito>
-
       </main>
-
     </React.Fragment>
-
   );
 }
 

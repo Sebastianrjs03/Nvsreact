@@ -18,6 +18,9 @@ interface Producto {
 
 function Carrito() {
   const [productos, setProductos] = useState<Producto[]>([]);
+  const [subtotal, setSubtotal] = useState(0);
+  const [iva, setIva] = useState(0);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     const fetchCarrito = async () => {
@@ -46,6 +49,33 @@ function Carrito() {
     fetchCarrito();
   }, []);
 
+  useEffect(() => {
+    const resumen = productos.map((p) => ({
+      nombre: p.nombreProducto,
+      cantidad: p.cantidadSeleccionada,
+      precioUnitario: p.totalProducto,
+      total: p.totalProducto * p.cantidadSeleccionada,
+    }));
+
+    const newSubtotal = resumen.reduce((acc, item) => acc + item.total, 0);
+    const newIva = newSubtotal * 0.19;
+    const newTotal = newSubtotal + newIva;
+
+    setSubtotal(newSubtotal);
+    setIva(newIva);
+    setTotal(newTotal);
+
+    localStorage.setItem(
+      "resumenPago",
+      JSON.stringify({
+        productos: resumen,
+        subtotal: newSubtotal,
+        iva: newIva,
+        total: newTotal,
+      })
+    );
+  }, [productos]);
+
   const handleDeleteProducto = (id: string) => {
     const ids = JSON.parse(localStorage.getItem("ids") || "[]");
     const nuevosIds = ids.filter(
@@ -66,12 +96,15 @@ function Carrito() {
     <React.Fragment>
       <MenuCarrito />
       <main className="carrito-main">
-
         <BodyCarrito>
           {productos.length === 0 ? (
             <p>No hay productos en el carrito.</p>
           ) : (
-            <div className={`bodyCarrito-contenedorCarts ${productos.length > 3 ? "scrollable" : ""}`}>
+            <div
+              className={`bodyCarrito-contenedorCarts ${
+                productos.length > 3 ? "scrollable" : ""
+              }`}
+            >
               {productos.map((prod) => (
                 <CartCarrito
                   imagen={prod.idProducto}
@@ -101,13 +134,9 @@ function Carrito() {
             />
           ))}
 
-          <DetalleResumenCarrito
-            Total="total"
-            Detalle="SubTotal"
-            Precio={productos
-              .reduce((acc, p) => acc + p.totalProducto * p.cantidadSeleccionada, 0)
-              .toString()}
-          />
+          <DetalleResumenCarrito Detalle="Subtotal" Precio={subtotal.toFixed(0)} Total="" />
+          <DetalleResumenCarrito Detalle="IVA (19%)" Precio={iva.toFixed(0)} Total="" />
+          <DetalleResumenCarrito Detalle="Total a pagar" Precio={total.toFixed(0)} Total="total" />
         </ResumenCarrito>
       </main>
     </React.Fragment>

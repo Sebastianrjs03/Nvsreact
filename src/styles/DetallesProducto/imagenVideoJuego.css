@@ -7,7 +7,7 @@
     height: 100%;
     border-radius: 20px;
     padding: 1em;
-    justify-content: space-between
+    justify-content: space-between;
 }
 
 .imagenVideoJuego-portada {
@@ -24,14 +24,6 @@
 
 @media (max-width: 1024px) {
     .imagenVideoJuego {
-        padding: 0;
-    }
-    .imagenVideoJuego-portada {
-        padding: 0;
-        width: 100%;
-        height: auto;
-    }
-    .imagenVideoJuego-portada img {
-        width: 100%;
+        display: none;
     }
 }

@@ -7,6 +7,7 @@ import DescripcionProducto from "../../components/DetallesProductos/descripcionP
 import CalificacionesProducto from "../../components/DetallesProductos/calificacionesProducto";
 import ImagenVideojuego from "../../components/DetallesProductos/ImagenVideoJuego";
 import GaleriaVideoJuego from "../../components/DetallesProductos/galeriaVideoJuego";
+import BannerProducto from "../../components/DetallesProductos/bannerProducto";
 import { useParams } from "react-router-dom";
 import { ApiPublic } from "../../hooks/UseFetch";
 import Swal from "sweetalert2";
@@ -40,42 +41,48 @@ function DetalleJuego() {
     fetchData();
   }, []);
 
-   function agregarAlCarrito(idProducto: string | number) {
-     const id = Number(idProducto);
-   
-     const ids: number[] = JSON.parse(localStorage.getItem("ids") || "[]")
-       .filter((item: any) => typeof item === "number");
-   
-     if (!ids.includes(id)) {
-       ids.push(id);
-       localStorage.setItem("ids", JSON.stringify(ids));
-       
-       Swal.fire({
-         title: "Agregado al carrito",
-         text: "El producto ha sido añadido exitosamente.",
-         icon: "success",
-         background: "#2a0054",
-         color: "#ffffff",
-         iconColor: "#facc15",
-         confirmButtonColor: "#7e4efc",
-       });
-   
-     } else {
-       Swal.fire({
-         title: "Producto ya en el carrito",
-         text: "Este producto ya está en tu carrito.",
-         icon: "info",
-         background: "#2a0054",
-         color: "#ffffff",
-         iconColor: "#facc15",
-         confirmButtonColor: "#7e4efc",
-       });
-     }
-   }
+  function agregarAlCarrito(idProducto: string | number) {
+    const id = Number(idProducto);
+
+    const ids: number[] = JSON.parse(localStorage.getItem("ids") || "[]")
+      .filter((item: any) => typeof item === "number");
+
+    if (!ids.includes(id)) {
+      ids.push(id);
+      localStorage.setItem("ids", JSON.stringify(ids));
+
+      Swal.fire({
+        title: "Agregado al carrito",
+        text: "El producto ha sido añadido exitosamente.",
+        icon: "success",
+        background: "#2a0054",
+        color: "#ffffff",
+        iconColor: "#facc15",
+        confirmButtonColor: "#7e4efc",
+      });
+
+    } else {
+      Swal.fire({
+        title: "Producto ya en el carrito",
+        text: "Este producto ya está en tu carrito.",
+        icon: "info",
+        background: "#2a0054",
+        color: "#ffffff",
+        iconColor: "#facc15",
+        confirmButtonColor: "#7e4efc",
+      });
+    }
+  }
+
 
   return (
     <React.Fragment>
       <Menu />
+       <BannerProducto
+            Imagen={id!}
+            Recorte="Default"
+          />
+
       {detalles.map((detalle) => (
         <main className="detallesConsola-main">
           <InformacionProducto>
@@ -102,7 +109,7 @@ function DetalleJuego() {
             visuales={detalle.idProducto}
           />
 
-          <CalificacionesProducto />
+          <CalificacionesProducto idProducto={detalle.idProducto} />
         </main>
       ))}
     </React.Fragment>

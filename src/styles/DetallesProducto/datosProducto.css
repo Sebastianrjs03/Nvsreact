@@ -3,32 +3,34 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: #3b1586;
+    background-color: #3b158691;
+    backdrop-filter: blur(0.3rem);
     width: 100%;
     height: 100%;
     border-radius: 20px;
     padding: 1em;
-    justify-content: space-between
+    justify-content: space-between;
 }
 
 .datosProducto h2 {
-    font-size: 40px;
+    font-size: clamp(0.2 rem, 4vh, 4rem);
 }
 
 .datosProducto-marca {
-    font-size: 26px;
+    font-size: clamp(0.5rem, 3vh, 4rem);
     color: #ccc;
-    margin-bottom: 20px;
+    margin-bottom: 1rem;
 }
 
 .datosProducto-precio {
-    font-size: 42px;
+    font-size: clamp(0.5rem, 3vh, 3rem);
+    ;
     font-weight: bold;
     margin-bottom: 20px;
 }
 
 .datosProducto-descuento {
-    font-size: 30px;
+    font-size: clamp(0.5rem, 2.5vh, 2.5rem);
     color: #00cfff;
     margin-bottom: 0;
 }
