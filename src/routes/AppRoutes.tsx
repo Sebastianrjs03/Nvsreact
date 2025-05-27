@@ -68,6 +68,7 @@ export default function AppRoutes() {
           <Route path='Cambiar/Direccion' element={<Direccion/>}></Route>
           <Route path='Cambiar/DatosPersonales' element={<Nombres/>}></Route>
         </Route>
+        
         <Route path="/Administrador" 
          element={
           <Celador rolPermitido='2'>
