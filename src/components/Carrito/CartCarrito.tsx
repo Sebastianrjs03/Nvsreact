@@ -56,7 +56,7 @@ function CartCarrito({
       color: '#ffffff',
       iconColor: '#facc15',
       confirmButtonColor: '#7e4efc',
-      cancelButtonColor: '#7e4efc',
+      cancelButtonColor: '#613f92',
       confirmButtonText: 'Sí, eliminar',
       cancelButtonText: 'Cancelar',
       showCancelButton: true,
@@ -77,7 +77,7 @@ function CartCarrito({
           showConfirmButton: false,
           background: '#2a0054',
           color: '#ffffff',
-          iconColor: '#facc15',
+          iconColor: '#00a135',
         });
       }
     });

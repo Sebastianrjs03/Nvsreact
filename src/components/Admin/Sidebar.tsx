@@ -1,6 +1,5 @@
 //Routes
 import { Outlet, Link } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 //css
 
@@ -8,16 +7,6 @@ import { useNavigate } from "react-router-dom";
 import settingImage from "../../assets/admin/setting.png";
 import settingImage1 from "../../assets/logoNVS.svg";
 
-interface MyJwtPayload {
-  id: number;
-  correo: string;
-  nombre: string;
-  segundoNombre: string;
-  apellido: string;
-  segundoApellido: string;
-  rol: string;
-  exp: number;
-}
 
 const Sidebar = () => {
   const Navigate = useNavigate();
@@ -25,19 +14,15 @@ const Sidebar = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("rol");
+    localStorage.removeItem("usuario");
     Navigate("/iniciarSesion");
+    window.location.reload();
   };
 
-  const token = localStorage.getItem("token");
-
-  let decoded: MyJwtPayload | null = null;
-
-  if (token) {
-    decoded = jwtDecode<MyJwtPayload>(token);
-  }
+    const usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
 
   const nombreUsuario =
-    `${decoded?.nombre} ${decoded?.segundoNombre} ${decoded?.apellido} ${decoded?.segundoApellido}` ||
+    `${usuario?.nombreUsuario} ${usuario?.senombreUsuario} ${usuario?.apellidoUsuario} ${usuario?.seapellidoUsuario}` ||
     "Usuario Desconocido";
 
   return (
@@ -47,7 +32,7 @@ const Sidebar = () => {
           <div className="profile">
             <img src={settingImage} alt="configuraciones" />
             <h2 className="texto1">Admin: {nombreUsuario}</h2>
-            <p className="texto2">Admini ID: {decoded?.id}</p>
+            <p className="texto2">Admini ID: {usuario?.idUsuario}</p>
             <p className="texto3">Se unió: Julio 24 de 2024</p>
           </div>
           <div className="contmenu-logo">

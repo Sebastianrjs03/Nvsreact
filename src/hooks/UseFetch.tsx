@@ -47,7 +47,6 @@ export const ApiPublic = async (
 export const ApiPrivate = async (endpoint: string, data: any) => {
   //const token = sessionStorage.getItem("token");
   try {
-    console.log("Enviando a API:", JSON.stringify(data));
     const response = await fetch(`${Base_Url}${endpoint}`, {
       method: "POST",
       headers: {

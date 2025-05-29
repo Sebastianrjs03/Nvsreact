@@ -1,20 +1,9 @@
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
 import React from "react";
 import "../styles/Tienda/Perfil.css";
 import Menu from "../components/Tienda/Menu";
-
-interface MyJwtPayload {
-  correo: string;
-  nombre: string;
-  segundoNombre: string;
-  apellido: string;
-  segundoApellido: string;
-  rol: string;
-  exp: number;
-}
 
 function Perfil() {
   const Navigate = useNavigate();
@@ -22,18 +11,18 @@ function Perfil() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("rol");
+    localStorage.removeItem("usuario");
     Navigate("/iniciarSesion");
+    window.location.reload();
   };
 
-  const token = localStorage.getItem("token");
+  const usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
 
-  let decoded: MyJwtPayload | null = null;
+  const nombreUsuario =
+    `${usuario?.nombreUsuario} ${usuario?.senombreUsuario} ${usuario?.apellidoUsuario} ${usuario?.seapellidoUsuario}` ||
+    "Usuario Desconocido";
 
-  if (token) {
-    decoded = jwtDecode<MyJwtPayload>(token);
-  }
-
-  const nombreUsuario = `${decoded?.nombre} ${decoded?.segundoNombre} ${decoded?.apellido} ${decoded?.segundoApellido}`  || "Usuario Desconocido";
+  const complemento = usuario?.complemento ? `| ${usuario.complemento}` : "";
 
   return (
     <React.Fragment>
@@ -55,7 +44,8 @@ function Perfil() {
         <div className="perfil-contenedorDatos">
           <aside className="perfil-aside">
             <h3>Seguridad de Cuenta</h3>
-            <p>{decoded?.correo ?? "Correo no disponible"}</p>
+            <p>{usuario?.correoUsuario ?? "Correo no disponible"}</p>
+            <p>{usuario?.direccion} {complemento}</p>
             <nav className="perfil-nav">
               <ul>
                 <Link to="Cambiar/Email">
