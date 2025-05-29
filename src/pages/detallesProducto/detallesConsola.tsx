@@ -64,7 +64,7 @@ function agregarAlCarrito(idProducto: string | number) {
       icon: "success",
       background: "#2a0054",
       color: "#ffffff",
-      iconColor: "#facc15",
+      iconColor: "#00a135",
       confirmButtonColor: "#7e4efc",
     });
 

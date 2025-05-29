@@ -7,7 +7,7 @@ function Contrasena() {
     <React.Fragment>
       <section className="Datos-container">
         <h2>Cambiar Contraseña</h2>
-        <FormEditar tipoBotones="password" placeholder1="Nueva Contraseña" name1="nuevaContrasela" placeholder2="Confirmar Contraseña" name2="confirmarEmail" />
+        <FormEditar tipoBotones="password" placeholder1="Nueva Contraseña *" name1="nuevaContrasena" placeholder2="Confirmar Contraseña *" name2="confirmarContrasena" dato="Contraseña"/>
       </section>
     </React.Fragment>
   );
