@@ -4,6 +4,7 @@ import { useState, ChangeEvent } from "react";
 import { ApiPrivate } from "../../hooks/UseFetch.tsx";
 
 type FormEditarPersonalesProps = {
+  valueid?: string;
   value1?: string;
   value2?: string;
   value3?: string;
@@ -33,13 +34,14 @@ type ApiResponse<T> =
     };
 
 function FormEditarPersonales({
+  valueid,
   value1,
   value2,
   value3,
   value4,
   value5,
 }: FormEditarPersonalesProps) {
-  const idUsuario = 44;
+  const idUsuario = valueid;
   const [nombre, setNombre] = useState<string>(value1 || "");
   const [segundoNombre, setSegundoNombre] = useState<string>(value2 || "");
   const [apellido, setApellido] = useState<string>(value3 || "");

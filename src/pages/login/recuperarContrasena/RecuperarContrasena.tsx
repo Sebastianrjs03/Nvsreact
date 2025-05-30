@@ -8,10 +8,10 @@ import Form from '../../../components/login/recuperarContrasena/Form';
 function RecuperarContrasena() {
 
     return (
-        <div className="container">
-            <main className="container">
+        <div className="registro-container">
+            <main className="registro-container">
                 <section>
-                    <div className="container-form">
+                    <div className="registro-container-form">
                         <Logo/>
                         <Paragraph/>
                         <Form/>

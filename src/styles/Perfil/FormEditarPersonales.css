@@ -14,6 +14,12 @@
   margin: auto;
 }
 
+.formEditarPersonales-button-container{
+  grid-column: span 2;
+  display: flex;
+  justify-content: center;
+}
+
 .formEditarPersonales-form input {
   min-width: 0;
   text-shadow: #ffffffa4 1px 0 3px;

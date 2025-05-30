@@ -59,12 +59,11 @@ export const ApiPrivate = async (endpoint: string, data: any) => {
     if (response.ok) {
       return res;
     } else if (response.status == 409) {
-      await Swal.fire({
-        icon: "error",
-        title: "Acción fallida",
-        text: "Identificador duplicado",
-      });
-      return null;
+   return {
+        error: true,
+        status: response.status,
+        mensaje: res?.mensaje ?? "Error en la solicitud.",
+      };
     } else {
        return {
         error: true,

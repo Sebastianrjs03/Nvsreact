@@ -10,6 +10,7 @@ function Nombres() {
       <section className="Datos-container">
         <h2>Cambiar Datos Personales</h2>
         <FormEditarPersonales
+        valueid={usuario?.idUsuario || ""}
         value1={usuario?.nombreUsuario || ""}
         value2={usuario?.senombreUsuario || ""}
         value3={usuario?.apellidoUsuario || ""}

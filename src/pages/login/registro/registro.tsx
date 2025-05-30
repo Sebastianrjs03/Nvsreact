@@ -6,10 +6,10 @@ import DecorativeFigure from '../../../components/login/figure';
 
 const Registro = () => {
   return (
-    <div className="container">
-      <main className="container">
+    <div className="registro-container">
+      <main className="registro-container">
         <section>
-          <div className="container-form">
+          <div className="registro-container-form">
             <Logo />
             <Formulario />
           </div>
