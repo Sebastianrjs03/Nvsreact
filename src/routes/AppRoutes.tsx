@@ -25,6 +25,8 @@ import Contrasena from '../pages/perfil/Contrasena';
 import Sidebar from '../components/Admin/Sidebar';
 import Usuario from '../pages/admin/Usuarios/Usuario';
 import MostrarProductos from '../pages/admin/Productos/Producto';
+import AgregarConsolas from '../components/Admin/Productos/Consolas/agregarConsolas';
+import AgregarJuegos from '../components/Admin/Productos/Videojuegos/agregarJuegos';
 import Genero from '../pages/admin/Productos/Genero';
 import Plataforma from '../pages/admin/Productos/Plataforma';
 import Factura from '../pages/admin/Facturas/Factura';
@@ -67,11 +69,13 @@ export default function AppRoutes() {
         </Route>
         <Route path="/Administrador" 
          element={
-          <Celador rolPermitido='2'>
+             <Celador rolPermitido='1'>
              <Sidebar/>
           </Celador>}>
           <Route path='/Administrador/Usuarios' element={<Usuario/>}></Route>
           <Route path='/Administrador/Productos' element={<MostrarProductos/>}></Route>
+          <Route path='/Administrador/Agregar_Consola/:id' element={<AgregarConsolas/>}></Route>
+          <Route path='/Administrador/Agregar_Juego/:id' element={<AgregarJuegos/>}></Route>
           <Route path='/Administrador/Plataforma' element={<Plataforma/>}></Route>
           <Route path='/Administrador/Genero' element={<Genero/>}></Route>
           <Route path='/Administrador/Facturas' element={<Factura/>}></Route>

@@ -76,21 +76,15 @@ const Sidebar = () => {
                   </label>
                   <input type="checkbox" id="productos" />
                   <ul>
-                    <a href="../productos/anadir_productos.php">
-                      <li>Añadir Producto</li>
-                    </a>
-                    <a href="../productos/mod_producto_con.php">
-                      <li>Modificar Consolas</li>
-                    </a>
-                    <a href="../productos/anadir_productos.php">
-                      <li>Modificar Videojuegos</li>
-                    </a>
-                    <a href="../productos/mod_marca.php">
-                      <li>Modificar Marca</li>
-                    </a>
-                    <a href="../productos/mod_genero.php">
+                    <Link to={"/Administrador/Productos"}>
+                      <li>Consultar Productos</li>
+                    </Link>
+                    <Link to={"/Administrador/Plataforma"}>
+                      <li>Modificar Plataforma</li>
+                    </Link>
+                    <Link to={"/Administrador/Genero"}>
                       <li>Modificar Genero</li>
-                    </a>
+                    </Link>
                   </ul>
                 </li>
 

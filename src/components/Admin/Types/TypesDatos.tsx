@@ -1,3 +1,9 @@
+export interface ModelBase {
+  id1: string | number;
+  nombre1: string;
+  id2?: string | number;
+  nombre2?: string;
+}
 
 export interface Calificacion {
     idCliente: number;
@@ -20,6 +26,7 @@ export interface ProductoA {
     garantiaProducto: string;
     idTipoProducto: string;
     idAdministrador_crear: number;
+    cantidad: number;
     stock: number;
   }
 
@@ -94,4 +101,9 @@ export interface Juego {
 export interface Consola {
   idConsola: number,
   sobreConsola: string,
+}
+
+export interface Marca {
+  idMarca: string,
+  estado_marca: number,
 }

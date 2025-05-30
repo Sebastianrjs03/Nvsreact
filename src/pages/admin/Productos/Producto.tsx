@@ -1,48 +1,65 @@
 //css
 import "../../../styles/admin/stylesAdmin.css"
 //components
-import Table from '../../../components/Admin/Productos/Genero/table'
+import TableP from '../../../components/Admin/Productos/Producto/table'
 import FiltroDinamico from '../../../components/Admin/Productos/Producto/filtroProductos';
 //hooks
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { ApiPublic } from "../../../hooks/UseFetch";
 //types
 import { EstructuraFiltro } from "../../../components/Admin/Productos/Producto/filtroProductos";
+import { ProductoA } from '../../../components/Admin/Types/TypesDatos';
 
-const Producto:EstructuraFiltro = {
+const Producto: EstructuraFiltro = {
     idProducto: "number",
     nombreProducto: "text",
     precioMin: "number",
     precioMax: "number",
-    adminId: "number",
+    ID_Administrador: "number",
+    Tipo_Producto: {
+        tipo: "select",
+        opciones: ["Videojuego", "Consola"],
+    },
     stock: {
-    tipo: "select",
-    opciones: ["admin", "cliente", "moderador"],
-  },
-}
-
-const Juego:EstructuraFiltro = {
-  idJuego: "number",
-  anoLanzamiento: "date",
-  descripcionJuego: "text" ,
-}
-
-const Consola:EstructuraFiltro = {
-  idConsola: "number",
-  sobreConsola: "text",
+        tipo: "select",
+        opciones: ["Activo", "Inactivo"],
+    },
 }
 
 const MostrarProductos = () => {
-    const [tipoTabla, setTipoTabla] = useState("Productos");
-    const [Filtrar, setFiltrar] = useState<EstructuraFiltro>({});
+    const [Filtrar, setFiltrar] = useState({});
+    const [dataP, setDataP] = useState<ProductoA[]>([]);
 
-  return (
-      <main className="mainTabla">
-        {tipoTabla === "Productos" ?<FiltroDinamico estructura={Producto} setTipoTabla={setTipoTabla} setFiltrar={setFiltrar} tipoTabla={tipoTabla}/> 
-        : tipoTabla === "Videojuegos" ? <FiltroDinamico estructura={Juego} setTipoTabla={setTipoTabla} setFiltrar={setFiltrar} tipoTabla={tipoTabla}/> 
-        : <FiltroDinamico estructura={Consola} setTipoTabla={setTipoTabla} setFiltrar={setFiltrar} tipoTabla={tipoTabla}/>}
-        
-        <Table/>
-      </main>
-  )
+    const get = async () => {
+        if (Object.keys(Filtrar).length === 0) {
+        const result = await ApiPublic("Consultar_Producto");
+            if (result) {
+                setDataP(result);
+            } else {
+                console.error('No se recibieron datos o los datos están en un formato inesperado');
+            }  
+        } else {
+            const result = await ApiPublic("Consultar_ProductosFiltrados",Filtrar);
+            if (result) {
+                setDataP(result);
+            } else {
+                console.error('No se recibieron datos o los datos están en un formato inesperado');
+            }
+        }
+    };
+
+    useEffect(() => {
+        get();
+    }, [Filtrar]);
+
+
+
+
+    return (
+        <main className="mainTabla">
+            <FiltroDinamico estructura={Producto} setFiltrar={setFiltrar} />
+            <TableP data={dataP} getProducto={get} />
+        </main>
+    )
 }
 export default MostrarProductos;  
