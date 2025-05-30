@@ -169,7 +169,7 @@ const ExampleModal: React.FC<MyModalProps> = ({ idUsuario, setIsOpen, setUsuario
       }
     }
     if (RolSeleccionado == 1) {
-      if (direccion == "" || complemento == "") {
+      if (direccion == "") {
         Swal.fire({
           icon: "error",
           title: "Acción fallida",

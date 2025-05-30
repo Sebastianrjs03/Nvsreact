@@ -1,6 +1,7 @@
 import { useState, ChangeEvent } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import {jwtDecode} from "jwt-decode";
 import { ApiPrivate } from "../../../hooks/UseFetch.tsx";
 import Logo from "../../../components/login/logo";
 import { Link } from "react-router-dom";
@@ -9,11 +10,21 @@ type LoginResponse = {
   mensaje: string;
   token: string;
   usuario: {
+    idUsuario: string;
     nombreUsuario: string;
-    correo: string;
-    idRol: string;
-    rol: "2" | "1";
+    senombreUsuario?: string;
+    apellidoUsuario: string;
+    seapellidoUsuario?: string;
+    correoUsuario: string;
+    celularUsuario: string;
+    direccion: string;
   };
+};
+
+type MiPayloadJWT = {
+  id: string;
+  rol: string;
+  exp: number;
 };
 
 // Tipo genérico para manejar errores o respuestas exitosas
@@ -49,23 +60,31 @@ const LoginForm = () => {
       return;
     }
 
-    await Swal.fire({
-      icon: "success",
-      title: `¡Bienvenido ${res.usuario.nombreUsuario}!`,
-      text: res.mensaje,
-      color: "#ffffff",
-      background: "#2a0054",
-      iconColor: "#00a135",
-      confirmButtonColor: "#7e4efc",
-    });
+    const token = res.token;
 
-    localStorage.setItem("token", res.token);
-    localStorage.setItem("rol", res.usuario.idRol);
+    if (token) {
+      localStorage.setItem("token", token);
+       const decoded = jwtDecode<MiPayloadJWT>(token);
 
-    if (res.usuario.idRol === "2") {
-      navigate("/Administrador/Usuarios");
-    } else {
-      navigate("/");
+      localStorage.setItem("rol", decoded.rol);
+      localStorage.setItem("usuario", JSON.stringify(res.usuario));
+
+      await Swal.fire({
+        icon: "success",
+        title: `¡Bienvenido ${res.usuario.nombreUsuario}!`,
+        text: res.mensaje,
+        color: "#ffffff",
+        background: "#2a0054",
+        iconColor: "#00a135",
+        confirmButtonColor: "#7e4efc",
+      });
+
+
+      if (decoded.rol === "2") {
+        navigate("/Administrador/Usuarios");
+      } else {
+        navigate("/");
+      }
     }
   };
 

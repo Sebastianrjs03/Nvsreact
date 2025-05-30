@@ -12,6 +12,14 @@
     z-index: 1;
 }
 
+
+/* Cuando es consola, anulamos la posición absoluta */
+
+.detallesProducto-infoProducto.consola {
+    position: static;
+    top: auto;
+}
+
 @media (max-width: 1024px) {
     .detallesProducto-infoProducto {
         flex-direction: column;

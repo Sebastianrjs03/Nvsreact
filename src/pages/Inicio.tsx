@@ -55,11 +55,7 @@ export function Inicio() {
       <main className="inicio-main">
         <Promociones Imagen="xbox" ImagenConsola="consolaXbox" consola="xbox" />
         <Promociones Imagen="play" ImagenConsola="consolaPlay" consola="play" />
-        <Promociones
-          Imagen="nintendo"
-          ImagenConsola="consolaNintendo"
-          consola="nintendo"
-        />
+        <Promociones Imagen="nintendo" ImagenConsola="consolaNintendo" consola="nintendo" />
         <Carrusel />
         <Tienda>
           <Banner
@@ -73,25 +69,16 @@ export function Inicio() {
             <h2 className="Titulos">Tendencias</h2>
             <ProductosCards>
               {tendencias.map((tendencias) => (
-                <Link
-                  to={`/DetallesVideoJuego/${tendencias.idProducto}`}
-                  className="linkCards"
-                  key={tendencias.idProducto}
-                >
+                <Link to={`/DetallesVideoJuego/${tendencias.idProducto}`} className="linkCards" key={tendencias.idProducto}>
                   {tendencias.descuentoProducto != 0 && (
-                    <Descuento
-                      consola="default"
-                      precio={tendencias.descuentoProducto}
-                    />
+                    <Descuento consola="default" precio={tendencias.descuentoProducto} />
                   )}
                   <Card
                     consola="default"
                     titulo={tendencias.nombreProducto}
                     precio={tendencias.totalProducto}
                     descuento={
-                      tendencias.totalProducto === tendencias.precioProducto
-                        ? undefined
-                        : tendencias.precioProducto
+                      tendencias.totalProducto === tendencias.precioProducto ? undefined : tendencias.precioProducto
                     }
                     imagen={tendencias.idProducto}
                   />
@@ -104,25 +91,16 @@ export function Inicio() {
             <h2 className="Titulos">Las Mejores Ofertas</h2>
             <ProductosCards>
               {ofertas.map((ofertas) => (
-                <Link
-                  to={`/DetallesVideoJuego/${ofertas.idProducto}`}
-                  className="linkCards"
-                  key={ofertas.idProducto}
-                >
+                <Link to={`/DetallesVideoJuego/${ofertas.idProducto}`} className="linkCards" key={ofertas.idProducto}>
                   {ofertas.descuentoProducto != 0 && (
-                    <Descuento
-                      consola="default"
-                      precio={ofertas.descuentoProducto}
-                    />
+                    <Descuento consola="default" precio={ofertas.descuentoProducto} />
                   )}
                   <Card
                     consola="default"
                     titulo={ofertas.nombreProducto}
                     precio={ofertas.totalProducto}
                     descuento={
-                      ofertas.totalProducto === ofertas.precioProducto
-                        ? undefined
-                        : ofertas.precioProducto
+                      ofertas.totalProducto === ofertas.precioProducto ? undefined : ofertas.precioProducto
                     }
                     imagen={ofertas.idProducto}
                   />
@@ -132,6 +110,7 @@ export function Inicio() {
           </BodyCard>
         </Tienda>
       </main>
+
     </React.Fragment>
   );
 }

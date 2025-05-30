@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "../../styles/DetallesProducto/calificacionesProducto.css";
-import { ApiPrivate, ApiPublic } from "../../hooks/UseFetch";
+import { ApiPublic, ApiPrivate } from "../../hooks/UseFetch";
 import Swal from "sweetalert2";
 
 interface Props {
@@ -66,7 +66,7 @@ function CalificacionesProducto({ idProducto }: Props) {
             setCalificacionSeleccionada(0);
 
             // Recargar calificaciones
-            const res = await ApiPublic("obtenerCalificacionesProducto", { id: idProducto });
+            const res = await ApiPrivate("obtenerCalificacionesProducto", { id: idProducto });
             setCalificaciones(res || []);
 
         } catch (error) {

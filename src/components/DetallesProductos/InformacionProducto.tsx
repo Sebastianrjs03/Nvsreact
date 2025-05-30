@@ -3,17 +3,15 @@ import "../../styles/DetallesProducto/informacionProducto.css";
 
 type Props = {
   children: React.ReactNode;
+  esConsola?: boolean;
 };
 
+function InformacionProducto({ children, esConsola = false }: Props) {
+  const clase = esConsola
+    ? "detallesProducto-infoProducto consola"
+    : "detallesProducto-infoProducto";
 
-function InformacionProducto({ children }: Props,  ) {
-  return (
-    <section className="detallesProducto-infoProducto">
-      {children}
-
-    
-    </section>
-  );
+  return <section className={clase}>{children}</section>;
 }
 
 export default InformacionProducto;

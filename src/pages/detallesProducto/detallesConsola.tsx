@@ -7,6 +7,7 @@ import DatosProducto from "../../components/DetallesProductos/datosProducto";
 import DescripcionProducto from "../../components/DetallesProductos/descripcionProducto";
 import TablaTecnicaConsola from "../../components/DetallesProductos/tablaTecnicaConsola";
 import CalificacionesProducto from "../../components/DetallesProductos/calificacionesProducto";
+import footerPQRS from "../../components/Tienda/footerPQRS"
 import { useParams } from "react-router-dom";
 import { ApiPublic } from "../../hooks/UseFetch";
 import Swal from "sweetalert2";
@@ -64,7 +65,7 @@ function agregarAlCarrito(idProducto: string | number) {
       icon: "success",
       background: "#2a0054",
       color: "#ffffff",
-      iconColor: "#facc15",
+      iconColor: "#00a135",
       confirmButtonColor: "#7e4efc",
     });
 
@@ -90,7 +91,7 @@ function agregarAlCarrito(idProducto: string | number) {
 
         <main className="detallesConsola-main">
 
-          <InformacionProducto>
+          <InformacionProducto esConsola>
 
             <ImagenesConsola imgConsola={detalle.idProducto} />
 
@@ -124,12 +125,13 @@ function agregarAlCarrito(idProducto: string | number) {
             puertos={detalle.tipoPuertos}
           />
 
-          <CalificacionesProducto />
-
 
 
         </main>
+        
       ))}
+
+      
     </React.Fragment>
 
 

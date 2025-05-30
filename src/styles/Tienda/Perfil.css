@@ -1,4 +1,3 @@
-
 .perfil-container {
   display: flex;
   flex: 1;
@@ -30,6 +29,7 @@
   flex-direction: row;
   align-items: center;
   gap: 2vw;
+  align-items: center;
 }
 
 .perfil-icono {
@@ -56,7 +56,7 @@
   color: #190041;
   font-size: clamp(0.7rem, 2vw, 1rem);
   font-weight: bolder;
-  padding: clamp(0.1rem, 0.8vw, 0.8rem) clamp(0.1rem, 0.8vw, 0.8rem);
+  padding: clamp(0.3rem, 0.8vw, 0.8rem) clamp(0.1rem, 0.8vw, 0.8rem);
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
@@ -69,40 +69,41 @@
 
 .perfil-contenedorDatos {
   display: flex;
-  padding: 1vw 0; 
+  padding: 1vw 0;
   flex: 3;
   width: 100%;
   max-width: 86rem;
 }
 .perfil-aside {
   display: flex;
-  flex: 1.5;
+  flex: 1.8;
   flex-direction: column;
+  min-width: 350px;
 }
 
 .perfil-aside h3 {
   color: #fff;
-  font-size: clamp(1.2rem, 2vw, 2rem);
+  font-size: clamp(1.2rem, 3vw, 2rem);
   font-weight: bolder;
   margin: 0;
 }
 .perfil-aside p {
   color: #fff;
-  font-size: clamp(0.5rem, 1.5vw, 1.5rem);
+  font-size: clamp(1rem, 2vw, 1.5rem);
   font-weight: lighter;
   margin: 0;
 }
 
-.perfil-nav{
+.perfil-nav {
   display: flex;
   flex-direction: column;
-  padding: clamp(1rem, 2vw, 2rem) clamp(1rem, 1.2vw, 1.2rem); 
+  padding: clamp(1rem, 2vw, 2rem) clamp(1rem, 1.2vw, 1.2rem);
   background-color: rgb(65, 0, 117);
-  margin-top: 2vw;
+  margin-top: clamp(1rem, 2vw, 2rem);
   border-radius: 20px;
 }
 
-.perfil-nav ul{
+.perfil-nav ul {
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -129,9 +130,8 @@
 }
 
 .perfil-nav li p {
-    font-size: clamp(0.8rem, 1.5vw, 1.3rem);
+  font-size: clamp(0.8rem, 1.5vw, 1.3rem);
 }
-
 
 .perfil-nav a:hover {
   background-color: #2f0055;
@@ -139,30 +139,55 @@
   transform: scale(1.05);
 }
 
-.perfil-datos{
+.perfil-datos {
   display: flex;
   flex: 4;
-  padding: 2vw;
   gap: 2vw;
 }
 
-@media (max-width: 1200px) {
-
+@media (max-width: 1024px) {
   .perfil-header {
-  margin-top: clamp(80px, 10vw, 120px);
-   height: clamp(5rem, 13vw, 13rem);
-   flex: 0.5;
-
-}
+    margin-top: clamp(80px, 10vw, 120px);
+    height: clamp(5rem, 13vw, 13rem);
+    flex: 0.5;
+  }
   .perfil-contenedorDatos {
-  display: flex;
-  padding: 1vw 0; 
-  flex: 3;
-  width: 100%;
-  max-width: 86rem;
-  flex-direction: column;
-  align-items: center; 
+    display: flex;
+    padding: 4vw 0;
+    width: 100%;
+    max-width: 86rem;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .perfil-aside {
+    width: 50%;
+    min-width: 0;
+  }
+
+  .perfil-datos {
+    width: 50%;
+  }
 }
 
+@media (max-width: 600px) {
+  .perfil-article {
 
+  align-items: start;
+}
+  .perfil-icono {
+    font-size: clamp(3rem, 10vw, 10rem);
+  }
+  .perfil-info h2 {
+    font-size: 1.1rem;
+  }
+  .perfil-info p {
+    font-size: clamp(0.8rem, 2vw, 1.5rem);
+  }
+    .perfil-datos {
+    width: 80%;
+  }
+    .perfil-aside {
+    width: 80%;
+  }
 }
