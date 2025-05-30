@@ -73,7 +73,7 @@ export default function AppRoutes() {
         
         <Route path="/Administrador" 
          element={
-             <Celador rolPermitido='1'>
+             <Celador rolPermitido='2'>
              <Sidebar/>
           </Celador>}>
           <Route path='/Administrador/Usuarios' element={<Usuario/>}></Route>
