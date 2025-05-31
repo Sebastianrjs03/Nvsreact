@@ -73,9 +73,9 @@ export default function AppRoutes() {
         
         <Route path="/Administrador" 
          element={
-             <Celador rolPermitido='1'>
+             
              <Sidebar/>
-          </Celador>}>
+          }>
           <Route path='/Administrador/Usuarios' element={<Usuario/>}></Route>
           <Route path='/Administrador/Productos' element={<MostrarProductos/>}></Route>
           <Route path='/Administrador/Agregar_Consola/:id' element={<AgregarConsolas/>}></Route>

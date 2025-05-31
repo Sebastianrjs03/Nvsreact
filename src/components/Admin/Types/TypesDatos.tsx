@@ -107,3 +107,11 @@ export interface Marca {
   idMarca: string,
   estado_marca: number,
 }
+
+export interface AdministradorCon {
+  idAdministrador: number;
+  documentoAdministrador: string;
+  pf_fk_tdoc: string;
+  nombreUsuario: string;
+  apellidoUsuario: string;
+}
