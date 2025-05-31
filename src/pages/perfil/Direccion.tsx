@@ -7,7 +7,14 @@ function Direccion() {
     <React.Fragment>
       <section className="Datos-container">
         <h2>Cambiar Dirección</h2>
-        <FormEditar tipoBotones="email" placeholder1="Nueva Direccion *" name1="direccion" placeholder2="Complemento" name2="complemento" dato="Dirección"/>
+        <FormEditar
+          tipoBotones="email"
+          placeholder1="Nueva Direccion *"
+          name1="direccion"
+          placeholder2="Complemento"
+          name2="complemento"
+          dato="Dirección"
+        />
       </section>
     </React.Fragment>
   );

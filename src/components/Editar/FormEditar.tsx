@@ -36,7 +36,9 @@ function FormEditar({
   name2,
   dato,
 }: FormEditarProps) {
-  const idUsuario = 44;
+  const usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
+
+  const idUsuario = usuario?.idUsuario;
   const [input1, setInput1] = useState<string>("");
   const [input2, setInput2] = useState<string>("");
   const [contrasena, setContrasena] = useState<string>("");
@@ -49,7 +51,10 @@ function FormEditar({
   const handleSubmit = async () => {
     let res: ApiResponse<updateResponse> | undefined;
 
-    if ((name1 == "email" && name2 == "confirmarEmail") || (name1 == "nuevaContrasena" && name2 == "confirmarContrasena")) {
+    if (
+      (name1 == "email" && name2 == "confirmarEmail") ||
+      (name1 == "nuevaContrasena" && name2 == "confirmarContrasena")
+    ) {
       if (!input1.trim() || !input2.trim() || !contrasena.trim()) {
         await Swal.fire({
           title: "Campos incompletos",
@@ -62,9 +67,9 @@ function FormEditar({
         });
         return;
       }
-    }else if (name1 == "direccion") {
+    } else if (name1 == "direccion") {
       if (!input1.trim() || !contrasena.trim()) {
-         await Swal.fire({
+        await Swal.fire({
           title: "Campos incompletos",
           text: "Por favor, completa todos los campos obligatorios.",
           icon: "warning",
@@ -74,15 +79,17 @@ function FormEditar({
           confirmButtonColor: "#7e4efc",
         });
         return;
+      }
     }
-  }
 
-    if ((name1 == "nuevaContrasena" && name2 == "confirmarContrasena") || (name1 == "email" && name2 == "confirmarEmail")) {
-
+    if (
+      (name1 == "nuevaContrasena" && name2 == "confirmarContrasena") ||
+      (name1 == "email" && name2 == "confirmarEmail")
+    ) {
       const letra = dato == "Contraseña" ? "ambas" : "ambos";
       const minuscula = dato.toLowerCase();
 
-        if (input1 !== input2) {
+      if (input1 !== input2) {
         await Swal.fire({
           title: `${dato}s no coinciden`,
           text: `Por favor, asegúrate de que ${letra} ${minuscula}s sean iguales.`,
@@ -94,7 +101,6 @@ function FormEditar({
         });
         return;
       }
-
     }
 
     if (name1 == "email" && name2 == "confirmarEmail") {
@@ -120,7 +126,6 @@ function FormEditar({
     }
 
     if (name1 == "nuevaContrasena" && name2 == "confirmarContrasena") {
-
       const nuevaContrasena = input1;
 
       if (nuevaContrasena.length < 8) {
@@ -170,11 +175,10 @@ function FormEditar({
 
     localStorage.setItem("usuario", JSON.stringify(res && res.usuario));
 
-
-    const letra = dato == "Contraseña" ? "actualizada" : "actualizado";
+    const letra = dato == "Contraseña" || "Direccion" ? "actualizada" : "actualizado";
     const minuscula = dato.toLowerCase();
 
-       await Swal.fire({
+    await Swal.fire({
       title: `${dato} ${letra}`,
       text: `Tu ${minuscula} ha sido ${letra} correctamente.`,
       icon: "success",
@@ -187,7 +191,6 @@ function FormEditar({
         window.location.reload();
       }
     });
-
   };
 
   return (

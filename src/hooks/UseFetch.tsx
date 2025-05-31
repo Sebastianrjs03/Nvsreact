@@ -65,6 +65,12 @@ export const ApiPrivate = async (endpoint: string, data: any) => {
 
     if (response.ok) {
       return res;
+    } else if (response.status == 409) {
+   return {
+        error: true,
+        status: response.status,
+        mensaje: res?.mensaje ?? "Error en la solicitud.",
+      };
     } else {
       return {
         error: true,
