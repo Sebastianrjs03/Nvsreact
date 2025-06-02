@@ -22,7 +22,6 @@ export interface ProductoA {
     idProducto: number;
     nombreProducto: string;
     precioProducto: number;
-    ivaProducto: number;
     garantiaProducto: string;
     idTipoProducto: string;
     idAdministrador_crear: number;

@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 //hooks
 import { ApiPrivate, ApiPublic } from "../../../../hooks/UseFetch";
 import { useEffect, useState } from "react";
-import { useParams, useNavigate  } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 //Types
 import { AdministradorCon, Genero, Plataforma, ProductoA, Marca, Juego } from '../../Types/TypesDatos';
@@ -19,17 +19,11 @@ const AgregarJuegos = () => {
   const [dataA, setDataA] = useState<AdministradorCon[]>([]);
   const [dataP, setDataP] = useState<Plataforma[]>([]);
   const [dataG, setDataG] = useState<Genero[]>([]);
-  const [dataPro, setDataPro] = useState<ProductoA | null>(null);
-  const [dataJu, setDataJu] = useState<Juego | null>(null);
-  const [dataMar, setDataMar] = useState<Marca[] | null>(null);
-  const [dataPla, setDataPla] = useState<Plataforma[] | null>(null);
-  const [dataGen, setDataGen] = useState<Genero[] | null>(null);
 
-  const {id} = useParams();
+  const { id } = useParams();
   const Navigate = useNavigate();
 
   const [portada, setPortada] = useState<File | null>(null);
-  const [iva, setIva] = useState<number>(0);
   const [valor, setValor] = useState<number>(0);
   const [nombre, setNombre] = useState<string>("");
   const [lanzamiento, setLanzamiento] = useState<string>("");
@@ -37,11 +31,9 @@ const AgregarJuegos = () => {
   const [garantia, setGarantia] = useState<string>("");
   const [selectedAdministrador, setSelectedAdministrador] = useState<number>(0);
   const [selectedStock, setSelectedStock] = useState<number>(1);
-  const [seleccionadosMarca, setSeleccionadosMarca] = useState<Marca[]>([]);
-  const [seleccionadosPlataforma, setSeleccionadosPlataforma] = useState<Plataforma[]>([]);
-  const [seleccionadosGenero, setSeleccionadosGenero] = useState<Genero[]>([]);
-
-  const [selectedTipo, setSelectedTipo] = useState("Videojuego");
+  const [seleccionadosMarca, setSeleccionadosMarca] = useState<string[]>([]);
+  const [seleccionadosPlataforma, setSeleccionadosPlataforma] = useState<string[]>([]);
+  const [seleccionadosGenero, setSeleccionadosGenero] = useState<string[]>([]);
 
   const get = async () => {
 
@@ -62,48 +54,32 @@ const AgregarJuegos = () => {
 
   const getProducto = async () => {
     if (id) {
-      const resultProducto = await ApiPublic("ConsultarPorID_Producto",{id1: id,nombre1: "idProducto"});
-      const resultJuego = await ApiPublic("ConsultarPorID_Juego",{id1: id,nombre1: "idJuego"});
-      const resultMarca = await ApiPublic("ConsultarPorID_AuxMarca",{id1: id, nombre1: "fk_pk_producto"});
-      const resultPlataforma = await ApiPublic("ConsultarPorID_AuxPlataforma",{id1: id, nombre1: "idJuego"});
-      const resultGenero = await ApiPublic("ConsultarPorID_AuxGenero",{id1: id, nombre1: "fk_pk_juego"});
-      if (resultProducto && resultJuego && resultMarca && resultPlataforma && resultGenero) {
-        setDataPro(resultProducto);
-        setDataJu(resultJuego);
-        setDataMar(resultMarca);
-        setDataPla(resultPlataforma);
-        setDataGen(resultGenero);
-      }
-      console.log(resultMarca)
-    }
-  }
+      const resultProducto = await ApiPublic("ConsultarPorID_Producto", { id1: id, nombre1: "idProducto" });
+      const resultJuego = await ApiPublic("ConsultarPorID_Juego", { id1: id, nombre1: "idJuego" });
+      const resultMarca = await ApiPublic("ConsultarPorID_AuxMarca", { id1: id, nombre1: "fk_pk_producto" });
+      const resultPlataforma = await ApiPublic("ConsultarPorID_AuxPlataforma", { id1: id, nombre1: "idJuego" });
+      const resultGenero = await ApiPublic("ConsultarPorID_AuxGenero", { id1: id, nombre1: "fk_pk_juego" });
 
-  const AsignarProducto = async () => {  
-    if (dataPro && dataJu && dataMar && dataPla && dataGen) {
-      setIva(dataPro.ivaProducto);
-      setValor(dataPro.precioProducto);
-      setNombre(dataPro.nombreProducto);
-      setLanzamiento(dataJu.anoLanzamiento.toString());
-      setDescripcion(dataJu.descripcionJuego);
-      setGarantia(dataPro.garantiaProducto);
-      setSelectedAdministrador(dataPro.idAdministrador_crear);
-      setSelectedStock(dataPro.stock);
-      setSeleccionadosMarca(dataMar)
-      setSeleccionadosPlataforma(dataPla)
-      setSeleccionadosGenero(dataGen)
+      setValor(resultProducto.precioProducto);
+      setNombre(resultProducto.nombreProducto);
+      setLanzamiento(resultJuego.anoLanzamiento.toString());
+      setDescripcion(resultJuego.descripcionJuego);
+      setGarantia(resultProducto.garantiaProducto);
+      setSelectedAdministrador(resultProducto.idAdministrador_crear);
+      setSelectedStock(resultProducto.stock);
+      setSeleccionadosMarca(resultMarca.map((marca: Marca) => marca.idMarca));
+      setSeleccionadosPlataforma(resultPlataforma.map((pla: Plataforma) => pla.idPlataforma));
+      setSeleccionadosGenero(resultGenero.map((gen: Genero) => gen.idGeneroJuego));
     }
   }
 
   useEffect(() => {
-    get()
-    getProducto();
-    AsignarProducto()
-  }, [])
+    get();
+  }, []);
 
-  useEffect(() => {
+    useEffect(() => {
     getProducto();
-    AsignarProducto();
-  }, [id])
+  }, [id]);
 
   const handleImagenChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -113,43 +89,46 @@ const AgregarJuegos = () => {
   };
 
   const handleTipoChange = () => {
-    Navigate("/Administrador/Agregar_Consola/")
+    if (id) {
+      Navigate(`/Administrador/Agregar_Consola/${id}`)
+    } else {
+      Navigate(`/Administrador/Agregar_Consola/`)
+    }
   };
 
   const handleMarcaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedStock(Number(e.target.value));
-  };
-
-  const handleIvaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedStock(Number(e.target.value));
+    const opcionesSeleccionadas = Array.from(e.target.selectedOptions, option => option.value);
+    setSeleccionadosMarca(opcionesSeleccionadas);
   };
 
   const handleValorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedStock(Number(e.target.value));
+    setValor(Number(e.target.value));
   };
 
   const handleNombreChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedStock(Number(e.target.value));
+    setNombre(e.target.value);
   };
 
   const handleLanzamientoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedStock(Number(e.target.value));
+    setLanzamiento(e.target.value);
   };
 
   const handleGarantiaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedStock(Number(e.target.value));
+    setGarantia(e.target.value);
   };
 
   const handleAdministradorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedStock(Number(e.target.value));
+    setSelectedAdministrador(Number(e.target.value));
   };
 
   const handlePlataformaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedStock(Number(e.target.value));
+    const opcionesSeleccionadas = Array.from(e.target.selectedOptions, option => option.value);
+    setSeleccionadosPlataforma(opcionesSeleccionadas);
   };
 
-    const handleGeneroChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedStock(Number(e.target.value));
+  const handleGeneroChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const opcionesSeleccionadas = Array.from(e.target.selectedOptions, option => option.value);
+    setSeleccionadosGenero(opcionesSeleccionadas);
   };
 
   const handleStockChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -231,7 +210,7 @@ const AgregarJuegos = () => {
             </select>
 
             <label htmlFor="developer">Marca:</label>
-            <select id="developer" name="marca[]" value={seleccionadosMarca} multiple onChange={handleMarcaChange}>
+            <select multiple value={seleccionadosMarca} onChange={handleMarcaChange}>
               {dataM.map((mar) => (
                 <option key={mar.idMarca} value={mar.idMarca}>
                   {mar.idMarca}
@@ -239,35 +218,32 @@ const AgregarJuegos = () => {
             </select>
             <span className="spanSelectMultiple">Ctrl + Click para más de una opcion</span>
 
-            <label htmlFor="price">IVA:</label>
-            <input type="text" id="iva" name="iva" value={iva} onChange={handleIvaChange} />
-
             <label htmlFor="price">Valor:</label>
-            <input type="text" id="precio" name="precio" value={valor} onChange={handleValorChange}/>
+            <input type="text" id="precio" name="precio" value={valor} onChange={handleValorChange} />
 
 
             <label htmlFor="name">Nombre Juego:</label>
-            <input type="text" id="nombre" name="nombre" value={nombre} onChange={handleNombreChange}/>
+            <input type="text" id="nombre" name="nombre" value={nombre} onChange={handleNombreChange} />
 
             <label htmlFor="price">Año de lanzamiento:</label>
-            <input type="date" id="anolanzamiento" name="anoLanzamiento" value={lanzamiento} onChange={handleLanzamientoChange}/>
+            <input type="date" id="anolanzamiento" name="anoLanzamiento" value={lanzamiento} onChange={handleLanzamientoChange} />
 
 
           </div>
           <div className="product-details2">
             <label htmlFor="name">Garantia Juego</label>
-            <input type="text" id="garantia" name="garantia" value={garantia} onChange={handleGarantiaChange}/>
+            <input type="text" id="garantia" name="garantia" value={garantia} onChange={handleGarantiaChange} />
 
             <label htmlFor="developer">Administardor Encargado:</label>
             <select id="developer" name="admin" value={selectedAdministrador} onChange={handleAdministradorChange}>
-                {dataA.map((Admin) => (
+              {dataA.map((Admin) => (
                 <option key={Admin.idAdministrador} value={Admin.idAdministrador}>
                   {Admin.idAdministrador} - {Admin.nombreUsuario} {Admin.apellidoUsuario}
                 </option>))}
             </select>
 
             <label htmlFor="price">Plataforma:</label>
-            <select id="developer" name="plataforma[]" multiple size={3} onChange={handlePlataformaChange}>
+            <select multiple value={seleccionadosPlataforma} onChange={handlePlataformaChange}>
               {dataP.map((Pla) => (
                 <option key={Pla.idPlataforma} value={Pla.idPlataforma}>
                   {Pla.idPlataforma}
@@ -276,8 +252,8 @@ const AgregarJuegos = () => {
             <span className="spanSelectMultiple">Ctrl + Click para más de una opcion</span>
 
             <label htmlFor="price">Genero:</label>
-            <select id="developer" name="genero[]" multiple onChange={handleGeneroChange}>
-                {dataG.map((Gen) => (
+            <select value={seleccionadosGenero} multiple onChange={handleGeneroChange}>
+              {dataG.map((Gen) => (
                 <option key={Gen.idGeneroJuego} value={Gen.idGeneroJuego}>
                   {Gen.idGeneroJuego}
                 </option>))}
@@ -299,7 +275,7 @@ const AgregarJuegos = () => {
         <div className="about-section">
           <div className="container-description">
             <h5>Sobre el Juego:</h5>
-            <textarea name="sobreJuego" id="sobreJuego" value={descripcion}></textarea>
+            <textarea name="sobreJuego" id="sobreJuego" value={descripcion} onChange={(e) => setDescripcion(e.target.value)}></textarea>
           </div>
         </div>
         <button name="submit" className="button">Añadir Producto</button>

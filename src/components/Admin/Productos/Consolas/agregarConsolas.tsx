@@ -4,7 +4,7 @@ import "../../../../styles/admin/admin-product-consolas.css"
 const AgregarConsolas = () => {
   return (
       <main className="mainTabla">
-        <h2>Añadir Producto</h2>
+        <h2>Añadir Consola</h2>
             <form action="../option_prod_con/insert.php" method="post" encType="multipart/form-data">
                 <input type="hidden" name="csrf_token" value=""/>
                 <div className="product-form">
