@@ -73,13 +73,13 @@ export default function AppRoutes() {
         
         <Route path="/Administrador" 
          element={
-             
+             <Celador rolPermitido='2'>
              <Sidebar/>
-          }>
+         </Celador>}>
           <Route path='/Administrador/Usuarios' element={<Usuario/>}></Route>
           <Route path='/Administrador/Productos' element={<MostrarProductos/>}></Route>
-          <Route path='/Administrador/Agregar_Consola/:id' element={<AgregarConsolas/>}></Route>
-          <Route path='/Administrador/Agregar_Juego/:id' element={<AgregarJuegos/>}></Route>
+          <Route path='/Administrador/Agregar_Consola/:id?' element={<AgregarConsolas/>}></Route>
+          <Route path='/Administrador/Agregar_Juego/:id?' element={<AgregarJuegos/>}></Route>
           <Route path='/Administrador/Plataforma' element={<Plataforma/>}></Route>
           <Route path='/Administrador/Genero' element={<Genero/>}></Route>
           <Route path='/Administrador/Facturas' element={<Factura/>}></Route>

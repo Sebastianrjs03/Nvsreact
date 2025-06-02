@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 //Types
-import { AdministradorCon, Genero, Plataforma, ProductoA, Marca, Juego } from '../../Types/TypesDatos';
+import { AdministradorCon, Genero, Plataforma,  Marca, Aux_Marca , Aux_Genero, Aux_Plataforma } from '../../Types/TypesDatos';
 
 
 const AgregarJuegos = () => {
@@ -23,7 +23,8 @@ const AgregarJuegos = () => {
   const { id } = useParams();
   const Navigate = useNavigate();
 
-  const [portada, setPortada] = useState<File | null>(null);
+  const [portada, setPortada] = useState<File | string | null>(null);
+
   const [valor, setValor] = useState<number>(0);
   const [nombre, setNombre] = useState<string>("");
   const [lanzamiento, setLanzamiento] = useState<string>("");
@@ -54,22 +55,67 @@ const AgregarJuegos = () => {
 
   const getProducto = async () => {
     if (id) {
+      //Imagenes
+      const resultPortada = await ApiPublic("ConsultarPorId_Imagenes", { id: id, categoria: "portada" ,carpeta:"Videojuegos"});
+      const resultTrailer = await ApiPublic("ConsultarPorId_Imagenes", { id: id, categoria: "trailer" ,carpeta: "Videojuegos"});
+      const resultVisuales = await ApiPublic("ConsultarPorId_Imagenes", { id: id, categoria: "visuales" ,carpeta: "Videojuegos"});
+      const resultBanner = await ApiPublic("ConsultarPorId_Imagenes", { id: id, categoria: "banner" ,carpeta: "Videojuegos"});
+
+      //DATOS
       const resultProducto = await ApiPublic("ConsultarPorID_Producto", { id1: id, nombre1: "idProducto" });
       const resultJuego = await ApiPublic("ConsultarPorID_Juego", { id1: id, nombre1: "idJuego" });
       const resultMarca = await ApiPublic("ConsultarPorID_AuxMarca", { id1: id, nombre1: "fk_pk_producto" });
       const resultPlataforma = await ApiPublic("ConsultarPorID_AuxPlataforma", { id1: id, nombre1: "idJuego" });
       const resultGenero = await ApiPublic("ConsultarPorID_AuxGenero", { id1: id, nombre1: "fk_pk_juego" });
+      
+      //IMAGENES
+      if(resultBanner){
+        console.log(resultBanner)
+      }
 
-      setValor(resultProducto.precioProducto);
-      setNombre(resultProducto.nombreProducto);
-      setLanzamiento(resultJuego.anoLanzamiento.toString());
-      setDescripcion(resultJuego.descripcionJuego);
-      setGarantia(resultProducto.garantiaProducto);
-      setSelectedAdministrador(resultProducto.idAdministrador_crear);
-      setSelectedStock(resultProducto.stock);
-      setSeleccionadosMarca(resultMarca.map((marca: Marca) => marca.idMarca));
-      setSeleccionadosPlataforma(resultPlataforma.map((pla: Plataforma) => pla.idPlataforma));
-      setSeleccionadosGenero(resultGenero.map((gen: Genero) => gen.idGeneroJuego));
+      if(resultTrailer){
+        
+      }
+      
+      if(resultVisuales){
+        
+      }
+
+      if(resultPortada){
+        
+      }
+
+      //DATOS
+      if (resultProducto) {
+        setValor(Number(resultProducto[0].precioProducto));              
+        setNombre(resultProducto[0].nombreProducto);                     
+        setGarantia(resultProducto[0].garantiaProducto);                 
+        setSelectedAdministrador(Number(resultProducto[0].idAdministrador_crear));
+        setSelectedStock(Number(resultProducto[0].stock));               
+      }
+
+      if (resultJuego) {
+        setLanzamiento(resultJuego[0].anoLanzamiento ?? "");
+        setDescripcion(resultJuego[0].descripcionJuego ?? "");
+      }
+
+      if (Array.isArray(resultMarca)) {
+        setSeleccionadosMarca(
+          resultMarca.map((marca: Aux_Marca) => marca.fk_pk_marca)
+        );
+      }
+
+      if (Array.isArray(resultPlataforma)) {
+        setSeleccionadosPlataforma(
+          resultPlataforma.map((pla: Aux_Plataforma) => pla.idPlataforma)
+        );
+      }
+
+      if (Array.isArray(resultGenero)) {
+        setSeleccionadosGenero(
+          resultGenero.map((gen: Aux_Genero) => gen.fk_pk_genero)
+        );
+      }
     }
   }
 
@@ -77,7 +123,7 @@ const AgregarJuegos = () => {
     get();
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     getProducto();
   }, [id]);
 
@@ -219,22 +265,22 @@ const AgregarJuegos = () => {
             <span className="spanSelectMultiple">Ctrl + Click para más de una opcion</span>
 
             <label htmlFor="price">Valor:</label>
-            <input type="text" id="precio" name="precio" value={valor} onChange={handleValorChange} />
+            <input type="text" value={valor} onChange={handleValorChange} />
 
 
             <label htmlFor="name">Nombre Juego:</label>
-            <input type="text" id="nombre" name="nombre" value={nombre} onChange={handleNombreChange} />
+            <input type="text" value={nombre} onChange={handleNombreChange} />
 
-            <label htmlFor="price">Año de lanzamiento:</label>
-            <input type="date" id="anolanzamiento" name="anoLanzamiento" value={lanzamiento} onChange={handleLanzamientoChange} />
+            <label htmlFor="lanzamiento">Año de lanzamiento:</label>
+            <input type="date" value={lanzamiento} onChange={handleLanzamientoChange} />
 
 
           </div>
           <div className="product-details2">
-            <label htmlFor="name">Garantia Juego</label>
-            <input type="text" id="garantia" name="garantia" value={garantia} onChange={handleGarantiaChange} />
+            <label htmlFor="garantia">Garantia Juego</label>
+            <input type="text" value={garantia} onChange={handleGarantiaChange} />
 
-            <label htmlFor="developer">Administardor Encargado:</label>
+            <label htmlFor="administrador">Administardor Encargado:</label>
             <select id="developer" name="admin" value={selectedAdministrador} onChange={handleAdministradorChange}>
               {dataA.map((Admin) => (
                 <option key={Admin.idAdministrador} value={Admin.idAdministrador}>
@@ -242,7 +288,7 @@ const AgregarJuegos = () => {
                 </option>))}
             </select>
 
-            <label htmlFor="price">Plataforma:</label>
+            <label htmlFor="plataforma">Plataforma:</label>
             <select multiple value={seleccionadosPlataforma} onChange={handlePlataformaChange}>
               {dataP.map((Pla) => (
                 <option key={Pla.idPlataforma} value={Pla.idPlataforma}>
@@ -251,7 +297,7 @@ const AgregarJuegos = () => {
             </select>
             <span className="spanSelectMultiple">Ctrl + Click para más de una opcion</span>
 
-            <label htmlFor="price">Genero:</label>
+            <label htmlFor="genero">Genero:</label>
             <select value={seleccionadosGenero} multiple onChange={handleGeneroChange}>
               {dataG.map((Gen) => (
                 <option key={Gen.idGeneroJuego} value={Gen.idGeneroJuego}>
@@ -260,7 +306,7 @@ const AgregarJuegos = () => {
             </select>
             <span className="spanSelectMultiple">Ctrl + Click para más de una opcion</span>
 
-            <label htmlFor="price">Stock</label>
+            <label htmlFor="stock">Stock</label>
             <select value={selectedStock} onChange={handleStockChange}>
               <option value={1}>
                 Activo

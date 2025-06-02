@@ -29,7 +29,6 @@ const TableP: React.FC<MyModalProps> = ({ data, getProducto }) => {
               <th scope="col">Id Producto</th>
               <th scope="col">Nombre Producto</th>
               <th scope="col">Precio Producto</th>
-              <th scope="col">Iva Producto</th>
               <th scope="col">Garantia Producto</th>
               <th scope="col">Tipo Producto</th>
               <th scope="col">Id Administrador</th>

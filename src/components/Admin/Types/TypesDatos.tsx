@@ -114,3 +114,18 @@ export interface AdministradorCon {
   nombreUsuario: string;
   apellidoUsuario: string;
 }
+
+export interface Aux_Marca {
+  fk_pk_producto: number,
+  fk_pk_marca: string,
+}
+
+export interface Aux_Plataforma {
+  idJuego: number,
+  idPlataforma: string,
+}
+
+export interface Aux_Genero {
+  fk_pk_juego: number,
+  fk_pk_genero: string,
+}
