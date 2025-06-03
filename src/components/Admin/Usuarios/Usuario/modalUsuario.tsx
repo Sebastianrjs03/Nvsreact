@@ -53,13 +53,13 @@ const ExampleModal: React.FC<MyModalProps> = ({ idUsuario, setIsOpen, setUsuario
             }
           )
           if (resultU) {
-            setUsuario(resultU);
+            setUsuario(resultU[0]);
           }
         } else {
           const result = await ApiPublic("Consultar_Rol");
 
           if (result) {
-            setRol(result);
+            setRol(result[0]);
           } else {
             console.error('No se recibieron datos o los datos están en un formato inesperado');
           }
@@ -90,7 +90,7 @@ const ExampleModal: React.FC<MyModalProps> = ({ idUsuario, setIsOpen, setUsuario
             }
           )
           if (resultC) {
-            setCliente(resultC);
+            setCliente(resultC[0]);
           }
         } else {
           const resultA = await ApiPublic("ConsultarPorID_Administrador",
@@ -100,7 +100,7 @@ const ExampleModal: React.FC<MyModalProps> = ({ idUsuario, setIsOpen, setUsuario
             }
           )
           if (resultA) {
-            setAdministrador(resultA);
+            setAdministrador(resultA[0]);
           }
         }
       }

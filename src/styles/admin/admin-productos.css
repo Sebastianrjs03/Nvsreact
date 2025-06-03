@@ -43,11 +43,11 @@ select[multiple]::-webkit-scrollbar-thumb {
     flex-direction: column;
 }
 
-h2 {
+.Titulo {
     margin-bottom: 20px;
 }
 
-h3 {
+.Subtitulo {
     margin-bottom: 5px;
 }
 
@@ -99,7 +99,7 @@ h3 {
     background-color: #6411b3;
 }
 
-input[type="file"] {
+.file-input {
     width: 98% !important;
     height: 35px !important;
     padding: 5px !important;

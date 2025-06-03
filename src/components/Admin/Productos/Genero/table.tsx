@@ -64,15 +64,15 @@ const Table = () => {
   }
 
   return (
-    <div style={{display: "flex" ,flexDirection: "column", alignItems: "center"}}>
+    <div style={{display: "flex" ,flexDirection: "column", alignItems: "center", gap: "10px"}}>
       <div className="contenedor_Tabla" style={{width: "90%" }}>
         <table className="table table-striped table-dark table_Admin">
           <thead>
             <tr>
               <th scope="col">Nombre Genero</th>
               <th scope="col">Stock Genero</th>
-              <th scope="col" style={{ maxWidth: "20px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Editar</th>
-              <th scope="col" style={{ maxWidth: "25px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Eliminar</th>
+              <th scope="col" style={{ maxWidth: "30px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Editar</th>
+              <th scope="col" style={{ maxWidth: "30px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Eliminar</th>
 
             </tr>
           </thead>
@@ -81,7 +81,7 @@ const Table = () => {
               <tr key={`${Genero.idGeneroJuego}`}>
                 <td>{Genero.idGeneroJuego}</td>
                 <td>{Genero.estadoGeneroJuego == 1? "Activo" : "Inactivo"}</td>
-                <td style={{ maxWidth: "20px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                <td style={{ maxWidth: "30px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                   <button
                     type="button"
                     className="btn btn-primary"
@@ -92,7 +92,7 @@ const Table = () => {
 
 
                 </td>
-                <td style={{ maxWidth: "25px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                <td style={{ maxWidth: "30px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                   <button className="btn btn-danger" onClick={() => Delete(Genero.idGeneroJuego)}>
                     <i className="fa-solid fa-trash"></i>
                   </button>

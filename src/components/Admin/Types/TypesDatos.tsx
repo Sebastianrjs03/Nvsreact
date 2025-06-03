@@ -93,7 +93,7 @@ export interface Plataforma {
 
 export interface Juego {
   idJuego: number;
-  anoLanzamiento: Date;
+  anoLanzamiento: string;
   descripcionJuego: string;
 }
 

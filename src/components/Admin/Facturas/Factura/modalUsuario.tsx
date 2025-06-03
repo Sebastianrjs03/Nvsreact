@@ -47,7 +47,7 @@ const ExampleModal: React.FC<MyModalProps> = ({ idFactura, setIsOpen, setFactura
               nombre1: "idFactura",
             }
           )
-          if (resultC) { setFactura(resultC) }
+          if (resultC) { setFactura(resultC[0]) }
         }
       } catch (error) {
         console.error('Error cargando clientes y formas:', error);
@@ -58,7 +58,7 @@ const ExampleModal: React.FC<MyModalProps> = ({ idFactura, setIsOpen, setFactura
 
   useEffect(() => {
     if (Factura) {
-      setFecha(Factura.fechaFactura.toString());
+      setFecha(Factura.fechaFactura?.toString());
       setIva(Factura.iva);
       setBase(Factura.base);
       setTotal(Factura.totalCompra);

@@ -20,7 +20,7 @@ const ExampleModal: React.FC<MyModalProps> = ({ idGenero, setIsOpen, setGeneroB,
   const endpoint: string = 'ConsultarPorID_Genero';
   const [Genero, setGenero] = useState<Genero | null>(null);
   const [generoSeleccionado, setGeneroSeleccionado] = useState<string | undefined>(idGenero);
-  const [estadot, setEstadot] = useState(0);
+  const [estadot, setEstadot] = useState<number>(0);
 
   useEffect(() => {
     const FetchCli_Pro_Cal = async () => {
@@ -30,7 +30,7 @@ const ExampleModal: React.FC<MyModalProps> = ({ idGenero, setIsOpen, setGeneroB,
               id1: idGenero,
               nombre1: "idGeneroJuego",
             })
-          if (result) { setGenero(result); }
+          if (result) { setGenero(result[0]) }
         }
       } catch (error) {
         console.error('Error cargando Generos:', error);
@@ -42,9 +42,10 @@ const ExampleModal: React.FC<MyModalProps> = ({ idGenero, setIsOpen, setGeneroB,
   useEffect(() => {
     if (Genero) {
       setEstadot(Genero.estadoGeneroJuego);
+      console.log(Genero)
     }
   }, [Genero]);
-
+  
   const handleEstadotChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setEstadot(Number(e.target.value));
   };

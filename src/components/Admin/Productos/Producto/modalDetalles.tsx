@@ -24,9 +24,8 @@ const ModalDetalles: React.FC<MyModalProps> = ({ idProducto, setIsOpenD, setProd
                     id1: idProducto,
                     nombre1: "idJuego",
                 });
-                console.log(resultC)
                 if (resultC) {
-                    setJuego(resultC);
+                    setJuego(resultC[0]);
                 }
             } else {
                 const resultA = await ApiPublic("ConsultarPorID_Consola", {
@@ -34,11 +33,10 @@ const ModalDetalles: React.FC<MyModalProps> = ({ idProducto, setIsOpenD, setProd
                     nombre1: "idConsola",
                 });
                 if (resultA) {
-                    setConsola(resultA);
+                    setConsola(resultA[0]);
                 }
             }
         };
-
         FetchUsu();
     }, [idProducto]);
 
@@ -46,8 +44,7 @@ const ModalDetalles: React.FC<MyModalProps> = ({ idProducto, setIsOpenD, setProd
         if (Consola) {
             setInput1(Consola.sobreConsola);
         } else if (Juego) {
-            console.log(Juego.descripcionJuego)
-            setInput1(Juego.anoLanzamiento.toString());
+            setInput1(Juego.anoLanzamiento?.toString());
             setInput2(Juego.descripcionJuego);
         }
     }, [Consola, Juego]);

@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 //Types
-import { AdministradorCon, Genero, Plataforma,  Marca, Aux_Marca , Aux_Genero, Aux_Plataforma } from '../../Types/TypesDatos';
+import { AdministradorCon, Genero, Plataforma, Marca, Aux_Marca, Aux_Genero, Aux_Plataforma } from '../../Types/TypesDatos';
 
 
 const AgregarJuegos = () => {
@@ -23,7 +23,14 @@ const AgregarJuegos = () => {
   const { id } = useParams();
   const Navigate = useNavigate();
 
-  const [portada, setPortada] = useState<File | string | null>(null);
+  const [nombrePortada, setNombrePortada] = useState<string>("");
+  const [nombreBanner, setNombreBanner] = useState<string>("");
+  const [nombreVisuales, setNombreVisuales] = useState<string>("");
+  const [nombreTrailer, setNombreTrailer] = useState<string>("");
+  const [portada, setPortada] = useState<File | null>(null);
+  const [banner, setBanner] = useState<File | null>(null);
+  const [visuales, setVisuales] = useState<File[] | null>(null);
+  const [trailer, setTrailer] = useState<File | null>(null);
 
   const [valor, setValor] = useState<number>(0);
   const [nombre, setNombre] = useState<string>("");
@@ -56,10 +63,10 @@ const AgregarJuegos = () => {
   const getProducto = async () => {
     if (id) {
       //Imagenes
-      const resultPortada = await ApiPublic("ConsultarPorId_Imagenes", { id: id, categoria: "portada" ,carpeta:"Videojuegos"});
-      const resultTrailer = await ApiPublic("ConsultarPorId_Imagenes", { id: id, categoria: "trailer" ,carpeta: "Videojuegos"});
-      const resultVisuales = await ApiPublic("ConsultarPorId_Imagenes", { id: id, categoria: "visuales" ,carpeta: "Videojuegos"});
-      const resultBanner = await ApiPublic("ConsultarPorId_Imagenes", { id: id, categoria: "banner" ,carpeta: "Videojuegos"});
+      const resultPortada = await ApiPublic("ConsultarPorId_Imagenes", { id: id, categoria: "portada", carpeta: "Videojuegos" });
+      const resultTrailer = await ApiPublic("ConsultarPorId_Imagenes", { id: id, categoria: "trailer", carpeta: "Videojuegos" });
+      const resultVisuales = await ApiPublic("ConsultarPorId_Imagenes", { id: id, categoria: "visuales", carpeta: "Videojuegos" });
+      const resultBanner = await ApiPublic("ConsultarPorId_Imagenes", { id: id, categoria: "banner", carpeta: "Videojuegos" });
 
       //DATOS
       const resultProducto = await ApiPublic("ConsultarPorID_Producto", { id1: id, nombre1: "idProducto" });
@@ -67,36 +74,59 @@ const AgregarJuegos = () => {
       const resultMarca = await ApiPublic("ConsultarPorID_AuxMarca", { id1: id, nombre1: "fk_pk_producto" });
       const resultPlataforma = await ApiPublic("ConsultarPorID_AuxPlataforma", { id1: id, nombre1: "idJuego" });
       const resultGenero = await ApiPublic("ConsultarPorID_AuxGenero", { id1: id, nombre1: "fk_pk_juego" });
-      
+
       //IMAGENES
-      if(resultBanner){
-        console.log(resultBanner)
+      if (resultBanner) {
+        const keys = Object.keys(resultBanner);
+        if (keys.length > 0) {
+          const url = resultBanner[keys[0]];
+          const nombreArchivo = url.split("/").pop();
+          setNombreBanner(nombreArchivo || "");
+        }
       }
 
-      if(resultTrailer){
-        
-      }
-      
-      if(resultVisuales){
-        
+      if (resultTrailer) {
+        const keys = Object.keys(resultTrailer);
+        if (keys.length > 0) {
+          const url = resultTrailer[keys[0]];
+          const nombreArchivo = url.split("/").pop();
+          setNombreTrailer(nombreArchivo);
+        }
       }
 
-      if(resultPortada){
-        
+      if (resultVisuales) {
+        for (let i = 0; i < 3; i++) {
+          const keys = Object.keys(resultPortada);
+          if (keys.length > 0) {
+            const url = resultPortada[keys[i]];
+            const nombreArchivo = url.split("/").pop();
+            setNombreVisuales(nombreArchivo);
+          }
+        }
+        console.log(visuales)
+      }
+
+      if (resultPortada) {
+        const keys = Object.keys(resultPortada);
+        if (keys.length > 0) {
+          const url = resultPortada[keys[0]];
+          const nombreArchivo = url.split("/").pop();
+          setNombrePortada(url);
+        }
       }
 
       //DATOS
       if (resultProducto) {
-        setValor(Number(resultProducto[0].precioProducto));              
-        setNombre(resultProducto[0].nombreProducto);                     
-        setGarantia(resultProducto[0].garantiaProducto);                 
+        setValor(Number(resultProducto[0].precioProducto));
+        setNombre(resultProducto[0].nombreProducto);
+        setGarantia(resultProducto[0].garantiaProducto);
         setSelectedAdministrador(Number(resultProducto[0].idAdministrador_crear));
-        setSelectedStock(Number(resultProducto[0].stock));               
+        setSelectedStock(Number(resultProducto[0].stock));
       }
 
       if (resultJuego) {
-        setLanzamiento(resultJuego[0].anoLanzamiento ?? "");
-        setDescripcion(resultJuego[0].descripcionJuego ?? "");
+        setLanzamiento(resultJuego[0].anoLanzamiento);
+        setDescripcion(resultJuego[0].descripcionJuego);
       }
 
       if (Array.isArray(resultMarca)) {
@@ -127,7 +157,31 @@ const AgregarJuegos = () => {
     getProducto();
   }, [id]);
 
-  const handleImagenChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePortadaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setPortada(file);
+      setNombrePortada(file.name);
+    }
+  };
+
+  const handleBannerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setPortada(file);
+      setNombrePortada(file.name);
+    }
+  };
+
+  const handleTrailerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setTrailer(file);
+      setNombreTrailer(file.name);
+    }
+  };
+
+  const handleVisualesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0];
       setPortada(file);
@@ -209,43 +263,43 @@ const AgregarJuegos = () => {
 
   return (
     <main className="main_content">
-      <h2>Añadir Juego</h2>
+      <h2 className="Titulo">Añadir Juego</h2>
       <form onSubmit={Agregar} method="post" encType="multipart/form-data">
         <div className="product-form">
           <div className="visuals">
             <div className="image-placeholder-left" style={{ height: "400px" }}>
               <div className="img-left">
                 <label htmlFor="name">banner:</label>
-                <input className="file-input" type="file" id="banner" name="banner"
+                <input className="file-input" type="file" onChange={handleBannerChange}
                   style={{ width: "130px" }} />
               </div>
               <div className="img-left">
                 <label htmlFor="name">visual1:</label>
-                <input className="file-input" type="file" id="visual1" name="visual1"
+                <input className="file-input" type="file" onChange={handleVisualesChange}
                   style={{ width: "130px" }} />
               </div>
               <div className="img-left">
                 <label htmlFor="name">visual2:</label>
-                <input className="file-input" type="file" id="visual2" name="visual2"
+                <input className="file-input" type="file"  onChange={handleVisualesChange}
                   style={{ width: "130px" }} />
               </div>
 
               <div className="img-left">
                 <label htmlFor="name">visual3:</label>
-                <input className="file-input" type="file" id="visual3" name="visual3"
+                <input className="file-input" type="file" onChange={handleVisualesChange}
                   style={{ width: "130px" }} />
               </div>
 
               <div className="img-left">
                 <label htmlFor="name">trailer:</label>
-                <input className="file-input" type="file" id="trailer" name="trailer"
+                <input className="file-input" type="file" onChange={handleTrailerChange}
                   style={{ width: "130px" }} />
               </div>
             </div>
             <div className="image-placeholder">
-              <label htmlFor="name">Portada</label>
-              <input className="file-input" type="file" onChange={handleImagenChange}
-                style={{ width: "130px" }} />
+              <label htmlFor="name">portada:</label>
+              <input className="file-input" type="file" onChange={handlePortadaChange}
+                  style={{ width: "130px" }} />
             </div>
           </div>
           <div className="product-details">
@@ -317,7 +371,7 @@ const AgregarJuegos = () => {
             </select>
           </div>
         </div>
-        <h3>Acerca de:</h3>
+        <h3 className="Subtitulo">Acerca de:</h3>
         <div className="about-section">
           <div className="container-description">
             <h5>Sobre el Juego:</h5>
@@ -328,6 +382,6 @@ const AgregarJuegos = () => {
 
       </form>
     </main>
-  )
+  ) 
 }
 export default AgregarJuegos;  

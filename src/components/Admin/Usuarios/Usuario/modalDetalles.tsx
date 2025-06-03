@@ -25,7 +25,7 @@ const ModalDetalles: React.FC<MyModalProps> = ({ idUsuario, setIsOpenD, setUsuar
                     nombre1: "idCliente",
                 });
                 if (resultC) {
-                    setCliente(resultC);
+                    setCliente(resultC[0]);
                 }
             } else {
                 const resultA = await ApiPublic("ConsultarPorID_Administrador", {
@@ -33,7 +33,7 @@ const ModalDetalles: React.FC<MyModalProps> = ({ idUsuario, setIsOpenD, setUsuar
                     nombre1: "idAdministrador",
                 });
                 if (resultA) {
-                    setAdministrador(resultA);
+                    setAdministrador(resultA[0]);
                 }
             }
         };

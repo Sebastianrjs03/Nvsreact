@@ -30,10 +30,7 @@ const ExampleModal: React.FC<MyModalProps> = ({ idFormaPago, setIsOpen, setForma
               id1: idFormaPago,
               nombre1: "idFormaPago",
             })
-          if (result) { setFormaPago(result); }
-          if (FormaPago) {
-            setEstadot(FormaPago.estadoMetodoPago);
-          }
+          if (result) { setFormaPago(result[0])};
         }
       } catch (error) {
         console.error('Error cargando FormaPagos:', error);
@@ -45,6 +42,7 @@ const ExampleModal: React.FC<MyModalProps> = ({ idFormaPago, setIsOpen, setForma
   useEffect(() => {
     if (FormaPago) {
       setEstadot(FormaPago.estadoMetodoPago);
+      console.log(FormaPago)
     }
   }, [FormaPago]);
 

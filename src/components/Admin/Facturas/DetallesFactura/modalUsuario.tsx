@@ -49,7 +49,7 @@ const ExampleModal: React.FC<MyModalProps> = ({ idFactura, idProducto, setIsOpen
               nombre2: "fk_pk_Producto",
             }
           )
-          if (resultC) { setDetaFactura(resultC) }
+          if (resultC) { setDetaFactura(resultC[0]) }
         }
       } catch (error) {
         console.error('Error cargando clientes y formas:', error);

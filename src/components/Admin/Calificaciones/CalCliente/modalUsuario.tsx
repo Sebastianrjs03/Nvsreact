@@ -40,11 +40,7 @@ const ExampleModal: React.FC<MyModalProps> = ({ idCliente, idProducto, setIsOpen
               nombre2 : "idProducto"
             }
           )
-          if (resultC) { setCalificacion(resultC); }
-          if (calificacion) {
-            setCalificaciont(calificacion.numeroCalificacion);
-            setComentariot(calificacion.comentarioCalificacion);
-          }
+          if (resultC) { setCalificacion(resultC[0]); }
         } else {
           const result = await ApiPublic(endpoint);
           const resultP = await ApiPublic(endpointP);

@@ -63,7 +63,7 @@ const Table = () => {
     }
   }
   return (
-    <div>
+    <div style={{display: "flex" ,flexDirection: "column", alignItems: "center" ,gap: "10px"}}>
       <div className="contenedor_Tabla">
         <table className="table table-striped table-dark table_Admin">
           <thead>
@@ -118,7 +118,7 @@ const Table = () => {
             style={{ backgroundColor: '#4415A2', border: 'none' }}
             onClick={() => setIsOpen(true)}
           >
-            <i className="fa-solid fa-plus"></i> Nueva Forma de Pago
+            <i className="fa-solid fa-plus"></i> Nueva Factura
           </button>
           {isOpen && !selectedFactura && (
             <ExampleModal

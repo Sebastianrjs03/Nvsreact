@@ -30,7 +30,7 @@ const ExampleModal: React.FC<MyModalProps> = ({ idPlataforma, setIsOpen, setPlat
             id1: idPlataforma,
             nombre1: "idPlataforma",
           })
-          if (result) { setPlataforma(result); }
+          if (result) { setPlataforma(result[0]) }
         }
       } catch (error) {
         console.error('Error cargando Plataformas:', error);

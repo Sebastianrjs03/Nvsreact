@@ -65,8 +65,8 @@ const Table = () => {
   }
 
   return (
-    <div>
-      <div className="contenedor_Tabla">
+    <div style={{display: "flex" ,flexDirection: "column", alignItems: "center" ,gap: "10px"}}>
+      <div className="contenedor_Tabla" style={{width: "80%"}}>
         <table className="table table-striped table-dark table_Admin">
           <thead>
             <tr>

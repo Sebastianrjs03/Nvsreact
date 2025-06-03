@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 
 //Components
 import ExampleModal from "./modalUsuario.tsx";
-import { DetaFactura , ProductoA } from "../../Types/TypesDatos.tsx";
+import { DetaFactura, ProductoA } from "../../Types/TypesDatos.tsx";
 
 const Table = () => {
 
@@ -32,7 +32,7 @@ const Table = () => {
     getFactura();
   }, []);
 
-  const Delete = ( idFactura: number, idProducto: number) => {
+  const Delete = (idFactura: number, idProducto: number) => {
     Swal.fire({
       title: '¿Estás seguro?',
       text: 'No podrás revertir esto',
@@ -68,16 +68,16 @@ const Table = () => {
   }
 
   const Tabla = data.map(Fac => {
-  const seleccionado = dataP.find(Pro => Pro.idProducto === Fac.fk_pk_Producto);
-  return {
-    ...Fac,
-    nomProducto: seleccionado ? seleccionado.nombreProducto : null 
-  };
+    const seleccionado = dataP.find(Pro => Pro.idProducto === Fac.fk_pk_Producto);
+    return {
+      ...Fac,
+      nomProducto: seleccionado ? seleccionado.nombreProducto : null
+    };
   });
 
   return (
-    <div>
-      <div className="contenedor_Tabla">
+    <div style={{display: "flex" ,flexDirection: "column", alignItems: "center" ,gap: "10px"}}>
+      <div className="contenedor_Tabla" style={{width: "100%"}}>
         <table className="table table-striped table-dark table_Admin">
           <thead>
             <tr>
@@ -86,7 +86,7 @@ const Table = () => {
               <th scope="col">Cantidad Productos</th>
               <th scope="col">Valor Unitario</th>
               <th scope="col">Total</th>
-              <th scope="col" style={{ maxWidth: "20px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Editar</th>
+              <th scope="col" style={{ maxWidth: "30px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Editar</th>
               <th scope="col" style={{ maxWidth: "25px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Eliminar</th>
             </tr>
           </thead>
@@ -98,7 +98,7 @@ const Table = () => {
                 <td>{detaFac.cantidadProducto}</td>
                 <td>{detaFac.valorUnitarioProducto}</td>
                 <td>{detaFac.totalProducto}</td>
-                <td style={{ maxWidth: "20px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                <td style={{ maxWidth: "30px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                   <button
                     type="button"
                     className="btn btn-primary"
@@ -109,15 +109,16 @@ const Table = () => {
 
 
                 </td>
-                <td style={{ maxWidth: "25px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"}}>
-                  <button className="btn btn-danger" onClick={() => Delete(detaFac.fk_pk_Factura,detaFac.fk_pk_Producto)}>
+                <td style={{ maxWidth: "25px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                  <button className="btn btn-danger" onClick={() => Delete(detaFac.fk_pk_Factura, detaFac.fk_pk_Producto)}>
                     <i className="fa-solid fa-trash"></i>
                   </button>
                 </td>
               </tr>))}
 
           </tbody>
-        </table></div>
+        </table>
+      </div>
       <div>
         <section>
           <button
@@ -126,7 +127,7 @@ const Table = () => {
             style={{ backgroundColor: '#4415A2', border: 'none' }}
             onClick={() => setIsOpen(true)}
           >
-            <i className="fa-solid fa-plus"></i> Nueva Forma de Pago
+            <i className="fa-solid fa-plus"></i> Nuevos Detalles Factura
           </button>
           {isOpen && !selectedFactura && (
             <ExampleModal
