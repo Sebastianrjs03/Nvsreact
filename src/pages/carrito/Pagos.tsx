@@ -12,6 +12,8 @@ interface ProductoResumen {
   precioUnitario: number;
   total: number;
 }
+// const resumenString = JSON.parse(localStorage.getItem("resumenPago") || "{}");
+// console.log("Resumen del pago:", resumenString);
 
 function Pagos() {
   const [productos, setProductos] = useState<ProductoResumen[]>([]);
@@ -38,6 +40,8 @@ function Pagos() {
           <BodyPagos total={total} />
         </PayPalScriptProvider>
 
+          
+
         <ResumenCarrito>
           {productos.map((prod, idx) => (
             <DetalleResumenCarrito
@@ -50,6 +54,9 @@ function Pagos() {
           <DetalleResumenCarrito Detalle="Subtotal" Precio={subtotal.toFixed(0)} Total="" />
           <DetalleResumenCarrito Detalle="IVA (19%)" Precio={iva.toFixed(0)} Total="" />
           <DetalleResumenCarrito Detalle="Total a pagar" Precio={total.toFixed(0)} Total="total" />
+           <button className="resumenCarrito-botonPago">
+            Comprar
+          </button>
         </ResumenCarrito>
       </main>
     </React.Fragment>

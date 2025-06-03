@@ -22,6 +22,7 @@ interface Producto {
 }
 
 export function Inicio() {
+  
   const [tendencias, setTendencias] = useState<Producto[]>([]);
   const [ofertas, setOfertas] = useState<Producto[]>([]);
 
@@ -56,7 +57,7 @@ export function Inicio() {
         <Promociones Imagen="xbox" ImagenConsola="consolaXbox" consola="xbox" />
         <Promociones Imagen="play" ImagenConsola="consolaPlay" consola="play" />
         <Promociones Imagen="nintendo" ImagenConsola="consolaNintendo" consola="nintendo" />
-        <Carrusel />
+        {/* <Carrusel /> */}
         <Tienda>
           <Banner
             Imagen={primerProducto?.idProducto}

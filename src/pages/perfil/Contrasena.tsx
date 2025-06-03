@@ -1,7 +1,6 @@
 import React from "react";
 import "../../styles/Perfil/Datos.css";
 import FormEditar from "../../components/Editar/FormEditar";
-import Usuario from "../admin/Usuarios/Usuario";
 
 function Contrasena() {
   return (

@@ -46,7 +46,6 @@ export const ApiPublic = async (
 
 export const ApiPrivate = async (endpoint: string, data: any) => {
   try {
-    console.log("Enviando a API:", JSON.stringify(data));
     const isFormData = data instanceof FormData;
 
     const response = await fetch(`${Base_Url}${endpoint}`, {

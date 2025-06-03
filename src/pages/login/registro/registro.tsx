@@ -1,4 +1,3 @@
-import React from 'react';
 import "../../../styles/login/registro/stylesRegistro.css"; // Asegúrate de tener la ruta correcta
 import Logo from '../../../components/login/logo';
 import Formulario from '../../../components/login/registro/Form';
