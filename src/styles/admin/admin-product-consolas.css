@@ -20,26 +20,26 @@ h3 {
     margin-bottom: 5px;
 }
 
-.product-form {
+.product-form_Consola {
     display: flex;
-    margin-bottom: 20px;
     flex-direction: row;
     box-sizing: border-box;
     overflow: hidden;
+    height: 350px;
 }
 
-.visuals {
+.visuals_Consola {
     padding-right: 20px;
     width: 70%;
     display: flex;
     justify-content: center;
 }
 
-.image-placeholder {
+.image-placeholder_Consola {
     position: relative;
     background-color: #6411b3;
     width: 60%;
-    height: 300px;
+    height: 280px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -50,13 +50,13 @@ h3 {
 
 .image-placeholder-left{
     width: 40%;
-    height: 300px;
+    height: 280px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 10px;
     box-sizing: border-box;
-    align-items: center;
+    align-items: start;
 }
 
 .img-left{
@@ -72,7 +72,7 @@ h3 {
     overflow: hidden;
 }
 
-.img-left img, .image-placeholder img{
+.img-left img, .image-placeholder_Consola img{
     position: absolute;
     z-index: 1;
 
@@ -373,6 +373,11 @@ input[type="file"] {
     text-align: center;
 }
 
+.ButtonSubmit {
+    display: flex;
+    justify-content: center;
+}
+
 .button {
     background: linear-gradient(90deg, #6144d2, #2db8ff);
     border: none;
@@ -381,7 +386,7 @@ input[type="file"] {
     padding: 10px 20px;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 18px;
     cursor: pointer;
     transition: background 0.3s ease;
 }
@@ -395,10 +400,21 @@ input[type="file"] {
   }
 
 @media (max-width: 982px) {
-    .product-form {
+    .product-form_Consola {
         display: flex;
         flex-wrap: wrap;
+        height: auto;
       }
+    
+    .visuals_Consola {
+        width: 100%;
+        padding-right: 0px;
+        height: 340px;
+    }
+
+    .sidebar {
+        width: 20%;
+    }
 
     .product-details2 {
       flex-basis: 100%;
@@ -431,12 +447,12 @@ input[type="file"] {
         width: 100%;
     }
 
-    .product-form {
+    .product-form_Consola {
         display: flex;
         flex-wrap: wrap;
       }
     
-    .visuals {
+    .visuals_Consola {
         width: 100%;
         padding-right: 0px;
     }
