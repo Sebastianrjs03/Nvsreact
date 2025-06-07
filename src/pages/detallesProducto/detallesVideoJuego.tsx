@@ -11,6 +11,7 @@ import BannerProducto from "../../components/DetallesProductos/bannerProducto";
 import { useParams } from "react-router-dom";
 import { ApiPublic } from "../../hooks/UseFetch";
 import Swal from "sweetalert2";
+import FooterPQRS from "../../components/Tienda/FooterPQRS";
 
 interface Detalle {
   idProducto: string;
@@ -112,6 +113,8 @@ function DetalleJuego() {
           <CalificacionesProducto idProducto={detalle.idProducto} />
         </main>
       ))}
+       <FooterPQRS/>
+      
     </React.Fragment>
   );
 }

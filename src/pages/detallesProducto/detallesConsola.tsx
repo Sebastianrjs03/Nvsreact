@@ -6,8 +6,7 @@ import ImagenesConsola from "../../components/DetallesProductos/imagenesConsola"
 import DatosProducto from "../../components/DetallesProductos/datosProducto";
 import DescripcionProducto from "../../components/DetallesProductos/descripcionProducto";
 import TablaTecnicaConsola from "../../components/DetallesProductos/tablaTecnicaConsola";
-import CalificacionesProducto from "../../components/DetallesProductos/calificacionesProducto";
-import footerPQRS from "../../components/Tienda/footerPQRS"
+import FooterPQRS from "../../components/Tienda/FooterPQRS";
 import { useParams } from "react-router-dom";
 import { ApiPublic } from "../../hooks/UseFetch";
 import Swal from "sweetalert2";
@@ -130,6 +129,8 @@ function agregarAlCarrito(idProducto: string | number) {
         </main>
         
       ))}
+
+      <FooterPQRS/>
 
       
     </React.Fragment>

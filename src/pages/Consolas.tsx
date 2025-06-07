@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import "../styles/Tienda/Link.css";
 import "../styles/pages/Videojuegos.css";
 import { ApiPublic } from "../hooks/UseFetch";
+import FooterPQRS from "../components/Tienda/FooterPQRS";
 
 interface Producto {
   idProducto: string;
@@ -154,6 +155,7 @@ export function Consolas() {
           </BodyCard>
         </Tienda>
       </main>
+      <FooterPQRS/>
     </React.Fragment>
   );
 }

@@ -15,3 +15,9 @@
 .descripcionProducto p {
     font-size: 1rem;
 }
+
+@media (max-width: 1024px) {
+    .descripcionProducto {
+        margin-top: 1rem;
+    }
+}

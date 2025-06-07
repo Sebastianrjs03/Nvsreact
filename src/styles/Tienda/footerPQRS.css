@@ -1,11 +1,12 @@
 .footer-pqrs {
-    background-color: #0b011d;
+    background-color: #100327;
     color: white;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 40px 60px;
+    justify-content: center;
+    padding: 3rem;
     flex-wrap: wrap;
+    gap: 2rem;
 }
 
 .pqrs-container {
@@ -18,7 +19,6 @@
 .pqrs-title {
     font-size: 32px;
     font-weight: bold;
-    margin-bottom: 10px;
 }
 
 .pqrs-textarea {
@@ -34,19 +34,19 @@
 }
 
 .pqrs-button {
-    background: linear-gradient(to right, #7f4ce1, #00aaff);
-    color: white;
-    padding: 12px;
+    width: 100%;
+    background: linear-gradient(to right, #7e4efc, #00cfff);
     border: none;
-    border-radius: 25px;
+    padding: 0.8rem;
+    border-radius: 2rem;
+    color: white;
     font-weight: bold;
-    font-size: 14px;
     cursor: pointer;
-    transition: opacity 0.3s ease;
+    transition: box-shadow 0.3s ease;
 }
 
 .pqrs-button:hover {
-    opacity: 0.9;
+    box-shadow: 0 0 10px #7e4efc, 0 0 20px #00cfff, 0 0 30px #480ff4;
 }
 
 .logo-container {

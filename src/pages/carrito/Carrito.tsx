@@ -142,7 +142,7 @@ function Carrito() {
           ) : (
             <div
               className={`bodyCarrito-contenedorCarts ${
-                productos.length > 3 ? "scrollable" : ""
+                productos.length > 2 ? "scrollable" : ""
               }`}
             >
               {productos.map((prod) => (
@@ -196,6 +196,7 @@ function Carrito() {
           </button>
         </ResumenCarrito>
       </main>
+      
     </React.Fragment>
   );
 }

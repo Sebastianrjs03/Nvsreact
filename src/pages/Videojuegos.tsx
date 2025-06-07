@@ -10,7 +10,7 @@ import CategotiasContenedor from "../components/Tienda/CategoriasContenedor";
 import Categorias from "../components/Tienda/CategoriasComponent.tsx";
 import { ApiPublic } from "../hooks/UseFetch.tsx";
 import { Link } from "react-router-dom";
-
+import FooterPQRS from "../components/Tienda/FooterPQRS";
 import "../styles/pages/Videojuegos.css";
 import "../styles/Tienda/Link.css";
 
@@ -196,6 +196,7 @@ export function Videojuegos() {
           </BodyCard>
         </Tienda>
       </main>
+      <FooterPQRS/>
     </React.Fragment>
   );
 }

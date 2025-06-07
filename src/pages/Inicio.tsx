@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Menu from "../components/Tienda/Menu";
 import Promociones from "../components/Tienda/Promociones";
-import Carrusel from "../components/Tienda/Carrusel";
 import Tienda from "../components/Tienda/Tienda";
 import Banner from "../components/Tienda/Banner";
 import BodyCard from "../components/Tienda/BodyCards";
@@ -9,7 +8,7 @@ import ProductosCards from "../components/Tienda/ProductosCards";
 import Card from "../components/Tienda/Card";
 import Descuento from "../components/Tienda/Descuento";
 import { Link } from "react-router-dom";
-
+import FooterPQRS from "../components/Tienda/FooterPQRS";
 import "../styles/Tienda/Link.css";
 import "../styles/pages/Inicio.css";
 
@@ -111,6 +110,7 @@ export function Inicio() {
           </BodyCard>
         </Tienda>
       </main>
+       <FooterPQRS/>
 
     </React.Fragment>
   );
