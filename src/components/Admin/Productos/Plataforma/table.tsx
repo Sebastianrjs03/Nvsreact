@@ -1,6 +1,6 @@
 //hooks
-import { useEffect, useState } from "react";
-import { ApiPublic, ApiPrivate } from '../../../../hooks/UseFetch.tsx';
+import { useState } from "react";
+import { ApiPrivate } from '../../../../hooks/UseFetch.tsx';
 
 //librerias
 import Swal from 'sweetalert2';
@@ -9,26 +9,15 @@ import Swal from 'sweetalert2';
 import ExampleModal from "./modalUsuario.tsx";
 import { Plataforma } from "../../Types/TypesDatos.tsx";
 
-const Table = () => {
+interface MyModalProps {
+  getPlataforma: () => void;
+  data: Plataforma[];
+}
 
-  const endpoint: string = 'Consultar_Plataforma';
-  const [data, setData] = useState<Plataforma[]>([]);
+const Table = ({ getPlataforma, data } : MyModalProps) => {
+
   const [selectedPlataforma, setSelectedPlataforma] = useState<Plataforma | null>(null);
   const [isOpen, setIsOpen] = useState(false);
-
-
-  const getPlataforma = async () => {
-    const result = await ApiPublic(endpoint);
-    if (result) {
-      setData(result);
-    } else {
-      console.error('No se recibieron datos o los datos están en un formato inesperado');
-    }
-  };
-
-  useEffect(() => {
-    getPlataforma();
-  }, []);
 
   const Delete = ( idPlataforma: string) => {
     Swal.fire({

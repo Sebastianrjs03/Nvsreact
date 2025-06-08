@@ -7,7 +7,7 @@ import { Delete } from "../../../../hooks/useCrud.tsx";
 import ModalDetalles from "./modalDetalles.tsx";
 
 //Types
-import { ProductoA } from "../../Types/TypesDatos.tsx";
+import { ProductoA, FPC } from "../../Types/TypesDatos.tsx";
 import { useState } from "react";
 
 interface MyModalProps {
@@ -44,7 +44,7 @@ const TableP: React.FC<MyModalProps> = ({ data, getProducto }) => {
               <tr key={`${Producto.idProducto}`}>
                 <td>{Producto.idProducto}</td>
                 <td>{Producto.nombreProducto}</td>
-                <td>{Producto.precioProducto}</td>
+                <td>{FPC.format(Producto.precioProducto)}</td>
                 <td>{Producto.garantiaProducto}</td>
                 <td>{Producto.idTipoProducto}</td>
                 <td>{Producto.idAdministrador_crear}</td>

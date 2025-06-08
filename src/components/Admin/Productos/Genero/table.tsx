@@ -1,6 +1,6 @@
 //hooks
-import { useEffect, useState } from "react";
-import { ApiPublic, ApiPrivate } from '../../../../hooks/UseFetch.tsx';
+import { useState } from "react";
+import { ApiPrivate } from '../../../../hooks/UseFetch.tsx';
 
 //librerias
 import Swal from 'sweetalert2';
@@ -9,26 +9,15 @@ import Swal from 'sweetalert2';
 import ExampleModal from "./modalUsuario.tsx";
 import { Genero } from "../../Types/TypesDatos.tsx";
 
-const Table = () => {
+interface MyModalProps {
+  getGenero: () => void;
+  data: Genero[];
+}
 
-  const endpoint: string = 'Consultar_Genero';
-  const [data, setData] = useState<Genero[]>([]);
+const Table = ({ getGenero, data } : MyModalProps) => {
+
   const [selectedGenero, setSelectedGenero] = useState<Genero | null>(null);
   const [isOpen, setIsOpen] = useState(false);
-
-
-  const getGenero = async () => {
-    const result = await ApiPublic(endpoint);
-    if (result) {
-      setData(result);
-    } else {
-      console.error('No se recibieron datos o los datos están en un formato inesperado');
-    }
-  };
-
-  useEffect(() => {
-    getGenero();
-  }, []);
 
   const Delete = ( idGenero: string) => {
     Swal.fire({

@@ -203,7 +203,7 @@ const AgregarConsolas = () => {
                 Swal.fire({
                     icon: "success",
                     title: "Acción exitosa",
-                    text: "se ha creado un nuevo elemento de distraccion para personas descupadas",
+                    text: "se ha editado un atomo termonuclear viviente si señores , hablo de mi abuelita",
                 }).then(() => {
                     Navigate("/Administrador/Productos/");
                 });

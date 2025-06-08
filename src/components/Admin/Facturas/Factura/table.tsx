@@ -1,34 +1,23 @@
 //hooks
-import { useEffect, useState } from "react";
-import { ApiPublic, ApiPrivate } from '../../../../hooks/UseFetch.tsx';
+import { useState } from "react";
+import { ApiPrivate } from '../../../../hooks/UseFetch.tsx';
 
 //librerias
 import Swal from 'sweetalert2';
 
 //Components
 import ExampleModal from "./modalUsuario.tsx";
-import { Factura } from "../../Types/TypesDatos.tsx";
+import { Factura , FPC } from "../../Types/TypesDatos.tsx";
 
-const Table = () => {
+interface MyModalProps {
+  getFactura: () => void;
+  data: Factura[];
+}
 
-  const endpoint: string = 'Consultar_Factura';
-  const [data, setData] = useState<Factura[]>([]);
+const Table = ({ getFactura, data } : MyModalProps) => {
+
   const [selectedFactura, setSelectedFactura] = useState<Factura | null>(null);
   const [isOpen, setIsOpen] = useState(false);
-
-
-  const getFactura = async () => {
-    const result = await ApiPublic(endpoint);
-    if (result) {
-      setData(result);
-    } else {
-      console.error('No se recibieron datos o los datos están en un formato inesperado');
-    }
-  };
-
-  useEffect(() => {
-    getFactura();
-  }, []);
 
   const Delete = ( idFactura: number) => {
     Swal.fire({
@@ -86,8 +75,8 @@ const Table = () => {
                 <td>{Factura.idFactura}</td>
                 <td>{Factura.fechaFactura.toString()}</td>
                 <td>{Factura.iva}</td>
-                <td>{Factura.base}</td>
-                <td>{Factura.totalCompra}</td>
+                <td>{FPC.format(Factura.base)}</td>
+                <td>{FPC.format(Factura.totalCompra)}</td>
                 <td>{Factura.idCliente}</td>
                 <td>{Factura.idFormaPago}</td>
                 <td>

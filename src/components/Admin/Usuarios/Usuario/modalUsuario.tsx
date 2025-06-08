@@ -144,7 +144,7 @@ const ExampleModal: React.FC<MyModalProps> = ({ idUsuario, setIsOpen, setUsuario
       idRol: RolSeleccionado,
     };
 
-    if (nombre == "" || seNombre == "" || apellido == "" || seApellido == "" || correo == "" || celular == "" || RolSeleccionado == 0) {
+    if (nombre == "" || apellido == "" || correo == "" || celular == "" || RolSeleccionado == 0) {
       Swal.fire({
         icon: "error",
         title: "Acción fallida",

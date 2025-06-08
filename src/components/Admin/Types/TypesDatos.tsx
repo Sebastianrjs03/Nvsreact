@@ -129,3 +129,28 @@ export interface Aux_Genero {
   fk_pk_juego: number,
   fk_pk_genero: string,
 }
+
+type CampoTipo = "text" | "number" | "email" | "date";
+
+type CampoSelect = {
+    tipo: "select";
+    opciones: string[] | number[];
+};
+
+export type EstructuraFiltro = {
+    [key: string]: CampoTipo | CampoSelect;
+};
+
+export interface ClienteCon {
+    idCliente: number;
+    direccion: string;
+    complemento: string;
+    nombreUsuario: string;
+    apellidoUsuario: string;
+  }
+
+export const FPC = new Intl.NumberFormat("es-CO", {
+  style: "currency",
+  currency: "COP",
+  minimumFractionDigits: 0, // Opcional: para quitar decimales
+});

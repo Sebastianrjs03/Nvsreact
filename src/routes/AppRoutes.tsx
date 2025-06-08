@@ -29,11 +29,10 @@ import Usuario from '../pages/admin/Usuarios/Usuario';
 import MostrarProductos from '../pages/admin/Productos/Producto';
 import AgregarConsolas from '../components/Admin/Productos/Consolas/agregarConsolas';
 import AgregarJuegos from '../components/Admin/Productos/Videojuegos/agregarJuegos';
-import Genero from '../pages/admin/Productos/Genero';
-import Plataforma from '../pages/admin/Productos/Plataforma';
-import Factura from '../pages/admin/Facturas/Factura';
-import FormaPago from '../pages/admin/Facturas/FormaPago';
-import DetallesFactura from '../pages/admin/Facturas/DetalleFactura';
+import GeneroPage from '../pages/admin/Productos/Genero';
+import PlataformaPage from '../pages/admin/Productos/Plataforma';
+import FacturaPage from '../pages/admin/Facturas/Factura';
+import DetallesFacturaPage from '../pages/admin/Facturas/DetalleFactura';
 import CalificacionCliente from '../pages/admin/Calificaciones/CalCliente';
 
 
@@ -80,11 +79,10 @@ export default function AppRoutes() {
           <Route path='/Administrador/Productos' element={<MostrarProductos/>}></Route>
           <Route path='/Administrador/Agregar_Consola/:id?' element={<AgregarConsolas/>}></Route>
           <Route path='/Administrador/Agregar_Juego/:id?' element={<AgregarJuegos/>}></Route>
-          <Route path='/Administrador/Plataforma' element={<Plataforma/>}></Route>
-          <Route path='/Administrador/Genero' element={<Genero/>}></Route>
-          <Route path='/Administrador/Facturas' element={<Factura/>}></Route>
-          <Route path='/Administrador/Forma_Pago' element={<FormaPago/>}></Route>
-          <Route path='/Administrador/Detalles_Factura' element={<DetallesFactura/>}></Route>         
+          <Route path='/Administrador/Plataforma' element={<PlataformaPage/>}></Route>
+          <Route path='/Administrador/Genero' element={<GeneroPage/>}></Route>
+          <Route path='/Administrador/Facturas' element={<FacturaPage/>}></Route>
+          <Route path='/Administrador/Detalles_Factura' element={<DetallesFacturaPage/>}></Route>         
           <Route path='/Administrador/Calificacion_Cliente' element={<CalificacionCliente/>}></Route>
         </Route>
       </Routes>

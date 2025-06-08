@@ -7,7 +7,7 @@ import FiltroDinamico from '../../../components/Admin/Productos/Producto/filtroP
 import { useEffect, useState } from "react";
 import { ApiPublic } from "../../../hooks/UseFetch";
 //types
-import { EstructuraFiltro } from "../../../components/Admin/Productos/Producto/filtroProductos";
+import { EstructuraFiltro } from "../../../components/Admin/Types/TypesDatos";
 import { ProductoA } from '../../../components/Admin/Types/TypesDatos';
 
 const Producto: EstructuraFiltro = {
@@ -51,9 +51,6 @@ const MostrarProductos = () => {
     useEffect(() => {
         get();
     }, [Filtrar]);
-
-
-
 
     return (
         <main className="mainTabla">

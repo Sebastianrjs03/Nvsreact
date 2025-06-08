@@ -7,21 +7,23 @@ import Swal from 'sweetalert2';
 
 //Components
 import ExampleModal from "./modalUsuario.tsx";
-import { DetaFactura, ProductoA } from "../../Types/TypesDatos.tsx";
+import { DetaFactura, ProductoA , FPC } from "../../Types/TypesDatos.tsx";
 
-const Table = () => {
+interface MyModalProps {
+  getFactura: () => void;
+  data: DetaFactura[];
+}
 
-  const [data, setData] = useState<DetaFactura[]>([]);
+const Table = ({ getFactura, data } : MyModalProps) => {
+
   const [dataP, setDataP] = useState<ProductoA[]>([]);
   const [selectedFactura, setSelectedFactura] = useState<DetaFactura | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
 
-  const getFactura = async () => {
-    const result = await ApiPublic('Consultar_DetalleFactura');
+  const getProducto = async () => {
     const resultP = await ApiPublic("Consultar_Producto");
-    if (result && resultP) {
-      setData(result);
+    if (resultP) {
       setDataP(resultP);
     } else {
       console.error('No se recibieron datos o los datos están en un formato inesperado');
@@ -29,7 +31,7 @@ const Table = () => {
   };
 
   useEffect(() => {
-    getFactura();
+    getProducto();
   }, []);
 
   const Delete = (idFactura: number, idProducto: number) => {
@@ -67,13 +69,15 @@ const Table = () => {
     }
   }
 
-  const Tabla = data.map(Fac => {
-    const seleccionado = dataP.find(Pro => Pro.idProducto === Fac.fk_pk_Producto);
-    return {
-      ...Fac,
-      nomProducto: seleccionado ? seleccionado.nombreProducto : null
-    };
-  });
+const Tabla = Array.isArray(data)
+  ? data.map(Fac => {
+      const seleccionado = dataP.find(Pro => Pro.idProducto === Fac.fk_pk_Producto);
+      return {
+        ...Fac,
+        nomProducto: seleccionado ? seleccionado.nombreProducto : null
+      };
+    })
+  : [];
 
   return (
     <div style={{display: "flex" ,flexDirection: "column", alignItems: "center" ,gap: "10px"}}>
@@ -82,7 +86,7 @@ const Table = () => {
           <thead>
             <tr>
               <th scope="col">Id Factura</th>
-              <th scope="col" style={{ maxWidth: "75px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Nombre Producto</th>
+              <th scope="col" style={{ maxWidth: "150px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Nombre Producto</th>
               <th scope="col">Cantidad Productos</th>
               <th scope="col">Valor Unitario</th>
               <th scope="col">Total</th>
@@ -94,10 +98,10 @@ const Table = () => {
             {Tabla.map((detaFac) => (
               <tr key={`${detaFac.fk_pk_Factura}-${detaFac.fk_pk_Producto}`}>
                 <td>{detaFac.fk_pk_Factura}</td>
-                <td style={{ maxWidth: "75px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{detaFac.nomProducto}</td>
+                <td style={{ maxWidth: "150px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{detaFac.nomProducto}</td>
                 <td>{detaFac.cantidadProducto}</td>
-                <td>{detaFac.valorUnitarioProducto}</td>
-                <td>{detaFac.totalProducto}</td>
+                <td>{FPC.format(detaFac.valorUnitarioProducto)}</td>
+                <td>{FPC.format(detaFac.totalProducto)}</td>
                 <td style={{ maxWidth: "30px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                   <button
                     type="button"

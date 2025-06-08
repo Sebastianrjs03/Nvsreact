@@ -35,10 +35,10 @@ const VerImagenes = ({ id, setPortada, setVisual1, setVisual2, setVisual3, setTr
             let resultBanner;
 
             if(Tipo === "Juego"){
-                resultPortada = await ApiPublic("ConsultarPorId_Imagenes", { id: id, categoria: "portada", carpeta: "Videojuegos" });
-                resultTrailer = await ApiPublic("ConsultarPorId_Imagenes", { id: id, categoria: "trailer", carpeta: "Videojuegos" });
-                resultVisuales = await ApiPublic("ConsultarPorId_Imagenes", { id: id, categoria: "visuales", carpeta: "Videojuegos" });
-                resultBanner = await ApiPublic("ConsultarPorId_Imagenes", { id: id, categoria: "banner", carpeta: "Videojuegos" });
+                resultPortada = await ApiPublic("ConsultarPorId_Imagenes", { id: id, categoria: "portada", carpeta: "Videojuego" });
+                resultTrailer = await ApiPublic("ConsultarPorId_Imagenes", { id: id, categoria: "trailer", carpeta: "Videojuego" });
+                resultVisuales = await ApiPublic("ConsultarPorId_Imagenes", { id: id, categoria: "visuales", carpeta: "Videojuego" });
+                resultBanner = await ApiPublic("ConsultarPorId_Imagenes", { id: id, categoria: "banner", carpeta: "Videojuego" });
             }else {
                 resultVisuales = await ApiPublic("ConsultarPorId_Imagenes", { id: id, categoria: "visuales", carpeta: "Consola" });
                 resultPortada = await ApiPublic("ConsultarPorId_Imagenes", { id: id, categoria: "portada", carpeta: "Consola" });
@@ -70,6 +70,9 @@ const VerImagenes = ({ id, setPortada, setVisual1, setVisual2, setVisual3, setTr
                 if (resultVisuales) {
                     const urls: string[] = Object.values(resultVisuales);
                     setURLSVisuales(urls);
+                    setVisual1("No");
+                    setVisual2("No");
+                    setVisual3("No");
                 }
             }
 
@@ -78,6 +81,7 @@ const VerImagenes = ({ id, setPortada, setVisual1, setVisual2, setVisual3, setTr
                 if (keys.length > 0) {
                     const url = resultPortada[keys[0]];
                     setURLPortada(url);
+                    setPortada("No");
                 }
             }
 

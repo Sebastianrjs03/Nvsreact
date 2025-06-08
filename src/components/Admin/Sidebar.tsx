@@ -56,7 +56,7 @@ const Sidebar = () => {
 
                 <li>
                   <label htmlFor="productos">
-                    <i className="fas fa-box" style={{ fontSize: "30px" }}></i>{" "}
+                    <i className="fa-solid fa-helicopter" style={{ fontSize: "30px" }}></i>{" "}
                     Productos
                   </label>
                   <input type="checkbox" id="productos" />
@@ -88,9 +88,6 @@ const Sidebar = () => {
                     </Link>
                     <Link to={"/Administrador/Detalles_Factura"}>
                       <li>Detalles Factura</li>
-                    </Link>
-                    <Link to={"/Administrador/Forma_Pago"}>
-                      <li>Forma Pagos</li>
                     </Link>
                   </ul>
                 </li>

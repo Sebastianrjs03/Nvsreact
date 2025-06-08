@@ -41,7 +41,7 @@ const AgregarJuegos = () => {
   const [cantidad, setCantidad] = useState<number>(0);
   const [descripcion, setDescripcion] = useState<string>("");
   const [garantia, setGarantia] = useState<string>("");
-  const [selectedAdministrador, setSelectedAdministrador] = useState<number>(0);
+  const [selectedAdministrador, setSelectedAdministrador] = useState<number>(1);
   const [selectedStock, setSelectedStock] = useState<number>(1);
   const [seleccionadosMarca, setSeleccionadosMarca] = useState<string[]>([]);
   const [seleccionadosPlataforma, setSeleccionadosPlataforma] = useState<string[]>([]);
@@ -191,7 +191,7 @@ const AgregarJuegos = () => {
         text: "Debes completar los campos de texto, Alguno esta vacio."
       });
       return;
-    } else if (!selectedStock || !selectedAdministrador) {
+    } else if (selectedStock < 0 || selectedStock > 1  || !selectedAdministrador) {
       Swal.fire({
         icon: "error",
         title: "Error",
@@ -221,7 +221,7 @@ const AgregarJuegos = () => {
     if (valor) formData.append("precioProducto", valor.toString());
     if (garantia) formData.append("garantiaProducto", garantia);
     if (selectedAdministrador) formData.append("idAdmin", selectedAdministrador.toString());
-    if (selectedStock) formData.append("stock", selectedStock.toString());
+    formData.append("stock", selectedStock.toString());
     if (cantidad) formData.append("cantidad", cantidad.toString());
     if (lanzamiento) formData.append("lanzamiento", lanzamiento);
     if (descripcion) formData.append("sobreJuego", descripcion);
@@ -245,6 +245,7 @@ const AgregarJuegos = () => {
     };
 
     if (id) {
+      formData.append("idProducto", id);
       const response = await ApiPrivate("Editar_Producto", formData)
       if (response) {
         Swal.fire({
