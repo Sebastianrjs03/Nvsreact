@@ -4,7 +4,6 @@ import Menu from "../../components/Tienda/Menu";
 import InformacionProducto from "../../components/DetallesProductos/InformacionProducto";
 import DatosProducto from "../../components/DetallesProductos/datosProducto";
 import DescripcionProducto from "../../components/DetallesProductos/descripcionProducto";
-import CalificacionesProducto from "../../components/DetallesProductos/calificacionesProducto";
 import ImagenVideojuego from "../../components/DetallesProductos/ImagenVideoJuego";
 import GaleriaVideoJuego from "../../components/DetallesProductos/galeriaVideoJuego";
 import BannerProducto from "../../components/DetallesProductos/bannerProducto";
@@ -106,11 +105,8 @@ function DetalleJuego() {
             tipoProducto="videojuego"
           />
 
-          <GaleriaVideoJuego
-            visuales={detalle.idProducto}
-          />
-
-          <CalificacionesProducto idProducto={detalle.idProducto} />
+          <GaleriaVideoJuego/>
+          
         </main>
       ))}
        <FooterPQRS/>

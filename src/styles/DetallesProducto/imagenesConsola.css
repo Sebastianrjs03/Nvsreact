@@ -10,8 +10,8 @@
 }
 
 .imagenesConsola-auxiliares img {
-    width: 150px;
-    height: auto;
+    width: 10rem;
+    height: 8rem;
     border-radius: 10px;
     cursor: pointer;
 }
