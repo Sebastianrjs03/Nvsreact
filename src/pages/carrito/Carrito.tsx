@@ -14,6 +14,7 @@ interface Producto {
   nombreProducto: string;
   totalProducto: number;
   aux_plataforma: string;
+  tipoProducto: string;
   stock: number;
   cantidadSeleccionada: number;
 }
@@ -21,6 +22,7 @@ interface Producto {
 function Carrito() {
   const [productos, setProductos] = useState<Producto[]>([]);
   const [subtotal, setSubtotal] = useState(0);
+  const [envio, setEnvio] = useState(30000);
   const [iva, setIva] = useState(0);
   const [total, setTotal] = useState(0);
   const token = localStorage.getItem("token");
@@ -71,7 +73,7 @@ function Carrito() {
         }
       });
     } else if (ids.length === 0) {
-        Swal.fire({
+      Swal.fire({
         title: "No hay productos en el carrito",
         text: "Por favor, agrega productos antes de proceder a la compra.",
         icon: "warning",
@@ -93,24 +95,54 @@ function Carrito() {
       nombre: p.nombreProducto,
       cantidad: p.cantidadSeleccionada,
       precioUnitario: p.totalProducto,
+      tipoProducto: p.tipoProducto,
       iva: 0.19,
       total: p.totalProducto * p.cantidadSeleccionada,
     }));
 
+    const totalJuegos = productos
+      .filter((p) => p.tipoProducto === "videojuego")
+      .reduce((acc, p) => acc + p.cantidadSeleccionada, 0);
+
+    const totalConsolas = productos
+      .filter((p) => p.tipoProducto === "consola")
+      .reduce((acc, p) => acc + p.cantidadSeleccionada, 0);
+
+    let newEnvio = 0;
+
+    if (totalJuegos >= 1 && totalJuegos <= 2) {
+      newEnvio = 8500;
+    }else if (totalJuegos >= 3 && totalJuegos <= 4) {
+      newEnvio = 15000;
+    }else if (totalJuegos === 5) {
+      newEnvio = 20000; 
+    }else if (totalJuegos > 5) {
+      newEnvio = 5000;
+    }
+
+    if (totalConsolas === 1) {
+      newEnvio += 30000;
+    } else if (totalConsolas > 1) {
+      newEnvio += 15000;
+    } 
+
     const newSubtotal = resumen.reduce((acc, item) => acc + item.total, 0);
     const newIva = newSubtotal * 0.19;
-    const newTotal = newSubtotal + newIva;
+
+    const newTotal = newSubtotal + newIva + envio;
 
     setSubtotal(newSubtotal);
     setIva(newIva);
+    setEnvio(newEnvio);
     setTotal(newTotal);
 
     localStorage.setItem(
       "resumenPago",
       JSON.stringify({
         productos: resumen,
-        subtotal: newSubtotal,
         iva: newIva,
+        envio: newEnvio,
+        subtotal: newSubtotal,
         total: newTotal,
       })
     );
@@ -196,7 +228,6 @@ function Carrito() {
           </button>
         </ResumenCarrito>
       </main>
-      
     </React.Fragment>
   );
 }

@@ -1,5 +1,6 @@
 .pagos-main {
     background-color: #1b014d;
+    justify-content: center;
     height: 100vh;
     display: flex;
     gap: 2rem;

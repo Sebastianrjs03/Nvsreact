@@ -6,6 +6,7 @@
     padding: 1rem;
     border-radius: 1rem;
     width: 100%;
+    transition: 0.3s ease-in-out;
 }
 
 .cartCarrito:hover {

@@ -14,7 +14,7 @@ function MenuCarrito() {
         <img src={logo} alt="Logo de NVS"/>
           <ul className="menuPagos-pasos">
             <li className="menuPagos-inactivo"><span><i className="fa-solid fa-check"></i></span> Carrito</li>
-            <li className="menuPagos-activo"><span>2</span> Pago y Envío</li>
+            <li className="menuPagos-activo"><span>2</span> Pago</li>
           </ul>
       </div>
 
