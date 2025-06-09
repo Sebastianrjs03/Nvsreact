@@ -92,7 +92,7 @@ function agregarAlCarrito(idProducto: string | number) {
 
           <InformacionProducto esConsola>
 
-            <ImagenesConsola imgConsola={detalle.idProducto} />
+            <ImagenesConsola/>
 
             <DatosProducto
               titulo={detalle.nombreProducto}
