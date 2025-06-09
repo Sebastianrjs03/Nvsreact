@@ -154,3 +154,40 @@ export const FPC = new Intl.NumberFormat("es-CO", {
   currency: "COP",
   minimumFractionDigits: 0, // Opcional: para quitar decimales
 });
+
+export interface Soporte {
+  idCliente: number;
+  fecha: string;
+  pqrs: string;
+}
+
+export interface SoporteCon {
+  idCliente: number;
+  nombreUsuario: string | null;
+  apellidoUsuario: string | null;
+  fecha: string;
+  pqrs: string;
+}
+
+export interface Envio {
+  fk_pk_Factura: number,
+  tiempoEstimado: string,
+  observaciones: string,
+  idEstadoEnvio: string;
+}
+
+export interface EstadoEnvio {
+  idEstadoEnvio: string;
+  estadoEnvio: number;
+}
+
+export interface DetallesEnvio {
+  fk_pk_Producto: number; //detallefactura
+  nombreProducto: string; // producto
+  cantidadProducto: number; //detalleFactura
+  totalProducto: number; //detallefactura
+  fechaFactura: string; // factura
+  idCliente: number; // factura
+  nombreUsuario: string, // usuario
+  apellidoUsuario: string; //usuario
+}

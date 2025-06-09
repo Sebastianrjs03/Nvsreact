@@ -118,12 +118,9 @@ const Sidebar = () => {
                   </label>
                   <input type="checkbox" id="envios" />
                   <ul>
-                    <a href="../envios/mod_envio.php">
+                    <Link to={"/Administrador/Envios"}>
                       <li>Envios</li>
-                    </a>
-                    <a href="../envios/mod_estadoenvio.php">
-                      <li>Estado de envio</li>
-                    </a>
+                    </Link>
                   </ul>
                 </li>
                 <li>
@@ -133,9 +130,9 @@ const Sidebar = () => {
                   </label>
                   <input type="checkbox" id="soporte" />
                   <ul>
-                    <a href="../soporte/mod_soporte.php">
-                      <li>PQRS</li>
-                    </a>
+                    <Link to={"/Administrador/Soporte"}>
+                      <li>Soporte</li>
+                    </Link>
                   </ul>
                 </li>
               </ul>

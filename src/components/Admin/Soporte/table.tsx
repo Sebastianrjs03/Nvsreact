@@ -1,144 +1,105 @@
 //hooks
-import { useEffect, useState } from "react";
-import { ApiPublic, ApiPrivate } from '../../../hooks/UseFetch.tsx';
+import { useState } from "react";
+import { Delete } from "../../../hooks/useCrud.tsx";
 
-//librerias
-import Swal from 'sweetalert2';
+//types
+import { ClienteCon, SoporteCon, Soporte } from "../Types/TypesDatos.tsx";
 
 //Components
 import ExampleModal from "./modalUsuario.tsx";
-import { Calificacion } from "../Types/TypesDatos.tsx";
 
-const Table = () => {
+interface MyModalProps {
+  data: Soporte[];
+  cliente: ClienteCon[];
+  getSoporte: () => void;
 
+}
 
+const Table = ({ getSoporte, data, cliente }: MyModalProps) => {
 
-  const endpoint: string = 'Consultar_CalificacionCliente';
-  const [data, setData] = useState<Calificacion[]>([]);
-  const [selectedCalificacion, setSelectedCalificacion] = useState<Calificacion | null>(null);
+  const [selectedSoporte, setSelectedSoporte] = useState<SoporteCon | null>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenR, setIsOpenR] = useState(false);
 
-
-  const getCalifications = async () => {
-    const result = await ApiPublic(endpoint);
-
-    if (result) {
-      setData(result);
-    } else {
-      console.error('No se recibieron datos o los datos están en un formato inesperado');
-    }
-  };
-
-  useEffect(() => {
-    getCalifications();
-  }, []);
-
-  const Delete = ( idCliente: number, idProducto: number) => {
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: 'No podrás revertir esto',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const PK = {
-          id1: idCliente,
-          id2: idProducto,
-          nombre1: "idCliente",
-          nombre2: "idProducto"
-        }
-        deleteFetch(PK);
-      }
-    });
-  };
-
-  const deleteFetch = async (PK: any) => {
-    const response = await ApiPrivate('Eliminar_CalificacionCliente', PK)
-    if (response) {
-      Swal.fire('Eliminado', 'La calificación ha sido eliminada.', 'success');
-      getCalifications();
-    } else {
-      Swal.fire({
-        icon: "error",
-        title: "Acción fallida",
-        text: "No se elimino la calificacion",
-      });
-    }
-  }
+  const Tabla = Array.isArray(data)
+    ? data.map(Cli => {
+      const seleccionado = cliente.find(PQRS => PQRS.idCliente === Cli.idCliente);
+      return {
+        ...Cli,
+        nombreUsuario: seleccionado ? seleccionado.nombreUsuario : null,
+        apellidoUsuario: seleccionado ? seleccionado.apellidoUsuario : null
+      };
+    })
+    : [];
 
   return (
-    <div>
-      <div className="contenedor_Tabla">
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}>
+      <div className="contenedor_Tabla" style={{ width: "100%" }}>
         <table className="table table-striped table-dark table_Admin">
           <thead>
             <tr>
               <th scope="col">Id Cliente</th>
-              <th scope="col">ID Producto</th>
-              <th scope="col">Numero Calificacion</th>
-              <th scope="col">Comentario</th>
+              <th scope="col">Fecha Peticion</th>
+              <th scope="col">Pregunta, Queja o Reclamo</th>
+              <th scope="col" style={{ maxWidth: "60px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Responder</th>
               <th scope="col">Editar</th>
-              <th scope="col">Eliminar</th>
-
+              <th scope="col" style={{ maxWidth: "50px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Eliminar</th>
             </tr>
           </thead>
           <tbody>
-            {data.map((calificacion) => (
-              <tr key={`${calificacion.idCliente}-${calificacion.idProducto}`}>
-                <td>{calificacion.idCliente}</td>
-                <td>{calificacion.idProducto}</td>
-                <td>{calificacion.numeroCalificacion}</td>
-                <td>{calificacion.comentarioCalificacion}</td>
+            {Tabla.map((pqrs) => (
+              <tr key={`${pqrs.idCliente}`}>
+                <td>{pqrs.idCliente}-{pqrs.nombreUsuario} {pqrs.apellidoUsuario}</td>
+                <td>{pqrs.fecha}</td>
+                <td>{pqrs.pqrs}</td>
+                <td style={{ maxWidth: "60px" }}>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => { setSelectedSoporte(pqrs); setIsOpenR(true) }}
+                  >
+                    <i className="fa-solid fa-square-envelope"></i>
+                  </button>
+                </td>
                 <td>
                   <button
                     type="button"
                     className="btn btn-primary"
-                    onClick={() => { setSelectedCalificacion(calificacion); setIsOpen(true) }}
+                    onClick={() => { setSelectedSoporte(pqrs); setIsOpen(true) }}
                   >
                     <i className="fa-solid fa-pen"></i>
                   </button>
-
-
                 </td>
-                <td>
-                  <button className="btn btn-danger" onClick={() => Delete(calificacion.idCliente, calificacion.idProducto)}>
+                <td style={{ maxWidth: "50px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                  <button className="btn btn-danger" onClick={() => Delete(pqrs.idCliente, "idCliente", getSoporte, "Eliminar_Soporte", pqrs.fecha, "fecha")}>
                     <i className="fa-solid fa-trash"></i>
                   </button>
                 </td>
               </tr>))}
-
           </tbody>
-        </table></div>
-      <div>
-        <section>
-          <button
-            type="button"
-            className="btn btn-primary"
-            style={{ backgroundColor: '#4415A2', border: 'none' }}
-            onClick={() => setIsOpen(true)}
-          >
-            <i className="fa-solid fa-plus"></i> Nueva Calificación
-          </button>
-          {isOpen && !selectedCalificacion && (
-            <ExampleModal
-              setIsOpen={setIsOpen}
-              modal="Agregar"
-              get={getCalifications}
-            />
-          )}
-          {isOpen && selectedCalificacion && (
-            <ExampleModal
-              idCliente={selectedCalificacion.idCliente}
-              idProducto={selectedCalificacion.idProducto}
-              setCalificacionB={setSelectedCalificacion}
-              setIsOpen={setIsOpen}
-              modal="Editar"
-              get={getCalifications}
-            />
-          )}
-        </section>
+        </table>
+        {Tabla.length === 0 && (
+          <h1>!!Queremos Dormir!!</h1>
+        )}
       </div>
+
+      {isOpenR && selectedSoporte && (
+        <ExampleModal
+          soporte={selectedSoporte}
+          setSoporteM={setSelectedSoporte}
+          setIsOpen={setIsOpenR}
+          get={getSoporte}
+          responder="si"
+        />
+      )}
+      {isOpen && selectedSoporte && (
+        <ExampleModal
+          soporte={selectedSoporte}
+          setSoporteM={setSelectedSoporte}
+          setIsOpen={setIsOpen}
+          get={getSoporte}
+        />
+      )}
     </div>
   )
 

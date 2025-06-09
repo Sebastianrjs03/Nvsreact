@@ -1,144 +1,97 @@
 //hooks
-import { useState, useEffect } from "react";
-import { ApiPrivate, ApiPublic } from '../../../hooks/UseFetch';
+import { ApiPrivate } from '../../../hooks/UseFetch';
+import { useEffect, useState } from 'react';
+
 //librerias
 import Swal from "sweetalert2";
 
-import { Calificacion, Cliente, ProductoA } from "../Types/TypesDatos";
+import { SoporteCon } from "../Types/TypesDatos";
+
 
 interface MyModalProps {
   get: () => void;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setCalificacionB?: React.Dispatch<React.SetStateAction<Calificacion | null>>;
-  idCliente?: number;
-  idProducto?: number;
-  modal: string;
+  setSoporteM: React.Dispatch<React.SetStateAction<SoporteCon | null>>;
+  soporte: SoporteCon;
+  responder?: string;
 }
 
 
-const ExampleModal: React.FC<MyModalProps> = ({ idCliente, idProducto, setIsOpen, setCalificacionB, modal, get }) => {
-  const endpoint: string = 'Consultar_Cliente';
-  const endpointP: string = 'Consultar_Producto';
-  const endpointC: string = 'ConsultarPorID_CalificacionCliente';
-  const [cliente, setCliente] = useState<Cliente[]>([]);
-  const [producto, setProducto] = useState<ProductoA[]>([]);
-  const [calificacion, setCalificacion] = useState<Calificacion | null>(null);
-  const [clienteSeleccionado, setClienteSeleccionado] = useState<number | undefined>(idCliente);
-  const [productoSeleccionado, setProductoSeleccionado] = useState<number | undefined>(idProducto);
-  const [calificaciont, setCalificaciont] = useState(0);
-  const [comentariot, setComentariot] = useState("");
+const ExampleModal: React.FC<MyModalProps> = ({ soporte, setIsOpen, setSoporteM, get, responder }) => {
+
+  const [respuesta, setRespuesta] = useState("");
+
+  const [Soporte, setSoporte] = useState({
+    idCliente: "",
+    fecha: "",
+    pqrs: "",
+  });
+
+  const getSoporte = async () => {
+    if (soporte) {
+      setSoporte((prev) => ({
+        ...prev,
+        idCliente: String(soporte.idCliente),
+        fecha: soporte.fecha,
+        pqrs: soporte.pqrs,
+      }));
+    }
+  }
 
   useEffect(() => {
-    const FetchCli_Pro_Cal = async () => {
-      try {
-        if (modal === "Editar") {
-          const resultC = await ApiPublic(endpointC, idCliente, idProducto, "idCliente", "idProducto")
-          if (resultC) { setCalificacion(resultC); }
-          if (calificacion) {
-            setCalificaciont(calificacion.numeroCalificacion);
-            setComentariot(calificacion.comentarioCalificacion);
-          }
-        } else {
-          const result = await ApiPublic(endpoint);
-          const resultP = await ApiPublic(endpointP);
-
-          if (result && resultP) {
-            setCliente(result);
-            setProducto(resultP);
-          } else {
-            console.error('No se recibieron datos o los datos están en un formato inesperado');
-          }
-        }
-      } catch (error) {
-        console.error('Error cargando clientes:', error);
-      }
-    };
-
-    FetchCli_Pro_Cal();
+    getSoporte();
   }, []);
 
-  useEffect(() => {
-    if (calificacion) {
-      setCalificaciont(calificacion.numeroCalificacion);
-      setComentariot(calificacion.comentarioCalificacion);
-    }
-  }, [calificacion]);
-
-  const handleProductoChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setProductoSeleccionado(Number(e.target.value));
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setSoporte((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  const handleClienteChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setClienteSeleccionado(Number(e.target.value));
+  const handleRespuestaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setRespuesta(e.target.value);
   };
 
   const Validar = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const data = {
-      idCliente: clienteSeleccionado,
-      idProducto: productoSeleccionado,
-      numeroCalificacion: calificaciont,
-      comentarioCalificacion: comentariot
-    };
-    if (clienteSeleccionado == 0 || productoSeleccionado == 0) {
-      Swal.fire({
-        icon: "error",
-        title: "Acción fallida",
-        text: "Cliente o Producto en 0",
-      });
-    } else if (calificaciont === 0 || calificaciont > 100 || calificaciont < 0) {
-      Swal.fire({
-        icon: "error",
-        title: "Acción fallida",
-        text: "calificacion invalida ingrese un numero de 1 a 100 sin decimales",
-      });
-    } else if (comentariot.trim() === "") {
-      Swal.fire({
-        icon: "error",
-        title: "Acción fallida",
-        text: "Comentario vacio, escriba un comentario",
-      });
-    } else if (modal === "Agregar") {
-      Agregar(data);
-    } else if (modal === "Editar") {
-      Editar(data);
+    const formData = new FormData();
+
+    Object.entries(Soporte).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
+    if(responder){
+      formData.append("respuesta", respuesta);
     }
+
+    Editar(formData);
+
   };
 
-  const Agregar = async (data: any) => {
-    const response = await ApiPrivate("Crear_CalificacionCliente", data);
-    if (response) {
-        Swal.fire({
-        icon: "success",
-        title: "Acción exitosa",
-        text: "Calificacion registrada",
-      }).then(async () => {
-        get();
-        if (setCalificacionB) {
-          setCalificacionB(null);
-        }
-        setIsOpen(false);
-      });
-    } else if (!response) {
-        if (setCalificacionB) {
-          setCalificacionB(null);
-        }
-        setIsOpen(false);
-        get();
-    }
-  }
+  const Editar = async (data: FormData) => {
+    let endpoint:string;
+    let mensaje:string;
 
-  const Editar = async (data: any) => {
-    const response = await ApiPrivate("Editar_CalificacionCliente", data);
+    if(!responder){
+      endpoint = "Editar_Soporte";
+      mensaje = "PQRS Editada";
+    } else {
+      endpoint = "Responder_Soporte"
+      mensaje = "Respuesta Enviada, para registro revisar gmail"
+    }
+
+    const response = await ApiPrivate(endpoint, data);
     if (response) {
       Swal.fire({
         icon: "success",
         title: "Acción exitosa",
-        text: "Calificacion Editada",
+        text: mensaje,
       }).then(async () => {
-        if (setCalificacionB) {
-          setCalificacionB(null);
+        if (setSoporteM) {
+          setSoporteM(null);
         }
         setIsOpen(false);
         get();
@@ -147,10 +100,10 @@ const ExampleModal: React.FC<MyModalProps> = ({ idCliente, idProducto, setIsOpen
       Swal.fire({
         icon: "error",
         title: "Acción fallida",
-        text: "Calificacion no Editada",
+        text: "No se completo la operacion",
       }).then(() => {
-        if (setCalificacionB) {
-          setCalificacionB(null);
+        if (setSoporteM) {
+          setSoporteM(null);
         }
         setIsOpen(false);
       });
@@ -162,52 +115,43 @@ const ExampleModal: React.FC<MyModalProps> = ({ idCliente, idProducto, setIsOpen
     <div className="modal-backdrop">
       <div className="modal_content">
         <div className="modal-header">
-          <h1 className="modal-title fs-5" id="exampleModalLabel" style={{ marginLeft: "5px" }}>{modal} Calificacion</h1>
-          <button type="button" className="btn-close" onClick={() => { setIsOpen(false); if (setCalificacionB) { setCalificacionB(null) } }} aria-label="Close" style={{ marginLeft: "53%" }}></button>
+          <h1 className="modal-title fs-5" id="exampleModalLabel" style={{ marginLeft: "5px" }}>Editar PQRS </h1>
+          <button type="button" className="btn-close" onClick={() => { setIsOpen(false); if (setSoporteM) { setSoporteM(null) } }} aria-label="Close" style={{ marginLeft: "63%" }}></button>
         </div>
         <hr />
         <div className="modal-body" style={{ marginLeft: "15px" }}>
-          <form onSubmit={Validar} encType="multipart/form-data">
+          <form onSubmit={Validar}>
             <div className="form-group row">
-              { modal === "Agregar" && <div className="row" style={{ marginBottom: "12px" }}>
+              <div className="row" style={{ marginBottom: "12px" }}>
                 <div className="col" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                   <label htmlFor="formGroupExampleInput">id Cliente</label>
-                  <select className="form-select" aria-label="Default select example" style={{ backgroundColor: "lightgray" }} value={clienteSeleccionado ?? ''} onChange={handleClienteChange}>
-                    <option value="">Seleccione un cliente</option>
-                    {cliente.map(cliente => (
-                      <option key={cliente.idCliente} value={cliente.idCliente}>
-                        {cliente.idCliente}
-                      </option>
-                    ))}
-                  </select>
+                  <input type="number" className="form-control shadow-none" value={Soporte.idCliente} readOnly />
                 </div>
                 <div className="col" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                  <label htmlFor="formGroupExampleInput">id Producto</label>
-                  <select className="form-select" aria-label="Default select example" style={{ backgroundColor: "lightgray" }} value={productoSeleccionado  ?? ''} onChange={handleProductoChange}>
-                  <option value="">Seleccione un producto</option>
-                    {producto.map(producto => (
-                      <option key={producto.idProducto} value={producto.idProducto}>
-                        {producto.idProducto}
-                      </option>
-                    ))}
-                  </select>
+                  <label htmlFor="formGroupExampleInput">fecha</label>
+                  {!responder ?<input type="date" className="form-control shadow-none" name="fecha" value={Soporte.fecha} onChange={handleChange} />
+                   :<input type="date" className="form-control shadow-none" name="fecha" value={Soporte.fecha} readOnly/>}
                 </div>
-              </div>}
+              </div>
               <div className="row" style={{ marginBottom: "8px" }}>
                 <div className="col" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                  <label htmlFor="formGroupExampleInput">Calificacion</label>
-                  <input type="number" className="form-control shadow-none" value={calificaciont} onChange={(e) => setCalificaciont(Number(e.target.value))} />
+                  <label htmlFor="formGroupExampleInput">{!responder ? <p>Petición enviada por: {`${soporte.nombreUsuario} ${soporte.apellidoUsuario}`}</p> : <p>Peticion</p> }</label>
+                  {!responder ? <textarea className="form-control" name="pqrs" value={Soporte.pqrs} style={{ height: "100px", border: "none" }} onChange={handleChange} />
+                  :<textarea className="form-control" name="pqrs" value={Soporte.pqrs} style={{ height: "100px", border: "none" }} readOnly />}
                 </div>
               </div>
-              <div className="row" style={{ marginBottom: "15px" }}>
-                <div className="col" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                  <label htmlFor="formGroupExampleInput">Comentario</label>
-                  <textarea className="form-control" value={comentariot} style={{ height: "100px", border: "none" }} onChange={(e) => setComentariot(e.target.value)} ></textarea>
+              {responder == "si" &&
+
+                <div className="row" style={{ marginBottom: "8px" ,display: "flex", justifyContent: "center", gap: "0.5em"}}>
+                  <h1 className="modal-title fs-5" style={{display:"flex", justifyContent: "center"}}>Responder a: {soporte.nombreUsuario} {soporte.apellidoUsuario}</h1>
+                  <div className="col" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                    <textarea className="form-control" name="pqrs" value={respuesta} style={{ height: "100px", border: "none" }} onChange={handleRespuestaChange} />
+                  </div>
                 </div>
-              </div>
+              }
               <div className="row">
                 <div className="col" style={{ display: "flex", justifyContent: "center", gap: "35px" }}>
-                  <button type="button" onClick={() => { setIsOpen(false); if (setCalificacionB) { setCalificacionB(null) } }}>Cerrar</button>
+                  <button type="button" onClick={() => { setIsOpen(false); if (setSoporteM) { setSoporteM(null) } }}>Cerrar</button>
                   <button type="submit" className="btn btn-primary btn-ms">Guardar</button>
                 </div>
               </div>

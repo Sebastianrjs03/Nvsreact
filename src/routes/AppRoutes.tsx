@@ -25,7 +25,7 @@ import Nombres from '../pages/perfil/Nombres';
 
 //Admin
 import Sidebar from '../components/Admin/Sidebar';
-import Usuario from '../pages/admin/Usuarios/Usuario';
+import UsuarioPage from '../pages/admin/Usuarios/Usuario';
 import MostrarProductos from '../pages/admin/Productos/Producto';
 import AgregarConsolas from '../components/Admin/Productos/Consolas/agregarConsolas';
 import AgregarJuegos from '../components/Admin/Productos/Videojuegos/agregarJuegos';
@@ -34,6 +34,9 @@ import PlataformaPage from '../pages/admin/Productos/Plataforma';
 import FacturaPage from '../pages/admin/Facturas/Factura';
 import DetallesFacturaPage from '../pages/admin/Facturas/DetalleFactura';
 import CalificacionCliente from '../pages/admin/Calificaciones/CalCliente';
+import SoportePage from '../pages/admin/Soporte/Pqrs';
+import EnvioPage from '../pages/admin/Envios/Envio';
+
 
 
 export default function AppRoutes() {
@@ -75,7 +78,7 @@ export default function AppRoutes() {
              <Celador rolPermitido='2'>
              <Sidebar/>
          </Celador>}>
-          <Route path='/Administrador/Usuarios' element={<Usuario/>}></Route>
+          <Route path='/Administrador/Usuarios' element={<UsuarioPage/>}></Route>
           <Route path='/Administrador/Productos' element={<MostrarProductos/>}></Route>
           <Route path='/Administrador/Agregar_Consola/:id?' element={<AgregarConsolas/>}></Route>
           <Route path='/Administrador/Agregar_Juego/:id?' element={<AgregarJuegos/>}></Route>
@@ -84,6 +87,8 @@ export default function AppRoutes() {
           <Route path='/Administrador/Facturas' element={<FacturaPage/>}></Route>
           <Route path='/Administrador/Detalles_Factura' element={<DetallesFacturaPage/>}></Route>         
           <Route path='/Administrador/Calificacion_Cliente' element={<CalificacionCliente/>}></Route>
+          <Route path='/Administrador/Envios' element={<EnvioPage/>}></Route>
+          <Route path='/Administrador/Soporte' element={<SoportePage/>}></Route>
         </Route>
       </Routes>
     </Router>

@@ -7,7 +7,7 @@ import { ModelBase } from '../components/Admin/Types/TypesDatos';
 //hooks
  import { ApiPrivate } from './UseFetch';
  
- export const Delete = ( id: string | number, nombre: string, get: () => void, endpoint: string) => {
+ export const Delete = ( id: string | number, nombre: string, get: () => void, endpoint: string, id2?: string | number, nombre2?: string) => {
     Swal.fire({
       title: '¿Estás seguro?',
       text: 'No podrás revertir esto',
@@ -17,11 +17,21 @@ import { ModelBase } from '../components/Admin/Types/TypesDatos';
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        const PK:ModelBase = {
+        if(id2 && nombre2){
+          const PK:ModelBase = {
           id1: id,
           nombre1: nombre,
+          id2: id2,
+          nombre2: nombre2};
+          deleteFetch(PK , get, endpoint);
+          } else {
+            const PK:ModelBase = {
+            id1: id,
+            nombre1: nombre,
+          }
+          deleteFetch(PK , get, endpoint);
         }
-        deleteFetch(PK , get, endpoint);
+        
       }
     });
   };
@@ -29,15 +39,15 @@ import { ModelBase } from '../components/Admin/Types/TypesDatos';
   const deleteFetch = async (PK: ModelBase, get: () => void, endpoint: string) => {
       const nombre = PK.nombre1;
       const response = await ApiPrivate(endpoint, PK);
-      if (response) {
-        Swal.fire('Eliminado', `Se elimino el ${nombre} correctamente` , 'success');
-        get();
-      } else {
+      if (response?.error) {
         Swal.fire({
           icon: "error",
           title: "Acción fallida",
-          text: `No se elimino el ${nombre}`,
+          text: response.mensaje,
         });
+      } else {
+        Swal.fire('Eliminado', `Se elimino el ${nombre} correctamente` , 'success');
+        get();
       }
     }
   

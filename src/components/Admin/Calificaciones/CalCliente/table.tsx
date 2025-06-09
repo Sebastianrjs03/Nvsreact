@@ -1,6 +1,6 @@
 //hooks
-import { useEffect, useState } from "react";
-import { ApiPublic, ApiPrivate } from '../../../../hooks/UseFetch.tsx';
+import { useState } from "react";
+import { ApiPrivate } from '../../../../hooks/UseFetch.tsx';
 
 //librerias
 import Swal from 'sweetalert2';
@@ -9,29 +9,15 @@ import Swal from 'sweetalert2';
 import ExampleModal from "./modalUsuario.tsx";
 import { Calificacion } from "../../Types/TypesDatos.tsx";
 
-const Table = () => {
+interface MyModalProps {
+  getCalifications: () => void;
+  data: Calificacion[];
+}
 
+const Table = ({ getCalifications, data } : MyModalProps) => {
 
-
-  const endpoint: string = 'Consultar_CalificacionCliente';
-  const [data, setData] = useState<Calificacion[]>([]);
   const [selectedCalificacion, setSelectedCalificacion] = useState<Calificacion | null>(null);
   const [isOpen, setIsOpen] = useState(false);
-
-
-  const getCalifications = async () => {
-    const result = await ApiPublic(endpoint);
-    
-    if (result) {
-      setData(result);
-    } else {
-      console.error('No se recibieron datos o los datos están en un formato inesperado');
-    }
-  };
-
-  useEffect(() => {
-    getCalifications();
-  }, []);
 
   const Delete = ( idCliente: number, idProducto: number) => {
     Swal.fire({
@@ -69,8 +55,8 @@ const Table = () => {
   }
 
   return (
-    <div>
-      <div className="contenedor_Tabla">
+    <div style={{display: "flex" ,flexDirection: "column", alignItems: "center", gap: "10px"}}>
+      <div className="contenedor_Tabla" style={{width: "100%" }}>
         <table className="table table-striped table-dark table_Admin">
           <thead>
             <tr>

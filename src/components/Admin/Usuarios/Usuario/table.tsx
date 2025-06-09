@@ -1,6 +1,6 @@
 //hooks
-import { useEffect, useState } from "react";
-import { ApiPublic, ApiPrivate } from '../../../../hooks/UseFetch.tsx';
+import { useState } from "react";
+import { ApiPrivate } from '../../../../hooks/UseFetch.tsx';
 
 //librerias
 import Swal from 'sweetalert2';
@@ -10,26 +10,16 @@ import ExampleModal from "./modalUsuario.tsx";
 import ModalDetalles from "./modalDetalles.tsx";
 import { Usuario } from "../../Types/TypesDatos.tsx";
 
-const Table = () => {
+interface MyModalProps {
+  getUsuario: () => void;
+  data: Usuario[];
+}
 
-  const endpoint: string = 'Consultar_UsuarioAdmin';
-  const [data, setData] = useState<Usuario[]>([]);
+const Table = ({ getUsuario, data } : MyModalProps) => {
+
   const [selectedUsuario, setSelectedUsuario] = useState<Usuario | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenD, setIsOpenD] = useState(false);
-
-  const getUsuario = async () => {
-    const result = await ApiPublic(endpoint);
-    if (result) {
-      setData(result);
-    } else {
-      console.error('No se recibieron datos o los datos están en un formato inesperado');
-    }
-  };
-
-  useEffect(() => {
-    getUsuario();
-  }, []);
 
   const Delete = ( idUsuario: number) => {
     Swal.fire({
@@ -64,8 +54,8 @@ const Table = () => {
     }
   }
   return (
-    <div>
-      <div className="contenedor_Tabla">
+    <div style={{display: "flex" ,flexDirection: "column", alignItems: "center", gap: "10px"}}>
+      <div className="contenedor_Tabla" style={{width: "100%" }}>
         <table className="table table-striped table-dark table_Admin">
           <thead>
             <tr>
@@ -102,7 +92,7 @@ const Table = () => {
                     className="btn btn-primary"
                     onClick={() => { setSelectedUsuario(Usuario); setIsOpenD(true) }}
                   >
-                    <i className="fa-solid fa-hand-point-up"></i>
+                    <i className="fa-solid fa-circle-info"></i>
                   </button>
                 </td>
                 <td>
@@ -122,7 +112,11 @@ const Table = () => {
               </tr>))}
 
           </tbody>
-        </table></div>
+        </table>
+        {data.length === 0 && (
+          <h1>!!Queremos Dormir!!</h1>
+        )}
+        </div>
       <div>
         <section>
           <button
