@@ -22,7 +22,7 @@ interface Producto {
 function Carrito() {
   const [productos, setProductos] = useState<Producto[]>([]);
   const [subtotal, setSubtotal] = useState(0);
-  const [envio, setEnvio] = useState(30000);
+  const [envio, setEnvio] = useState(0);
   const [iva, setIva] = useState(0);
   const [total, setTotal] = useState(0);
   const token = localStorage.getItem("token");

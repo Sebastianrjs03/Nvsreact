@@ -18,7 +18,7 @@ interface ProductoResumen {
 function Pagos() {
   const [productos, setProductos] = useState<ProductoResumen[]>([]);
   const [subtotal, setSubtotal] = useState(0);
-  const [envio, setEnvio] = useState(30000); // Si el envío es fijo
+  const [envio, setEnvio] = useState(0); // Si el envío es fijo
   const [iva, setIva] = useState(0);
   const [total, setTotal] = useState(0);
 

@@ -1,5 +1,5 @@
 .menuPagos-header {
-    position: fixed;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,6 +8,7 @@
     height: 100px;
     gap: 3rem;
     z-index: 100;
+    background-color: #1b014d;
     color: white;
 }
 
