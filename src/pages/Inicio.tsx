@@ -8,7 +8,7 @@ import ProductosCards from "../components/Tienda/ProductosCards";
 import Card from "../components/Tienda/Card";
 import Descuento from "../components/Tienda/Descuento";
 import { Link } from "react-router-dom";
-import FooterPQRS from "../components/Tienda/FooterPQRS";
+import FooterPQRS from "../components/Tienda/footerPQRS";
 import "../styles/Tienda/Link.css";
 import "../styles/pages/Inicio.css";
 

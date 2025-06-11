@@ -1,5 +1,4 @@
 import "../../styles/Tienda/Card.css";
-import Descuento from "./Descuento";
 
 const imagenesVideojuegos = import.meta.glob(
   "../../assets/Videojuegos/Portada/*.webp",

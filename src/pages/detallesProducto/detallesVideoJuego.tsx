@@ -10,7 +10,7 @@ import BannerProducto from "../../components/DetallesProductos/bannerProducto";
 import { useParams } from "react-router-dom";
 import { ApiPublic } from "../../hooks/UseFetch";
 import Swal from "sweetalert2";
-import FooterPQRS from "../../components/Tienda/FooterPQRS";
+import FooterPQRS from "../../components/Tienda/footerPQRS";
 
 interface Detalle {
   idProducto: string;
@@ -44,8 +44,9 @@ function DetalleJuego() {
   function agregarAlCarrito(idProducto: string | number) {
     const id = Number(idProducto);
 
-    const ids: number[] = JSON.parse(localStorage.getItem("ids") || "[]")
-      .filter((item: any) => typeof item === "number");
+    const ids: number[] = JSON.parse(
+      localStorage.getItem("ids") || "[]"
+    ).filter((item: any) => typeof item === "number");
 
     if (!ids.includes(id)) {
       ids.push(id);
@@ -60,7 +61,6 @@ function DetalleJuego() {
         iconColor: "#00a135",
         confirmButtonColor: "#7e4efc",
       });
-
     } else {
       Swal.fire({
         title: "Producto ya en el carrito",
@@ -74,14 +74,10 @@ function DetalleJuego() {
     }
   }
 
-
   return (
     <React.Fragment>
       <Menu />
-       <BannerProducto
-            Imagen={id!}
-            Recorte="Default"
-          />
+      <BannerProducto Imagen={id!} Recorte="Default" />
 
       {detalles.map((detalle) => (
         <main className="detallesConsola-main">
@@ -105,12 +101,10 @@ function DetalleJuego() {
             tipoProducto="videojuego"
           />
 
-          <GaleriaVideoJuego/>
-          
+          <GaleriaVideoJuego />
         </main>
       ))}
-       <FooterPQRS/>
-      
+      <FooterPQRS />
     </React.Fragment>
   );
 }

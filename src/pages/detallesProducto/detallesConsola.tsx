@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import "../../styles/pages/detallesConsola.css"
+import "../../styles/pages/detallesConsola.css";
 import Menu from "../../components/Tienda/Menu";
 import InformacionProducto from "../../components/DetallesProductos/InformacionProducto";
 import ImagenesConsola from "../../components/DetallesProductos/imagenesConsola";
 import DatosProducto from "../../components/DetallesProductos/datosProducto";
 import DescripcionProducto from "../../components/DetallesProductos/descripcionProducto";
 import TablaTecnicaConsola from "../../components/DetallesProductos/tablaTecnicaConsola";
-import FooterPQRS from "../../components/Tienda/FooterPQRS";
+import FooterPQRS from "../../components/Tienda/footerPQRS";
+
 import { useParams } from "react-router-dom";
 import { ApiPublic } from "../../hooks/UseFetch";
 import Swal from "sweetalert2";
@@ -27,7 +28,6 @@ interface Detalle {
   fuenteAlimentacion: string;
   opcionConectividad: string;
   tipoPuertos: string;
-
 }
 
 function DetalleConsola() {
@@ -47,52 +47,47 @@ function DetalleConsola() {
     fetchData();
   }, []);
 
+  function agregarAlCarrito(idProducto: string | number) {
+    const id = Number(idProducto);
 
-function agregarAlCarrito(idProducto: string | number) {
-  const id = Number(idProducto);
+    const ids: number[] = JSON.parse(
+      localStorage.getItem("ids") || "[]"
+    ).filter((item: any) => typeof item === "number");
 
-  const ids: number[] = JSON.parse(localStorage.getItem("ids") || "[]")
-    .filter((item: any) => typeof item === "number");
+    if (!ids.includes(id)) {
+      ids.push(id);
+      localStorage.setItem("ids", JSON.stringify(ids));
 
-  if (!ids.includes(id)) {
-    ids.push(id);
-    localStorage.setItem("ids", JSON.stringify(ids));
-    
-    Swal.fire({
-      title: "Agregado al carrito",
-      text: "El producto ha sido añadido exitosamente.",
-      icon: "success",
-      background: "#2a0054",
-      color: "#ffffff",
-      iconColor: "#00a135",
-      confirmButtonColor: "#7e4efc",
-    });
-
-  } else {
-    Swal.fire({
-      title: "Producto ya en el carrito",
-      text: "Este producto ya está en tu carrito.",
-      icon: "info",
-      background: "#2a0054",
-      color: "#ffffff",
-      iconColor: "#facc15",
-      confirmButtonColor: "#7e4efc",
-    });
+      Swal.fire({
+        title: "Agregado al carrito",
+        text: "El producto ha sido añadido exitosamente.",
+        icon: "success",
+        background: "#2a0054",
+        color: "#ffffff",
+        iconColor: "#00a135",
+        confirmButtonColor: "#7e4efc",
+      });
+    } else {
+      Swal.fire({
+        title: "Producto ya en el carrito",
+        text: "Este producto ya está en tu carrito.",
+        icon: "info",
+        background: "#2a0054",
+        color: "#ffffff",
+        iconColor: "#facc15",
+        confirmButtonColor: "#7e4efc",
+      });
+    }
   }
-}
 
   return (
-
     <React.Fragment>
       <Menu />
 
       {detalles.map((detalle) => (
-
         <main className="detallesConsola-main">
-
           <InformacionProducto esConsola>
-
-            <ImagenesConsola/>
+            <ImagenesConsola />
 
             <DatosProducto
               titulo={detalle.nombreProducto}
@@ -102,7 +97,6 @@ function agregarAlCarrito(idProducto: string | number) {
               tipoProducto="consola"
               onAgregarAlCarrito={() => agregarAlCarrito(detalle.idProducto)}
             />
-
           </InformacionProducto>
 
           <DescripcionProducto
@@ -123,20 +117,11 @@ function agregarAlCarrito(idProducto: string | number) {
             conectividad={detalle.opcionConectividad}
             puertos={detalle.tipoPuertos}
           />
-
-
-
         </main>
-        
       ))}
 
-      <FooterPQRS/>
-
-      
+      <FooterPQRS />
     </React.Fragment>
-
-
-
   );
 }
 

@@ -221,7 +221,7 @@ function BodyPagos({ total }: Props) {
                   label: "pay",
                   height: 55,
                 }}
-                createOrder={(data, actions) => {
+                createOrder={(_data, actions) => {
                   return actions.order.create({
                     intent: "CAPTURE",
                     purchase_units: [
@@ -234,7 +234,7 @@ function BodyPagos({ total }: Props) {
                     ],
                   });
                 }}
-                onApprove={async (data, actions) => {
+                onApprove={async (_data, actions) => {
                   const details = await actions.order?.capture();
                   console.log("Pago aprobado:", details);
                   await handlePagoAprobado();

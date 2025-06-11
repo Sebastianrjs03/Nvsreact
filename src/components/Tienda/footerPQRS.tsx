@@ -1,21 +1,20 @@
-import { useState } from 'react';
-import '../../styles/Tienda/FooterPQRS.css';
+import { useState } from "react";
+import "../../styles/Tienda/FooterPQRS.css";
 import { ApiPrivate } from "../../hooks/UseFetch";
-import Swal from 'sweetalert2';
-import logo from '../../assets/logoNVS.svg'
+import Swal from "sweetalert2";
+import logo from "../../assets/logoNVS.svg";
 
 function PQRSFooter() {
-  const [mensaje, setMensaje] = useState('');
-  const [enviado, setEnviado] = useState(false);
+  const [mensaje, setMensaje] = useState("");
 
   const handleEnviar = async () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
       Swal.fire({
-        icon: 'warning',
-        title: 'Sesión requerida',
-        text: 'Debes iniciar sesión para enviar una PQRS.',
+        icon: "warning",
+        title: "Sesión requerida",
+        text: "Debes iniciar sesión para enviar una PQRS.",
         background: "#2a0054",
         color: "#ffffff",
         confirmButtonColor: "#7e4efc",
@@ -23,48 +22,17 @@ function PQRSFooter() {
       return;
     }
 
-    const usuarioRaw = localStorage.getItem("usuario");
-
-    if (!usuarioRaw) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'No se encontró información del usuario.',
-      });
-      return;
-    }
-
-    let usuario;
-    try {
-      usuario = JSON.parse(usuarioRaw);
-    } catch (error) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Error al leer la información del usuario.',
-      });
-      return;
-    }
-
+    const usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
     const idCliente = usuario?.idUsuario;
-
-    if (!idCliente) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'No se encontró el ID del cliente.',
-      });
-      return;
-    }
 
     if (!mensaje.trim()) {
       Swal.fire({
-        icon: 'info',
-        title: 'Campo vacío',
-        text: 'Por favor escribe un comentario antes de enviar.',
+        icon: "info",
+        title: "Campo vacío",
+        text: "Por favor escribe un comentario antes de enviar.",
         background: "#2a0054",
         color: "#ffffff",
-        iconColor: "#00a135",
+        iconColor: "#ffcc00",
         confirmButtonColor: "#7e4efc",
       });
       return;
@@ -72,19 +40,19 @@ function PQRSFooter() {
 
     const data = {
       idCliente,
-      comentario: mensaje,
-      fecha: new Date().toISOString().split('T')[0],
+      fecha: new Date().toISOString().split("T")[0],
+      pqrs: mensaje,
     };
 
-    const response = await ApiPrivate('/soporte', data);
+    console.log("Datos a enviar:", data);
 
-    if (!response?.error) {
-      setEnviado(true);
-      setMensaje('');
+    const response = await ApiPrivate("EnviarPQRS", data);
+
+    if (response?.success) {
       Swal.fire({
-        icon: 'success',
-        title: '¡Enviado!',
-        text: 'Tu PQRS ha sido enviada correctamente.',
+        icon: "success",
+        title: "¡Enviado!",
+        text: "Tu PQRS ha sido enviada correctamente.",
         background: "#2a0054",
         color: "#ffffff",
         iconColor: "#00a135",
@@ -92,9 +60,13 @@ function PQRSFooter() {
       });
     } else {
       Swal.fire({
-        icon: 'error',
-        title: 'Error al enviar',
-        text: response.mensaje || 'Ocurrió un error al enviar la PQRS.',
+        icon: "info",
+        title: "Ya tienes una PQRS pendiente",
+        text: response?.mensaje,
+        background: "#2a0054",
+        color: "#ffffff",
+        iconColor: "#ffcc00",
+        confirmButtonColor: "#7e4efc",
       });
     }
   };
@@ -109,13 +81,16 @@ function PQRSFooter() {
           value={mensaje}
           onChange={(e) => setMensaje(e.target.value)}
         />
-        <button className="pqrs-button" onClick={handleEnviar}>Enviar</button>
-        {enviado}
+        <button className="pqrs-button" onClick={handleEnviar}>
+          Enviar
+        </button>
+        <p className="pqrs-info">
+          Recuerda que puedes enviar una PQRS por usuario. Para enviar una PQRS
+          diferente debes esperar la respuesta de soporte.
+        </p>
       </div>
       <div className="logo-container">
-
         <img src={logo} alt="" />
-
       </div>
     </div>
   );

@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import '../../../styles/login/recuperarContrasena/stylesRecuperarContrasena.css';  
 import Logo from "../../../components/login/logo"
 import DecorativeFigure from '../../../components/login/figure';

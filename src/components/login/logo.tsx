@@ -1,4 +1,3 @@
-import React from 'react';
 import logo from '../../assets/login/n_blanca.svg';
 
 const Logo = () => {

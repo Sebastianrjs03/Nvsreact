@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Menu from "../components/Tienda/Menu";
 import Tienda from "../components/Tienda/Tienda";
 import Banner from "../components/Tienda/Banner";
@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import "../styles/Tienda/Link.css";
 import "../styles/pages/Videojuegos.css";
 import { ApiPublic } from "../hooks/UseFetch";
-import FooterPQRS from "../components/Tienda/FooterPQRS";
+import FooterPQRS from "../components/Tienda/footerPQRS";
 
 interface Producto {
   idProducto: string;
@@ -99,7 +99,7 @@ export function Consolas() {
                   key={tendencia.idProducto}
                   to="/DetallesConsola"
                 >
-                     {tendencia.descuentoProducto != 0 && (
+                  {tendencia.descuentoProducto != 0 && (
                     <Descuento
                       consola="default"
                       precio={tendencia.descuentoProducto}
@@ -131,7 +131,7 @@ export function Consolas() {
                   key={oferta.idProducto}
                   to="/DetallesConsola"
                 >
-               {oferta.descuentoProducto != 0 && (
+                  {oferta.descuentoProducto != 0 && (
                     <Descuento
                       consola="default"
                       precio={oferta.descuentoProducto}
@@ -155,7 +155,7 @@ export function Consolas() {
           </BodyCard>
         </Tienda>
       </main>
-      <FooterPQRS/>
+      <FooterPQRS />
     </React.Fragment>
   );
 }

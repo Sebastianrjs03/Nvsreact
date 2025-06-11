@@ -1,4 +1,3 @@
-import React from "react";
 import control from "../../assets/login/control.png";
 
 const DecorativeFigure = () => {
