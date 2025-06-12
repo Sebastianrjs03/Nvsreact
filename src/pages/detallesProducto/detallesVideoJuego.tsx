@@ -18,7 +18,7 @@ interface Detalle {
   nombreProducto: string;
   descuentoProducto: string;
   totalProducto: number;
-  anoLanzamineto: string;
+  anoLanzamiento: string;
   descripcionJuego: string;
   aux_genero: string;
   aux_plataforma: string;
@@ -96,7 +96,7 @@ function DetalleJuego() {
 
           <DescripcionProducto
             descripcion={detalle.descripcionJuego}
-            añoLanzamiento={detalle.anoLanzamineto}
+            añoLanzamiento={detalle.anoLanzamiento}
             generos={detalle.aux_genero}
             tipoProducto="videojuego"
           />
