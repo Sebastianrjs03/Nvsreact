@@ -20,9 +20,27 @@ const Producto: EstructuraFiltro = {
         tipo: "select",
         opciones: ["Videojuego", "Consola"],
     },
-    stock: {
+    Disponibles: {
         tipo: "select",
-        opciones: ["Activo", "Inactivo"],
+        opciones: ["0 a 10 unidades",
+        "10 a 20 unidades",
+        "20 a 50 unidades",
+        "50 a 100 unidades",
+        ...Array.from({ length: 4 }, (_, i) => `${100 * (i + 1)} a ${100 * (i + 2)} unidades`),
+        "500 a 1000 unidades",
+        "1000 +unidades"
+        ],
+    },
+    Vendidas: {
+        tipo: "select",
+        opciones: ["0 a 10 unidades",
+        "10 a 20 unidades",
+        "20 a 50 unidades",
+        "50 a 100 unidades",
+        ...Array.from({ length: 4 }, (_, i) => `${100 * (i + 1)} a ${100 * (i + 2)} unidades`),
+        "500 a 1000 unidades",
+        "1000 +unidades"
+        ],
     },
 }
 

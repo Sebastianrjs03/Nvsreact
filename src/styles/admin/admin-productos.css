@@ -67,7 +67,6 @@ select[multiple]::-webkit-scrollbar-thumb {
 }
 
 .image-placeholder {
-    background-color: #6411b3;
     width: 60%;
     height: 300px;
     display: flex;
@@ -89,6 +88,7 @@ select[multiple]::-webkit-scrollbar-thumb {
     gap: 10px;
     box-sizing: border-box;
     align-items: center;
+
 }
 
 .img-left{
@@ -100,7 +100,9 @@ select[multiple]::-webkit-scrollbar-thumb {
     height: 99px;
     border-radius: 20px;
     background-color: #6411b3;
-
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .file-input {
@@ -174,7 +176,7 @@ select[multiple]::-webkit-scrollbar-thumb {
     font-size: 10px;
 }
 
-.product-details2 input[type="text"], .product-details2 input[type="number"] {
+.product-details2 input[type="text"], .product-details2 input[type="number"], .product-details2 input[type="date"] {
     width: 80%; 
     height: 25px !important;
     outline: none;
@@ -187,6 +189,11 @@ select[multiple]::-webkit-scrollbar-thumb {
     color: #fff;
     border-radius: 50px;
     font-size: 10px;
+}
+
+.product-details2 .rowVi {
+    display: flex;
+    flex-direction: row;
 }
 
 input[type=number]::-webkit-outer-spin-button,

@@ -45,7 +45,9 @@ h3 {
     justify-content: center;
     align-items: center;
     border-radius: 20px;
-    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .image-placeholder-left{
@@ -57,6 +59,9 @@ h3 {
     gap: 10px;
     box-sizing: border-box;
     align-items: start;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .img-left{
@@ -68,8 +73,9 @@ h3 {
     width: 80%;
     height: 99px;
     border-radius: 20px;
-    background-color: #6411b3;
-    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .img-left img, .image-placeholder_Consola img{

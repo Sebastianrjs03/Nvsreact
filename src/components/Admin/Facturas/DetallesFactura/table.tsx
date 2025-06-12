@@ -90,8 +90,8 @@ const Tabla = Array.isArray(data)
               <th scope="col">Cantidad Productos</th>
               <th scope="col">Valor Unitario</th>
               <th scope="col">Total</th>
-              <th scope="col" style={{ maxWidth: "30px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Editar</th>
-              <th scope="col" style={{ maxWidth: "25px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Eliminar</th>
+              <th scope="col" style={{ maxWidth: "40px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Editar</th>
+              <th scope="col" style={{ maxWidth: "40px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Eliminar</th>
             </tr>
           </thead>
           <tbody>
@@ -102,7 +102,7 @@ const Tabla = Array.isArray(data)
                 <td>{detaFac.cantidadProducto}</td>
                 <td>{FPC.format(detaFac.valorUnitarioProducto)}</td>
                 <td>{FPC.format(detaFac.totalProducto)}</td>
-                <td style={{ maxWidth: "30px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                <td style={{ maxWidth: "40px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                   <button
                     type="button"
                     className="btn btn-primary"
@@ -113,7 +113,7 @@ const Tabla = Array.isArray(data)
 
 
                 </td>
-                <td style={{ maxWidth: "25px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                <td style={{ maxWidth: "40px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                   <button className="btn btn-danger" onClick={() => Delete(detaFac.fk_pk_Factura, detaFac.fk_pk_Producto)}>
                     <i className="fa-solid fa-trash"></i>
                   </button>

@@ -4,7 +4,7 @@ import { ApiPrivate, ApiPublic } from '../../../../hooks/UseFetch';
 //librerias
 import Swal from "sweetalert2";
 //types
-import { Factura, Cliente, FormaPago } from "./../../Types/TypesDatos";
+import { Factura, ClienteCon, FPC } from "./../../Types/TypesDatos";
 
 interface MyModalProps {
   get: () => void;
@@ -18,25 +18,22 @@ interface MyModalProps {
 const ExampleModal: React.FC<MyModalProps> = ({ idFactura, setIsOpen, setFacturaB, modal, get }) => {
 
   const [Factura, setFactura] = useState<Factura | null>(null);
-  const [cliente, setCliente] = useState<Cliente[]>([]);
-  const [formaPago, setFormaPago] = useState<FormaPago[]>([]);
+  const [cliente, setCliente] = useState<ClienteCon[]>([]);
   const [fecha, setFecha] = useState("");
-  const [iva, setIva] = useState(0);
+  const [iva, setIva] = useState(0.19);
   const [base, setBase] = useState(0);
   const [total, setTotal] = useState(0);
   const [clienteSeleccionado, setClienteSeleccionado] = useState<number | undefined>(0);
-  const [FormaPagoSeleccionado, setFormaPagoSeleccionado] = useState<string | undefined>("");
+  const [FormaPagoSeleccionado, setFormaPagoSeleccionado] = useState<string | undefined>("PayPal");
 
 
   useEffect(() => {
     const Fetchfactura = async () => {
       try {
-        const result = await ApiPublic("Consultar_Cliente");
-        const resultP = await ApiPublic("Consultar_FormaPago");
+        const result = await ApiPublic("Consultar_ClienteConUsuario");
 
-        if (result && resultP) {
+        if (result) {
           setCliente(result);
-          setFormaPago(resultP);
         } else {
           console.error('No se recibieron datos o los datos están en un formato inesperado');
         }
@@ -50,7 +47,7 @@ const ExampleModal: React.FC<MyModalProps> = ({ idFactura, setIsOpen, setFactura
           if (resultC) { setFactura(resultC[0]) }
         }
       } catch (error) {
-        console.error('Error cargando clientes y formas:', error);
+        console.error('Error cargando clientes :', error);
       }
     };
     Fetchfactura();
@@ -67,9 +64,10 @@ const ExampleModal: React.FC<MyModalProps> = ({ idFactura, setIsOpen, setFactura
     }
   }, [Factura]);
 
-  const handleFormaPagoChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFormaPagoSeleccionado(e.target.value);
-  };
+    useEffect(() => {
+      const ivaDeBase = base * iva
+    setTotal(base  + ivaDeBase);
+    }, [base]);
 
   const handleClienteChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setClienteSeleccionado(Number(e.target.value));
@@ -77,7 +75,6 @@ const ExampleModal: React.FC<MyModalProps> = ({ idFactura, setIsOpen, setFactura
 
   const Validar = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-      
     const data = {
       idFactura: idFactura,
       fecha: fecha,
@@ -88,11 +85,11 @@ const ExampleModal: React.FC<MyModalProps> = ({ idFactura, setIsOpen, setFactura
       formaPago: FormaPagoSeleccionado,
 
     };
-    if (clienteSeleccionado == 0 || FormaPagoSeleccionado == "") {
+    if (clienteSeleccionado == 0) {
       Swal.fire({
         icon: "error",
         title: "Acción fallida",
-        text: "Cliente o FormaPago en 0",
+        text: "Cliente en 0",
       });
     } else if (fecha === "") {
       Swal.fire({
@@ -100,7 +97,7 @@ const ExampleModal: React.FC<MyModalProps> = ({ idFactura, setIsOpen, setFactura
         title: "Acción fallida",
         text: "Fecha invalida elija una fecha",
       });
-    } else if (iva <= 0 || iva > 0.19 ) {
+    } else if (iva <= 0 || iva > 0.19) {
       Swal.fire({
         icon: "error",
         title: "Acción fallida",
@@ -112,7 +109,7 @@ const ExampleModal: React.FC<MyModalProps> = ({ idFactura, setIsOpen, setFactura
         title: "Acción fallida",
         text: "base menor o igual a 0",
       });
-    } else if (total <= 0 || total <= base ) {
+    } else if (total <= 0 || total <= base) {
       Swal.fire({
         icon: "error",
         title: "Acción fallida",
@@ -195,65 +192,49 @@ const ExampleModal: React.FC<MyModalProps> = ({ idFactura, setIsOpen, setFactura
                 </div>
                 <div className="col" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                   <label htmlFor="formGroupExampleInput">Iva</label>
-                  <input type="number" step="0.01" className="form-control shadow-none" value={iva} onChange={(e) => setIva(Number(e.target.value))} onFocus={(e) => { if (e.target.value === "0") { e.target.value = ""; } }} />
+                  <input type="number" step="0.01" className="form-control shadow-none" value={iva} readOnly />
                 </div>
               </div>
               <div className="row" style={{ marginBottom: "12px" }}>
                 <div className="col" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                   <label htmlFor="formGroupExampleInput">Base Compra</label>
-                  <input type="number" step="0.01" className="form-control shadow-none" value={base} onChange={(e) => setBase(Number(e.target.value))} onFocus={(e) => { if (e.target.value === "0") { e.target.value = ""; } }} />
+                  <input type="number" className="form-control shadow-none" value={base} onChange={(e) => setBase(Number(e.target.value))} onFocus={(e) => { if (e.target.value === "0") { e.target.value = ""; } }} />
                 </div>
                 <div className="col" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                   <label htmlFor="formGroupExampleInput">Total Compra</label>
-                  <input type="number" step="0.01" className="form-control shadow-none" value={total} onChange={(e) => setTotal(Number(e.target.value))} onFocus={(e) => { if (e.target.value === "0") { e.target.value = ""; } }}/>
+                  <input type="text" className="form-control shadow-none" value={FPC.format(total)} readOnly />
                 </div>
               </div>
-              <div className="row" style={{ marginBottom: "12px" }}>
-                <div className="col" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                  <select className="form-select" aria-label="Default select example" style={{ backgroundColor: "lightgray", alignItems: "center", marginBottom: "10px" }} value={clienteSeleccionado ?? ''} onChange={handleClienteChange}>
-                    {clienteSeleccionado == 0 ? <option value="">Seleccione un Cliente</option> : <option value={clienteSeleccionado}>{clienteSeleccionado}</option>}
-                    {clienteSeleccionado
+              <div className="row" style={{ display: "flex", alignItems: "center" }}>
+                <div className="col" style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "15px"}}>
+                  <label htmlFor="formGroupExampleInput">Nuestros Clientes</label>
+                  <select className="form-select" aria-label="Default select example" style={{ backgroundColor: "lightgray", alignItems: "center", marginBottom: "10px", maxHeight: "100px" }} value={clienteSeleccionado ?? ''} onChange={handleClienteChange}>
+                    {clienteSeleccionado == 0 && <option value="">Seleccione un Cliente</option>}                    {clienteSeleccionado
                       ? cliente
                         .filter((cli) => cli.idCliente !== clienteSeleccionado)
                         .map((cli) => (
                           <option key={cli.idCliente} value={cli.idCliente}>
-                            {cli.idCliente}
+                            {cli.idCliente}-{cli.nombreUsuario} {cli.apellidoUsuario}
                           </option>
                         )) :
                       cliente
                         .map((cli) => (
                           <option key={cli.idCliente} value={cli.idCliente}>
-                            {cli.idCliente}
+                            {cli.idCliente}-{cli.nombreUsuario} {cli.apellidoUsuario}
                           </option>
                         ))
                     }
                   </select>
                 </div>
                 <div className="col" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                  <select className="form-select" aria-label="Default select example" style={{ backgroundColor: "lightgray", alignItems: "center", marginBottom: "10px" }} value={FormaPagoSeleccionado || ''} onChange={handleFormaPagoChange}>
-                    {FormaPagoSeleccionado == "" ? <option value="">Seleccione una forma de pago</option> : <option value={FormaPagoSeleccionado}>{FormaPagoSeleccionado}</option>}
-                    {FormaPagoSeleccionado
-                      ? formaPago
-                        .filter((forma) => forma.idFormaPago.trim() !== FormaPagoSeleccionado.trim())
-                        .map((forma) => (
-                          <option key={forma.idFormaPago} value={forma.idFormaPago}>
-                            {forma.idFormaPago}
-                          </option>
-                        )) :
-                      formaPago
-                        .map((forma) => (
-                          <option key={forma.idFormaPago} value={forma.idFormaPago}>
-                            {forma.idFormaPago}
-                          </option>
-                        ))
-                    }
-                  </select>
+                  <label htmlFor="formGroupExampleInput">Metodo de pago</label>
+                  <input type="text" className="form-control shadow-none" value={FormaPagoSeleccionado} readOnly />
                 </div>
               </div>
               <div className="row">
                 <div className="col" style={{ display: "flex", justifyContent: "center", gap: "35px" }}>
-                  <button type="button" onClick={() => { setIsOpen(false); if (setFacturaB) { setFacturaB(null) } }}>Cerrar</button>
-                  <button type="submit" className="btn btn-primary btn-ms">Guardar</button>
+                  <button type="button" className="ButtonCloseModal" onClick={() => { setIsOpen(false); if (setFacturaB) { setFacturaB(null) } }}>Cerrar</button>
+                  <button type="submit" className="btn btn-primary btn-ms submit">Guardar</button>
                 </div>
               </div>
             </div>

@@ -22,11 +22,13 @@ export interface ProductoA {
     idProducto: number;
     nombreProducto: string;
     precioProducto: number;
+    descuentoProducto: number;
+    totalProducto: number;
     garantiaProducto: string;
     idTipoProducto: string;
     idAdministrador_crear: number;
-    cantidad: number;
     stock: number;
+    ventaProducto: number;
   }
 
 export interface FormaPago {
@@ -152,7 +154,7 @@ export interface ClienteCon {
 export const FPC = new Intl.NumberFormat("es-CO", {
   style: "currency",
   currency: "COP",
-  minimumFractionDigits: 0, // Opcional: para quitar decimales
+  minimumFractionDigits: 0,
 });
 
 export interface Soporte {
