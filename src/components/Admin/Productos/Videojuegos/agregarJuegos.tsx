@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 //Types
-import { AdministradorCon, Genero, Plataforma, Marca, Aux_Marca, Aux_Genero, Aux_Plataforma } from '../../Types/TypesDatos';
+import { AdministradorCon, Genero, Plataforma, Marca, Aux_Marca, Aux_Genero, Aux_Plataforma, FPC } from '../../Types/TypesDatos';
 
 
 
@@ -114,6 +114,13 @@ const AgregarJuegos = () => {
       }
     }
   }
+
+  useEffect(() => {
+    const valorDescuento = valor * (descuento / 100);
+
+    setTotal(valor + valorDescuento);
+
+  }, [descuento, valor]);
 
   useEffect(() => {
     get();
@@ -335,18 +342,18 @@ const AgregarJuegos = () => {
             <input type="text" value={descuento} onChange={handleDescuentoChange} />
 
             <label htmlFor="price">Valor con Descuento:</label>
-            <input type="text" value={total} readOnly />
+            <input type="text" value={FPC.format(total)} readOnly />
 
           </div>
           <div className="product-details2">
             <div className="rowVi" >
-              <div className="col" style={{ display: "flex", flexDirection: "column",}}>
-                <label htmlFor="lanzamiento" style={{width: "80%"}}>Lanzamiento:</label>
-                <input type="date" value={lanzamiento} onChange={handleLanzamientoChange} style={{width: "80%"}}/>
+              <div className="col" style={{ display: "flex", flexDirection: "column", }}>
+                <label htmlFor="lanzamiento" style={{ width: "80%" }}>Lanzamiento:</label>
+                <input type="date" value={lanzamiento} onChange={handleLanzamientoChange} style={{ width: "80%" }} />
               </div>
-              <div className="col" style={{ display: "flex", flexDirection: "column"}}>
+              <div className="col" style={{ display: "flex", flexDirection: "column" }}>
                 <label htmlFor="garantia">Garantia Juego</label>
-                <input type="text" value={garantia} onChange={handleGarantiaChange} style={{width: "80%"}}/>
+                <input type="text" value={garantia} onChange={handleGarantiaChange} style={{ width: "80%" }} />
               </div>
             </div>
             <label htmlFor="plataforma">Plataforma:</label>
@@ -367,12 +374,12 @@ const AgregarJuegos = () => {
             </select>
             <span className="spanSelectMultiple">Ctrl + Click para más de una opcion</span>
 
-            <div className="rowVi" style={{marginBottom: "7px"}} >
-              <div className="col" style={{ display: "flex", flexDirection: "column",}}>
+            <div className="rowVi" style={{ marginBottom: "7px" }} >
+              <div className="col" style={{ display: "flex", flexDirection: "column", }}>
                 <label htmlFor="stock">Disponibles:</label>
                 <input type="number" value={stock} onChange={handleStockChange} />
               </div>
-              <div className="col" style={{ display: "flex", flexDirection: "column",}}>
+              <div className="col" style={{ display: "flex", flexDirection: "column", }}>
                 {id && <label htmlFor="Cantidad">Vendidos:</label>}
                 {id && <input type="number" value={venta} onChange={handleVentaChange} />}
               </div>
