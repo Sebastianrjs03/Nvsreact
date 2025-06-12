@@ -59,21 +59,21 @@ const ModalDetalles: React.FC<MyModalProps> = ({ idProducto, setIsOpenD, setProd
                 <hr />
                 <div className="modal-body" style={{ marginLeft: "15px" }}>
                     <div className="form-group row">
-                        <div className="row" style={{ marginBottom: "12px" }}>
+                        <div className="row" style={{ marginBottom: "12px"}}>
                             {idTipo === "Videojuego" ?
-                            <div className="col" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                            <div className="col" style={{ display: "flex", flexDirection: "column", alignItems: "center"}}>
                                  <label htmlFor="formGroupExampleInput">Año Lanzamiento</label> 
                                  <input type="date" className="form-control shadow-none" value={input1} readOnly />
                             </div>:
-                            <div className="col" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                            <div className="col" style={{ display: "flex", flexDirection: "column", alignItems: "center"}}>
                                  <label htmlFor="formGroupExampleInput">Sobre Consola</label> 
                                  <textarea className="form-control shadow-none" value={input1} readOnly />
                             </div>}  
                         </div>
-                        {idTipo === "Videojuego" && <div className="row" style={{ marginBottom: "12px" }}>
-                            <div className="col" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                        {idTipo === "Videojuego" && <div className="row" style={{ marginBottom: "12px"}}>
+                            <div className="col" style={{ display: "flex", flexDirection: "column", alignItems: "center"}}>
                                 <label htmlFor="formGroupExampleInput">Descripcion Videojuego</label>  
-                                <textarea className="form-control shadow-none" value={input2} readOnly />
+                                <textarea className="form-control shadow-none" value={input2} readOnly/>
                             </div>
                         </div>}
                         <div className="row">

@@ -36,13 +36,16 @@ const AgregarJuegos = () => {
 
   const [tipo, setTipo] = useState<string>("Videojuego");
   const [valor, setValor] = useState<number>(0);
+  const [descuento, setDescuento] = useState<number>(0);
+  const [total, setTotal] = useState<number>(0);
   const [nombre, setNombre] = useState<string>("");
   const [lanzamiento, setLanzamiento] = useState<string>("");
   const [cantidad, setCantidad] = useState<number>(0);
   const [descripcion, setDescripcion] = useState<string>("");
   const [garantia, setGarantia] = useState<string>("");
+  const [stock, setStock] = useState<number>(0);
+  const [venta, setVenta] = useState<number>(0);
   const [selectedAdministrador, setSelectedAdministrador] = useState<number>(1);
-  const [selectedStock, setSelectedStock] = useState<number>(1);
   const [seleccionadosMarca, setSeleccionadosMarca] = useState<string[]>([]);
   const [seleccionadosPlataforma, setSeleccionadosPlataforma] = useState<string[]>([]);
   const [seleccionadosGenero, setSeleccionadosGenero] = useState<string[]>([]);
@@ -77,11 +80,14 @@ const AgregarJuegos = () => {
       //DATOS
       if (resultProducto) {
         setValor(Number(resultProducto[0].precioProducto));
+        setDescuento(Number(resultProducto[0].descuentoProducto));
+        setTotal(Number(resultProducto[0].totalProducto));
         setNombre(resultProducto[0].nombreProducto);
         setGarantia(resultProducto[0].garantiaProducto);
         setCantidad(resultProducto[0].cantidad);
         setSelectedAdministrador(Number(resultProducto[0].idAdministrador_crear));
-        setSelectedStock(Number(resultProducto[0].stock));
+        setStock(Number(resultProducto[0].stock));
+        setVenta(Number(resultProducto[0].ventaProducto));
       }
 
       if (resultJuego) {
@@ -140,16 +146,16 @@ const AgregarJuegos = () => {
     setValor(Number(e.target.value));
   };
 
+  const handleDescuentoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDescuento(Number(e.target.value));
+  };
+
   const handleNombreChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNombre(e.target.value);
   };
 
   const handleLanzamientoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLanzamiento(e.target.value);
-  };
-
-  const handleCantidadChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCantidad(Number(e.target.value));
   };
 
   const handleGarantiaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -170,8 +176,12 @@ const AgregarJuegos = () => {
     setSeleccionadosGenero(opcionesSeleccionadas);
   };
 
-  const handleStockChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedStock(Number(e.target.value));
+  const handleStockChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setStock(Number(e.target.value));
+  };
+
+  const handleVentaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setVenta(Number(e.target.value));
   };
 
   const Validar = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -184,14 +194,16 @@ const AgregarJuegos = () => {
         text: "Debes seleccionar una imagen, Alguna esta vacia."
       });
       return;
-    } else if (!tipo || !valor || !nombre || !lanzamiento || !descripcion || !garantia || !cantidad) {
+    } else if (!tipo || !valor || !nombre || !lanzamiento || !descripcion || !garantia || !cantidad || !stock ||
+      !descuento
+    ) {
       Swal.fire({
         icon: "error",
         title: "Error",
         text: "Debes completar los campos de texto, Alguno esta vacio."
       });
       return;
-    } else if (selectedStock < 0 || selectedStock > 1  || !selectedAdministrador) {
+    } else if (!selectedAdministrador) {
       Swal.fire({
         icon: "error",
         title: "Error",
@@ -217,14 +229,16 @@ const AgregarJuegos = () => {
     if (trailer instanceof File) formData.append("trailer", trailer);
     if (banner instanceof File) formData.append("banner", banner);
 
-    if (nombre) formData.append("nombreProducto", nombre);
-    if (valor) formData.append("precioProducto", valor.toString());
-    if (garantia) formData.append("garantiaProducto", garantia);
-    if (selectedAdministrador) formData.append("idAdmin", selectedAdministrador.toString());
-    formData.append("stock", selectedStock.toString());
-    if (cantidad) formData.append("cantidad", cantidad.toString());
-    if (lanzamiento) formData.append("lanzamiento", lanzamiento);
-    if (descripcion) formData.append("sobreJuego", descripcion);
+    formData.append("nombreProducto", nombre);
+    formData.append("precioProducto", valor.toString());
+    formData.append("descuentoProducto", descuento.toString());
+    formData.append("totalProducto", total.toString());
+    formData.append("garantiaProducto", garantia);
+    formData.append("idAdmin", selectedAdministrador.toString());
+    formData.append("stock", stock.toString());
+    formData.append("ventaProducto", venta.toString());
+    formData.append("lanzamiento", lanzamiento);
+    formData.append("sobreJuego", descripcion);
 
     if (seleccionadosMarca) {
       seleccionadosMarca.forEach((mar) => (
@@ -296,6 +310,9 @@ const AgregarJuegos = () => {
             setTrailer={setTrailer}
             Tipo="Juego" />
           <div className="product-details">
+            <label htmlFor="name">Nombre Juego:</label>
+            <input type="text" value={nombre} onChange={handleNombreChange} />
+
             <label htmlFor="product-type">Tipo de producto:</label>
             <select id="product-type" name="tipoproducto" value={tipo} onChange={handleTipoChange}>
               <option value="Videojuego">Videojuego</option>
@@ -311,31 +328,27 @@ const AgregarJuegos = () => {
             </select>
             <span className="spanSelectMultiple">Ctrl + Click para más de una opcion</span>
 
-            <label htmlFor="price">Valor:</label>
+            <label htmlFor="price">Valor Producto:</label>
             <input type="text" value={valor} onChange={handleValorChange} />
 
+            <label htmlFor="price">Valor Descuento Producto (Opcional):</label>
+            <input type="text" value={descuento} onChange={handleDescuentoChange} />
 
-            <label htmlFor="name">Nombre Juego:</label>
-            <input type="text" value={nombre} onChange={handleNombreChange} />
+            <label htmlFor="price">Valor con Descuento:</label>
+            <input type="text" value={total} readOnly />
 
-            <label htmlFor="lanzamiento">Año de lanzamiento:</label>
-            <input type="date" value={lanzamiento} onChange={handleLanzamientoChange} />
-
-            <label htmlFor="Cantidad">Cantidad:</label>
-            <input type="number" value={cantidad} onChange={handleCantidadChange} />
           </div>
           <div className="product-details2">
-            <label htmlFor="garantia">Garantia Juego</label>
-            <input type="text" value={garantia} onChange={handleGarantiaChange} />
-
-            <label htmlFor="administrador">Administardor Encargado:</label>
-            <select id="developer" name="admin" value={selectedAdministrador} onChange={handleAdministradorChange}>
-              {dataA.map((Admin) => (
-                <option key={Admin.idAdministrador} value={Admin.idAdministrador}>
-                  {Admin.idAdministrador} - {Admin.nombreUsuario} {Admin.apellidoUsuario}
-                </option>))}
-            </select>
-
+            <div className="rowVi" >
+              <div className="col" style={{ display: "flex", flexDirection: "column",}}>
+                <label htmlFor="lanzamiento" style={{width: "80%"}}>Lanzamiento:</label>
+                <input type="date" value={lanzamiento} onChange={handleLanzamientoChange} style={{width: "80%"}}/>
+              </div>
+              <div className="col" style={{ display: "flex", flexDirection: "column"}}>
+                <label htmlFor="garantia">Garantia Juego</label>
+                <input type="text" value={garantia} onChange={handleGarantiaChange} style={{width: "80%"}}/>
+              </div>
+            </div>
             <label htmlFor="plataforma">Plataforma:</label>
             <select multiple value={seleccionadosPlataforma} onChange={handlePlataformaChange}>
               {dataP.map((Pla) => (
@@ -354,14 +367,23 @@ const AgregarJuegos = () => {
             </select>
             <span className="spanSelectMultiple">Ctrl + Click para más de una opcion</span>
 
-            <label htmlFor="stock">Stock</label>
-            <select value={selectedStock} onChange={handleStockChange}>
-              <option value={1}>
-                Activo
-              </option>
-              <option value={0}>
-                Inactivo
-              </option>
+            <div className="rowVi" style={{marginBottom: "7px"}} >
+              <div className="col" style={{ display: "flex", flexDirection: "column",}}>
+                <label htmlFor="stock">Disponibles:</label>
+                <input type="number" value={stock} onChange={handleStockChange} />
+              </div>
+              <div className="col" style={{ display: "flex", flexDirection: "column",}}>
+                {id && <label htmlFor="Cantidad">Vendidos:</label>}
+                {id && <input type="number" value={venta} onChange={handleVentaChange} />}
+              </div>
+            </div>
+
+            <label htmlFor="administrador">Administardor Encargado:</label>
+            <select id="developer" name="admin" value={selectedAdministrador} onChange={handleAdministradorChange}>
+              {dataA.map((Admin) => (
+                <option key={Admin.idAdministrador} value={Admin.idAdministrador}>
+                  {Admin.idAdministrador} - {Admin.nombreUsuario} {Admin.apellidoUsuario}
+                </option>))}
             </select>
           </div>
         </div>

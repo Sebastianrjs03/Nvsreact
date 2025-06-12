@@ -24,7 +24,7 @@
 }
 
 .sidebar::-webkit-scrollbar,
-.table-responsive::-webkit-scrollbar {
+.contenedor_Tabla::-webkit-scrollbar {
   -webkit-appearance: none !important;
 }
 
@@ -32,12 +32,14 @@
   background-color: #4919b9 !important;
 }
 
-.table-responsive::-webkit-scrollbar-track {
+.contenedor_Tabla::-webkit-scrollbar-track {
   background: rgb(17, 1, 48) !important;
+  border-radius: 5px;
 }
 
-.table-responsive::-webkit-scrollbar-thumb {
+.contenedor_Tabla::-webkit-scrollbar-thumb {
   background-color: #4919b9 !important;
+  border-radius: 5px;
 }
 
 .profile {
@@ -269,6 +271,7 @@
   border-radius: 30px;
   height: 40px;
   text-align-last: center;
+  padding: 0;
 }
 
 .SectionFiltrar {
@@ -326,6 +329,7 @@
   max-height: 470px;
   overflow-y: auto;
   display: block;
+  border-radius: 10px;
 }
 
 .table_Admin thead {
@@ -430,9 +434,6 @@
   background-color: #707070 !important;
   color: #ffffff !important;
   margin-left: 5px;
-}
-
-.form-select {
 }
 
 .form-control::placeholder {

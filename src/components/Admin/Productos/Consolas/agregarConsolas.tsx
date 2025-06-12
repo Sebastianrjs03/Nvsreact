@@ -10,7 +10,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import VerImagenes from "../Producto/verImagenes";
 
 //Types
-import { Marca, AdministradorCon } from "../../Types/TypesDatos";
+import { Marca, AdministradorCon, FPC } from "../../Types/TypesDatos";
 
 //librerias
 import Swal from "sweetalert2";
@@ -32,10 +32,12 @@ const AgregarConsolas = () => {
         idTipoProducto: "Consola",
         nombreProducto: "",
         precioProducto: "",
+        descuentoProducto: "",
+        totalProducto: "",
         garantiaProducto: "",
         idAdmin: "1",
-        stock: "1",
-        cantidad: "",
+        stock: "",
+        ventaProducto: "",
         marca: "Nintendo",
         sobre: "",
         fuentesAlimentacion: "",
@@ -77,10 +79,12 @@ const AgregarConsolas = () => {
                     ...prev,
                     nombreProducto: resultProducto[0].nombreProducto,
                     precioProducto: resultProducto[0].precioProducto,
+                    descuentoProducto: resultProducto[0].descuentoProducto,
+                    totalProducto: FPC.format(resultProducto[0].totalProducto),
                     garantiaProducto: resultProducto[0].garantiaProducto,
                     idAdmin: resultProducto[0].idAdministrador_crear,
                     stock: resultProducto[0].stock,
-                    cantidad: resultProducto[0].cantidad,
+                    ventaProducto: resultProducto[0].ventaProducto,
                 }));
             }
 
@@ -123,6 +127,19 @@ const AgregarConsolas = () => {
         getProducto();
     }, [id]);
 
+    useEffect(() => {
+        const precio = Number(DatosConsola.precioProducto);
+        const descuento = Number(DatosConsola.descuentoProducto);
+
+        const valorDescuento = precio * (descuento / 100);
+        const valorTotal = FPC.format(precio - valorDescuento);
+
+        setDatosConsola((prev) => ({
+            ...prev,
+            totalProducto: valorTotal,
+        }));
+    }, [DatosConsola.precioProducto, DatosConsola.descuentoProducto]);
+
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setDatosConsola((prev) => ({
@@ -159,7 +176,8 @@ const AgregarConsolas = () => {
             });
             return;
         } else if (!DatosConsola.precioProducto || !DatosConsola.nombreProducto ||
-            !DatosConsola.cantidad || !DatosConsola.sobre || !DatosConsola.garantiaProducto) {
+            !DatosConsola.descuentoProducto || !DatosConsola.totalProducto || !DatosConsola.ventaProducto ||
+            !DatosConsola.sobre || !DatosConsola.garantiaProducto) {
             Swal.fire({
                 icon: "error",
                 title: "Error",
@@ -247,12 +265,26 @@ const AgregarConsolas = () => {
                         setVisual3={setVisual3}
                         Tipo="Consola" />
                     <div className="product-details">
+                        <label htmlFor="name">Nombre Consola:</label>
+                        <input type="text" name="nombreProducto" value={DatosConsola.nombreProducto} onChange={handleChange} />
+
                         <label htmlFor="product-type">Tipo de producto:</label>
                         <select id="product-type" name="idTipoProducto" value={DatosConsola.idTipoProducto} onChange={handleTipoChange}>
                             <option value="Consola">Consola</option>
                             <option value="Videojuego">Videojuego</option>
                         </select>
 
+                        <label htmlFor="price">Valor Producto:</label>
+                        <input type="text" name="precioProducto" value={DatosConsola.precioProducto} onChange={handleChange} />
+
+                        <label htmlFor="descuento">Valor Descuento Producto (Opcional):</label>
+                        <input type="text" name="descuentoProducto" value={DatosConsola.descuentoProducto} onChange={handleChange} />
+
+                        <label htmlFor="total">Valor con Descuento:</label>
+                        <input type="text" name="totalProducto" value={DatosConsola.totalProducto} readOnly />
+
+                    </div>
+                    <div className="product-details2">
                         <label htmlFor="marca">Marca:</label>
                         <select name="marca" value={DatosConsola.marca} onChange={handleChange}>
                             {dataM.map((mar) => (
@@ -260,20 +292,6 @@ const AgregarConsolas = () => {
                                     {mar.idMarca}
                                 </option>))}
                         </select>
-
-                        <label htmlFor="cantidad">Cantidad:</label>
-                        <input type="text" name="cantidad" value={DatosConsola.cantidad} onChange={handleChange} />
-
-                        <label htmlFor="price">Valor:</label>
-                        <input type="text" name="precioProducto" value={DatosConsola.precioProducto} onChange={handleChange} />
-
-
-                        <label htmlFor="name">Nombre Consola:</label>
-                        <input type="text" name="nombreProducto" value={DatosConsola.nombreProducto} onChange={handleChange} />
-                    </div>
-                    <div className="product-details2">
-                        <label htmlFor="garantia">Garantia Consola</label>
-                        <input type="text" name="garantiaProducto" value={DatosConsola.garantiaProducto} onChange={handleChange} />
 
                         <label htmlFor="developer">Administardor Encargado:</label>
                         <select name="idAdmin" value={DatosConsola.idAdmin} onChange={handleChange}>
@@ -283,15 +301,14 @@ const AgregarConsolas = () => {
                                 </option>))}
                         </select>
 
-                        <label htmlFor="estado">Estado Producto:</label>
-                        <select name="stock" value={DatosConsola.idAdmin} onChange={handleChange}>
-                            <option value={1}>
-                                Activo
-                            </option>
-                            <option value={0}>
-                                Inactivo
-                            </option>
-                        </select>
+                        <label htmlFor="garantia">Garantia Consola</label>
+                        <input type="text" name="garantiaProducto" value={DatosConsola.garantiaProducto} onChange={handleChange} />
+
+                        <label htmlFor="cantidad">Cantidad:</label>
+                        <input type="text" name="cantidad" value={DatosConsola.stock} onChange={handleChange} />
+
+                        {id &&<label htmlFor="cantidad">Unidades Vendidas:</label>}
+                        {id && <input type="text" name="cantidad" value={DatosConsola.stock} onChange={handleChange} />}
                     </div>
                 </div>
                 <h3>Acerca de:</h3>

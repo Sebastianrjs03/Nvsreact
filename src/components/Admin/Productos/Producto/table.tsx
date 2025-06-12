@@ -29,14 +29,16 @@ const TableP: React.FC<MyModalProps> = ({ data, getProducto }) => {
               <th scope="col">Id Producto</th>
               <th scope="col">Nombre Producto</th>
               <th scope="col">Precio Producto</th>
+              <th scope="col">Descuento Producto</th>
+              <th scope="col">Total Producto</th>
               <th scope="col">Garantia Producto</th>
               <th scope="col">Tipo Producto</th>
               <th scope="col">Id Administrador</th>
-              <th scope="col">Cantidad</th>
-              <th scope="col">Stock</th>
-              <th scope="col" style={{ maxWidth: "45px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Detalles</th>
-              <th scope="col" style={{ maxWidth: "50px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Editar</th>
-              <th scope="col" style={{ maxWidth: "45px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Eliminar</th>
+              <th scope="col">Disponibles</th>
+              <th scope="col">Venta</th>
+              <th scope="col" style={{ maxWidth: "55px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Detalles</th>
+              <th scope="col" style={{ maxWidth: "55px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Editar</th>
+              <th scope="col" style={{ maxWidth: "55px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Eliminar</th>
             </tr>
           </thead>
           <tbody>
@@ -45,12 +47,14 @@ const TableP: React.FC<MyModalProps> = ({ data, getProducto }) => {
                 <td>{Producto.idProducto}</td>
                 <td>{Producto.nombreProducto}</td>
                 <td>{FPC.format(Producto.precioProducto)}</td>
+                <td>{Producto.descuentoProducto}%</td>
+                <td>{FPC.format(Producto.totalProducto)}</td>
                 <td>{Producto.garantiaProducto}</td>
                 <td>{Producto.idTipoProducto}</td>
                 <td>{Producto.idAdministrador_crear}</td>
-                <td>{Producto.cantidad}</td>
-                <td>{Producto.stock == 1 ? "Activo" : "Inactivo"}</td>
-                <td style={{ maxWidth: "45px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                <td>{Producto.stock}</td>
+                <td>{Producto.ventaProducto}</td>
+                <td>
                   <button
                     type="button"
                     className="btn btn-primary"
@@ -59,7 +63,7 @@ const TableP: React.FC<MyModalProps> = ({ data, getProducto }) => {
                     <i className="fa-solid fa-hand-point-up"></i>
                   </button>
                 </td>
-                <td style={{ maxWidth: "50px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                <td>
                   {Producto.idTipoProducto === "Videojuego" ?
                     <Link to={`/Administrador/Agregar_Juego/${Producto.idProducto}`}>
                       <button type="button" className="btn btn-primary">
@@ -72,7 +76,7 @@ const TableP: React.FC<MyModalProps> = ({ data, getProducto }) => {
                       </button>
                     </Link>}
                 </td>
-                <td style={{ maxWidth: "45px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                <td>
                   <button className="btn btn-danger" onClick={() => Delete(Producto.idProducto, "idProducto", getProducto, "Eliminar_Producto")}>
                     <i className="fa-solid fa-trash"></i>
                   </button>
