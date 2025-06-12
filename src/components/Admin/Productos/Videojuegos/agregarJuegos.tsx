@@ -118,7 +118,7 @@ const AgregarJuegos = () => {
   useEffect(() => {
     const valorDescuento = valor * (descuento / 100);
 
-    setTotal(valor + valorDescuento);
+    setTotal(valor - valorDescuento);
 
   }, [descuento, valor]);
 
