@@ -176,7 +176,7 @@ const AgregarConsolas = () => {
             });
             return;
         } else if (!DatosConsola.precioProducto || !DatosConsola.nombreProducto ||
-            !DatosConsola.descuentoProducto || !DatosConsola.totalProducto || !DatosConsola.ventaProducto ||
+            !DatosConsola.descuentoProducto || !DatosConsola.totalProducto ||
             !DatosConsola.sobre || !DatosConsola.garantiaProducto) {
             Swal.fire({
                 icon: "error",
@@ -304,8 +304,8 @@ const AgregarConsolas = () => {
                         <label htmlFor="garantia">Garantia Consola</label>
                         <input type="text" name="garantiaProducto" value={DatosConsola.garantiaProducto} onChange={handleChange} />
 
-                        <label htmlFor="cantidad">Cantidad:</label>
-                        <input type="text" name="cantidad" value={DatosConsola.stock} onChange={handleChange} />
+                        <label htmlFor="cantidad">Disponibles:</label>
+                        <input type="text" name="stock" value={DatosConsola.stock} onChange={handleChange} />
 
                         {id &&<label htmlFor="cantidad">Unidades Vendidas:</label>}
                         {id && <input type="text" name="cantidad" value={DatosConsola.stock} onChange={handleChange} />}

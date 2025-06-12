@@ -40,7 +40,6 @@ const AgregarJuegos = () => {
   const [total, setTotal] = useState<number>(0);
   const [nombre, setNombre] = useState<string>("");
   const [lanzamiento, setLanzamiento] = useState<string>("");
-  const [cantidad, setCantidad] = useState<number>(0);
   const [descripcion, setDescripcion] = useState<string>("");
   const [garantia, setGarantia] = useState<string>("");
   const [stock, setStock] = useState<number>(0);
@@ -84,7 +83,6 @@ const AgregarJuegos = () => {
         setTotal(Number(resultProducto[0].totalProducto));
         setNombre(resultProducto[0].nombreProducto);
         setGarantia(resultProducto[0].garantiaProducto);
-        setCantidad(resultProducto[0].cantidad);
         setSelectedAdministrador(Number(resultProducto[0].idAdministrador_crear));
         setStock(Number(resultProducto[0].stock));
         setVenta(Number(resultProducto[0].ventaProducto));
@@ -118,7 +116,7 @@ const AgregarJuegos = () => {
   useEffect(() => {
     const valorDescuento = valor * (descuento / 100);
 
-    setTotal(valor + valorDescuento);
+    setTotal(valor - valorDescuento);
 
   }, [descuento, valor]);
 
@@ -201,7 +199,7 @@ const AgregarJuegos = () => {
         text: "Debes seleccionar una imagen, Alguna esta vacia."
       });
       return;
-    } else if (!tipo || !valor || !nombre || !lanzamiento || !descripcion || !garantia || !cantidad || !stock ||
+    } else if (!tipo || !valor || !nombre || !lanzamiento || !descripcion || !garantia || !stock ||
       !descuento
     ) {
       Swal.fire({
@@ -243,7 +241,7 @@ const AgregarJuegos = () => {
     formData.append("garantiaProducto", garantia);
     formData.append("idAdmin", selectedAdministrador.toString());
     formData.append("stock", stock.toString());
-    formData.append("ventaProducto", venta.toString());
+    if(venta) formData.append("ventaProducto", venta.toString());
     formData.append("lanzamiento", lanzamiento);
     formData.append("sobreJuego", descripcion);
 
