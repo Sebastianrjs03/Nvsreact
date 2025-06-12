@@ -1,33 +1,69 @@
-import '../../styles/Tienda/Banner.css';
+import { useEffect, useState } from "react";
+import { ApiPublic } from "../../hooks/UseFetch";
 
-const imagenes = import.meta.glob('../../assets/Videojuegos/Banners/*.jpg', { eager: true });
-const imagenesRecorte = import.meta.glob('../../assets/Recortes/*.png', { eager: true });
+import "../../styles/Tienda/Banner.css";
 
+const imagenesRecorte = import.meta.glob("../../assets/Recortes/*.png", {
+  eager: true,
+});
 
-const getImage = (name: string) => {
-    return (imagenes[`../../assets/Videojuegos/Banners/${name}.jpg`] as { default: string })?.default;
-  };
-  const getImageRecorte = (name: string) => {
-    return (imagenesRecorte[`../../assets/Recortes/recorte${name}.png`] as { default: string })?.default;
-  };
+const getImage = async (id: string) => {
+  if (!id) return;
+
+  try {
+    const resultBanner = await ApiPublic("ConsultarPorId_Imagenes", {
+      id: id,
+      categoria: "banner",
+      carpeta: "Videojuego",
+    });
+
+    if (resultBanner) {
+      const keys = Object.keys(resultBanner);
+      if (keys.length > 0) {
+        const rutaLocal = resultBanner[keys[0]];
+        const urlPublica = rutaLocal
+          .replace("c:\\xampp\\htdocs\\api-php", "http://localhost/api-php")
+          .replace(/\\/g, "/");
+
+        return urlPublica;
+      }
+    }
+  } catch (error) {
+    console.error("Error al obtener imágenes:", error);
+  }
+};
+
+const getImageRecorte = (name: string) => {
+  return (
+    imagenesRecorte[`../../assets/Recortes/recorte${name}.png`] as {
+      default: string;
+    }
+  )?.default;
+};
 
 type BannerProps = {
-    Imagen: string;
-    Recorte: string;
-}
+  Imagen: string;
+  Recorte: string;
+};
 
+function BannerProducto({ Imagen, Recorte }: BannerProps) {
+  const [imagenBannerUrl, setImagenBannerUrl] = useState<string | null>(null);
+  const imagenRecorte = getImageRecorte(Recorte);
 
-function BannerProducto({Imagen, Recorte}: BannerProps) {
+  useEffect(() => {
+    const fetchBanner = async () => {
+      const url = await getImage(Imagen);
+      if (url) setImagenBannerUrl(url);
+    };
+    fetchBanner();
+  }, [Imagen]);
 
-  const ImagenBanner = getImage(Imagen);XMLDocument
-  const ImagenRecorte = getImageRecorte(Recorte);
-
-    return(
-        <header className="banner-header">
-        <img className="banner-imagen" src={ImagenBanner} alt=""/>
-        <img className="Banner-corte-morado" src={ImagenRecorte} alt=""/>
-      </header>
-    );
+  return (
+    <header className="banner-header">
+      {imagenBannerUrl && <img className="banner-imagen" src={imagenBannerUrl} alt="Banner" />}
+      {imagenRecorte && <img className="Banner-corte-morado" src={imagenRecorte} alt="Recorte" />}
+    </header>
+  );
 }
 
 export default BannerProducto;

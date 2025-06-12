@@ -1,32 +1,6 @@
+import { useEffect, useState } from "react";
 import "../../styles/Tienda/Card.css";
-
-const imagenesVideojuegos = import.meta.glob(
-  "../../assets/Videojuegos/Portada/*.webp",
-  { eager: true }
-);
-const imagenesConsolas = import.meta.glob(
-  "../../assets/Consolas/Portada/*.webp",
-  { eager: true }
-);
-
-const todasLasImagenes = {
-  ...imagenesVideojuegos,
-  ...imagenesConsolas,
-};
-
-const getImage = (name: string) => {
-  const rutas = [
-    `../../assets/Videojuegos/Portada/${name}.webp`,
-    `../../assets/Consolas/Portada/${name}.webp`,
-  ];
-
-  for (const ruta of rutas) {
-    const imagen = todasLasImagenes[ruta] as { default: string } | undefined;
-    if (imagen) return imagen.default;
-  }
-
-  return ""; // Si no se encuentra imagen, retorna string vacío o un placeholder
-};
+import { ApiPublic } from "../../hooks/UseFetch";
 
 type CardProps = {
   consola: string;
@@ -37,7 +11,33 @@ type CardProps = {
 };
 
 function Card({ consola, titulo, precio, descuento, imagen }: CardProps) {
-  const imagenPortada = getImage(imagen);
+  const [imagenPortada, setImagenPortada] = useState<string | undefined>();
+
+  useEffect(() => {
+    const obtenerImagen = async () => {
+      try {
+        const resultPortadaC = await ApiPublic("Consultar_ImagenesCategoria", {
+          categoria: "portada",
+          carpeta: "Consola",
+        });
+
+        const resultPortadaV = await ApiPublic("Consultar_ImagenesCategoria", {
+          categoria: "portada",
+          carpeta: "Videojuego",
+        });
+
+        if (resultPortadaC?.[imagen]) {
+          setImagenPortada(resultPortadaC[imagen]);
+        } else if (resultPortadaV?.[imagen]) {
+          setImagenPortada(resultPortadaV[imagen]);
+        }
+      } catch (error) {
+        console.error("Error al obtener imágenes:", error);
+      }
+    };
+
+    obtenerImagen();
+  }, [imagen]);
 
   const precioFormateado = new Intl.NumberFormat("es-CL").format(precio);
   const precioDescuento = descuento

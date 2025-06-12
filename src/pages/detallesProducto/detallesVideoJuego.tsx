@@ -82,7 +82,7 @@ function DetalleJuego() {
       {detalles.map((detalle) => (
         <main className="detallesConsola-main">
           <InformacionProducto>
-            <ImagenVideojuego imagen={detalle.idProducto} />
+            <ImagenVideojuego />
 
             <DatosProducto
               titulo={detalle.nombreProducto}
