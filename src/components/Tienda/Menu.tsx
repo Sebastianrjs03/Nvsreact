@@ -65,7 +65,7 @@ const Menu: React.FC = () => {
             <li>Playstation</li>
           </Link>
           <Link to="/xbox">
-            <li>Xbox</li>
+            <li>Wii</li>
           </Link>
           <Link to="/nintendo">
             <li>Nintendo</li>
